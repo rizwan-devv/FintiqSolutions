@@ -1,0 +1,14 @@
+services:
+  fintiq-website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: fintiq-website:latest
+    container_name: fintiq-website
+    restart: unless-stopped
+    ports:
+      - "3070:3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: 0.0.0.0

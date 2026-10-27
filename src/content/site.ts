@@ -376,8 +376,7 @@ export const services: Service[] = [
     slug: "platform-implementation",
     name: "Platform implementation",
     eyebrow: "Delivery",
-    summary:
-      "We brand a Fintiq platform, connect it to your core and your rails, and take it through UAT with the people who will run it.",
+    summary: "Brand a Fintiq platform, connect core and rails, pass UAT with your operators.",
     audience:
       "An institution that wants a working platform with its own name on it, on a timeline operations can plan around.",
     outcome:
@@ -424,8 +423,7 @@ export const services: Service[] = [
     slug: "payments-and-core-integration",
     name: "Payments and core integration",
     eyebrow: "Integration",
-    summary:
-      "JazzCash, Easypaisa, PayFast, billers, and the core or wallet host behind an app. The channel gets one contract. The hosts stay behind it.",
+    summary: "Local rails and core behind one channel contract the app team can build against.",
     audience:
       "Teams whose mobile or merchant channel is waiting on a payment rail or a core that speaks a different language.",
     outcome:
@@ -472,8 +470,7 @@ export const services: Service[] = [
     slug: "onboarding-and-compliance",
     name: "Onboarding and compliance engineering",
     eyebrow: "KYC",
-    summary:
-      "Entity KYC journeys, NADRA checks, a sanctions review queue, and the audit trail your compliance team will ask to see.",
+    summary: "Entity KYC, NADRA checks, sanctions review, and an audit trail compliance can defend.",
     audience:
       "Compliance and onboarding leads who need a digital entity journey they can defend, with operations still making the decision.",
     outcome:
@@ -520,8 +517,7 @@ export const services: Service[] = [
     slug: "resource-augmentation",
     name: "Resource augmentation",
     eyebrow: "People",
-    summary:
-      "Engineers who already know payments, onboarding, and cards, placed on your backlog, in your tools, on the stack these platforms are built with.",
+    summary: "Payments, onboarding, and cards engineers on your backlog and tools from day one.",
     audience:
       "A product or engineering lead who needs a person or a squad and does not want the first month spent learning what an MDR or an entity KYC case is.",
     outcome:
@@ -572,8 +568,7 @@ export const services: Service[] = [
     slug: "production-support",
     name: "Production support",
     eyebrow: "Run",
-    summary:
-      "Environments, releases, monitoring, and a named contact after go-live. The platform stays current without your team learning our deploy by accident.",
+    summary: "Releases, monitoring, and a named contact after go-live.",
     audience:
       "The team that owns the live service and wants releases, logs, and a person to call when a callback stops arriving.",
     outcome:
@@ -621,7 +616,7 @@ export const services: Service[] = [
 export const buyers: Buyer[] = [
   {
     title: "Banks",
-    body: "Islamic and conventional banks opening entity accounts, issuing cards, running an agent channel, or putting a new app in front of the core.",
+    body: "Entity accounts, cards, agent channels, and a clean API in front of the core.",
     platforms: [
       { slug: "corporate-onboarding", label: "Corporate Onboarding" },
       { slug: "card-management", label: "Card Management" },
@@ -630,7 +625,7 @@ export const buyers: Buyer[] = [
   },
   {
     title: "Wallets and branchless banking",
-    body: "A wallet or branchless provider whose agents cash in and out, whose partners complete KYC on a phone, and whose operations desk needs one console after launch.",
+    body: "Agent cash movement, partner KYC on a phone, and one operations console after launch.",
     platforms: [
       { slug: "agent-banking", label: "Agent Banking" },
       { slug: "corporate-onboarding", label: "Corporate Onboarding" },
@@ -639,7 +634,7 @@ export const buyers: Buyer[] = [
   },
   {
     title: "Payment companies",
-    body: "A payments business that wants its own merchant gateway: invoices, hosted checkout, settlement, and disbursement, with the rail chosen per merchant.",
+    body: "Your own merchant gateway: invoices, checkout, settlement, and disbursement.",
     platforms: [
       { slug: "paybridge", label: "PayBridge" },
       { slug: "operations-back-office", label: "Operations Back Office" },
@@ -647,46 +642,65 @@ export const buyers: Buyer[] = [
   },
   {
     title: "Institutions that collect fees",
-    body: "A university, a utility, or any institution that invoices a large payer base and needs checkout and reconciliation the finance team can see.",
+    body: "Invoices and reconciliation the finance desk can see, on local rails.",
     platforms: [{ slug: "paybridge", label: "PayBridge" }],
   },
 ]
 
 export const reasons: Block[] = [
   {
-    title: "The institution stays the system of record",
-    body: "Fintiq builds the channel. Customer funds and the decision to open an account stay with the regulated institution.",
+    title: "You stay the system of record",
+    body: "Fintiq builds the channel. Funds and account decisions stay with the institution.",
   },
   {
-    title: "White-label for each institution",
-    body: "Name, colors, app identity, and the account or core system behind it are set per deployment. The platform stays.",
+    title: "White-label per institution",
+    body: "Name, colors, and the core behind it are yours. The platform stays.",
   },
   {
     title: "The app integrates once",
-    body: "A channel API sits in front of the core. The mobile team builds against one contract. Core changes stay behind the switch.",
+    body: "One channel API. Core changes stay behind the switch.",
   },
   {
-    title: "Local rails, and the onboarding framework",
-    body: "Collections run on JazzCash, Easypaisa, and PayFast. Entity opening follows the SBP consolidated customer-onboarding framework.",
+    title: "Local rails, SBP-aligned onboarding",
+    body: "JazzCash, Easypaisa, PayFast, and entity opening under the SBP framework.",
+  },
+]
+
+export const delivery: Block[] = [
+  {
+    title: "Domain-ready from week one",
+    body: "Engineers who already ship payments, KYC, cards, and agent channels. Ramp time stays short.",
+  },
+  {
+    title: "UAT sets the clock",
+    body: "A real payment, account, card, or transfer is the acceptance case. Delivery is measured against that journey.",
+  },
+  {
+    title: "One contract for the app",
+    body: "Mobile and portal teams build against Fintiq. Core and rails stay behind the platform.",
+  },
+  {
+    title: "Support after go-live",
+    body: "Production cover, a squad that stays, or a specialist on your backlog.",
   },
 ]
 
 export const engagements: Block[] = [
   {
     title: "One specialist",
-    body: "A named engineer or analyst in your stand-up and your repository, already fluent in payments, onboarding, or cards.",
+    body: "A named engineer in your stand-up, fluent in payments, onboarding, or cards.",
   },
   {
     title: "A squad",
-    body: "Backend, frontend, mobile, and QA, sized to a release. Java, React, and Android sit on the same backlog.",
+    body: "Backend, frontend, mobile, and QA on one release backlog.",
   },
   {
     title: "Build, then stay",
-    body: "A team implements a Fintiq platform, passes UAT with your operators, and leaves people on the roadmap after go-live.",
+    body: "Ship a Fintiq platform, pass UAT, keep people on the roadmap.",
   },
   {
     title: "A retainer",
-    body: "Production fixes and small changes, with a handover note when someone rolls off.",
+    body: "Production fixes and small changes, with a clean handover.",
   },
 ]
 
@@ -703,37 +717,33 @@ export const roles = [
 export const work: CaseStudy[] = [
   {
     title: "Institutional collections",
-    problem:
-      "An institution needed merchants to invoice and collect on local rails, then see what they were owed without reconciling three tools.",
-    shipped:
-      "Merchant and admin portals, hosted checkout on JazzCash, Easypaisa, and PayFast, MDR, settlement, disbursement, and a two-call collection API.",
+    problem: "Merchants needed to invoice and collect on local rails without three tools at month end.",
+    shipped: "Portals, JazzCash / Easypaisa / PayFast checkout, MDR, settlement, and a two-call API.",
     result: "The institution runs the merchant book. The platform runs the payment path.",
   },
   {
     title: "Corporate onboarding for a bank",
-    problem: "Entity accounts still depended on a branch visit, and each partner’s identity lived in a paper file.",
-    shipped:
-      "A portal for the firm, a mobile app for CNIC, selfie, and a NADRA fingerprint check, then an operator review that provisions the account.",
-    result: "The applicant follows a tracking ID. The bank makes the decision and remains the system of record.",
+    problem: "Entity accounts still meant a branch visit and paper files for each partner.",
+    shipped: "Firm portal, partner app with CNIC, selfie, NADRA check, then operator review and provisioning.",
+    result: "Tracking ID for the applicant. The bank keeps the decision.",
   },
   {
     title: "The same onboarding, a second brand",
-    problem: "A wallet brand needed that entity journey with its own name, app, and account target.",
-    shipped: "The same platform, skinned for the wallet and pointed at its own account system.",
-    result: "One onboarding product. Two institutions. Each keeps its own identity.",
+    problem: "A wallet needed the same entity journey under its own name and account target.",
+    shipped: "Same platform, skinned and pointed at the wallet’s account system.",
+    result: "One product. Two institutions. Separate identities.",
   },
   {
     title: "Cards for a wallet app",
-    problem: "Card requests, limits, and PIN changes were split from the app the cardholder uses.",
-    shipped:
-      "A desk portal for request, approval, generation, limits, and PIN, and a separate API for the app. The PAN stays encrypted at rest.",
-    result: "The desk and the app share one control plane. A bureau file is never served by the API.",
+    problem: "Card request, limits, and PIN lived apart from the cardholder app.",
+    shipped: "Desk portal plus app API. PAN encrypted at rest. Bureau file never served by API.",
+    result: "One control plane for the desk and the app.",
   },
   {
     title: "A channel in front of the core",
-    problem: "A new mobile channel had to sit on a core that was built for branch screens.",
-    shipped: "A channel API, a sandbox with health and OTP, and a Postman collection, later backed by the core on the same contract.",
-    result: "The app team integrated once. Balances and postings stayed in the core.",
+    problem: "A new mobile channel had to sit on a core built for branch screens.",
+    shipped: "Channel API, sandbox, Postman collection, then the same contract toward the core.",
+    result: "App team integrated once. Core kept balances and postings.",
   },
 ]
 
@@ -747,17 +757,17 @@ export const railPartners = [
 export const integrations: (Block & { href: string })[] = [
   {
     title: "PayBridge, two calls",
-    body: "Create and initiate a payment, then read status. The merchant supplies the callback. The same shape runs in test and live.",
+    body: "Create and initiate, then status. Same shape in test and live.",
     href: "/products/paybridge",
   },
   {
     title: "WooCommerce plugin",
-    body: "An online store collects through the merchant platform the institution already operates.",
+    body: "Storefront checkout through the merchant platform you already run.",
     href: "/products/paybridge",
   },
   {
     title: "Core Switch sandbox",
-    body: "Health, OTP, published test data, and a Postman collection, before the same contract turns toward the core.",
+    body: "Health, OTP, test data, and Postman — then the same contract to the core.",
     href: "/products/core-switch",
   },
 ]

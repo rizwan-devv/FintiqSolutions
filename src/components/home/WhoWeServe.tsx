@@ -19,7 +19,7 @@ export function WhoWeServe() {
       <div className="mx-auto max-w-6xl px-6 py-24">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-signal-deep">Who we serve</p>
-          <h2 className="mt-4 max-w-2xl font-display text-5xl tracking-tight">The buyer, and the platform that fits.</h2>
+          <h2 className="mt-4 max-w-2xl font-display text-5xl tracking-tight">Who we build for.</h2>
         </Reveal>
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {buyers.map((buyer, index) => (

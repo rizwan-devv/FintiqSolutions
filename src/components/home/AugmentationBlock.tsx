@@ -12,7 +12,7 @@ export function AugmentationBlock() {
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-teal">Resource augmentation</p>
             <h2 className="mt-4 font-display text-5xl tracking-tight">People who already know the domain.</h2>
             <p className="mt-4 max-w-xl leading-7 text-white/75">
-              Engineers placed on your backlog, in your tools, on the stack these platforms are built with. The first month is not spent learning what an MDR or an entity KYC case is.
+              On your backlog and tools. First month ships work — not MDR or KYC training.
             </p>
           </Reveal>
           <Reveal className="lg:col-span-5" delay={0.08}>

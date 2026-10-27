@@ -4,6 +4,7 @@ import { PlatformRail } from "@/components/home/PlatformRail";
 import { RailsStrip } from "@/components/home/RailsStrip";
 import { WhoWeServe } from "@/components/home/WhoWeServe";
 import { WhyFintiq } from "@/components/home/WhyFintiq";
+import { DeliveryStrip } from "@/components/home/DeliveryStrip";
 import { IntegrateStrip } from "@/components/home/IntegrateStrip";
 import { HowWeWork } from "@/components/home/HowWeWork";
 import { ServiceSlideshow } from "@/components/home/ServiceSlideshow";
@@ -24,6 +25,7 @@ export function HomeView() {
       <div id="buyers" data-chapter="buyers">
         <WhoWeServe />
         <WhyFintiq />
+        <DeliveryStrip />
         <IntegrateStrip />
         <HowWeWork />
       </div>

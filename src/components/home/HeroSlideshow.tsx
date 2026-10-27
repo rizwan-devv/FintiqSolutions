@@ -58,6 +58,13 @@ export function HeroSlideshow() {
       <div className="aurora pointer-events-none absolute -right-10 top-28 size-[28rem] rounded-full blur-3xl opacity-70" aria-hidden="true" />
       <div className="aurora-soft pointer-events-none absolute -left-20 bottom-10 size-[22rem] rounded-full blur-3xl opacity-50" aria-hidden="true" />
 
+      <p
+        className="pointer-events-none absolute inset-x-0 top-[42%] hidden -translate-y-1/2 select-none text-center font-display text-[clamp(2.5rem,9vw,7.5rem)] font-bold uppercase leading-none tracking-[-0.06em] text-white/[0.045] lg:block"
+        aria-hidden="true"
+      >
+        Ready to brand
+      </p>
+
       <div className="relative mx-auto grid min-h-[100svh] max-w-6xl items-center gap-10 px-6 pb-28 pt-36 lg:grid-cols-[1.05fr_0.95fr] lg:pb-24 lg:pt-40">
         <div>
           <motion.p
@@ -78,7 +85,7 @@ export function HeroSlideshow() {
             <span className="text-gradient-light">ready to brand as yours.</span>
           </motion.h1>
           <p className="mt-6 max-w-md text-lg leading-8 text-white/75">
-            Collections, onboarding, cards, agent banking, and the switch in front of the core. Staffed by people who already build them.
+            Six platforms. Domain-ready teams. A live channel measured by UAT.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link href="/contact" className={buttonPrimary}>

@@ -5,15 +5,15 @@ import { motion, useReducedMotion } from "motion/react";
 const steps = [
   {
     title: "Start from a platform",
-    body: "Or start from your core and the channels you already run. We bring the product that matches the journey.",
+    body: "Match the journey to a Fintiq product, or to the core and channels you already run.",
   },
   {
     title: "Brand it and pass UAT",
-    body: "Your name, your rails, your operators. The acceptance case is a payment, an account, a card, or a transfer.",
+    body: "Your name, your rails. Done means a live payment, account, card, or transfer.",
   },
   {
     title: "Stay for the roadmap",
-    body: "Production support after go-live, or engineers placed on your team through resource augmentation.",
+    body: "Production support, or engineers placed on your team.",
   },
 ];
 

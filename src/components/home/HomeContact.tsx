@@ -9,7 +9,7 @@ export function HomeContact() {
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-teal">Talk to us</p>
           <h2 className="mt-4 font-display text-5xl tracking-tight">Tell us the channel you need live.</h2>
           <p className="mt-4 leading-7 text-white/75">
-            A platform, resource augmentation, or both. Write to us, or use the form. The form checks your note; mailbox delivery can be wired on the server.
+            A platform, people, or both. Write to info@fintiqsolutions.com or use the form.
           </p>
           <div className="mt-8">
             <ContactEmails tone="dark" />

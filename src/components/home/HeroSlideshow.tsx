@@ -53,8 +53,10 @@ export function HeroSlideshow() {
         />
       </AnimatePresence>
       <div className="hero-grid hero-grid-on-dark pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink-raised via-ink-raised/80 to-ink-raised/35" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink-raised via-ink-raised/85 to-transparent" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink-raised to-transparent" aria-hidden="true" />
       <div className="aurora pointer-events-none absolute -right-10 top-28 size-[28rem] rounded-full blur-3xl opacity-70" aria-hidden="true" />
+      <div className="aurora-soft pointer-events-none absolute -left-20 bottom-10 size-[22rem] rounded-full blur-3xl opacity-50" aria-hidden="true" />
 
       <div className="relative mx-auto grid min-h-[100svh] max-w-6xl items-center gap-10 px-6 pb-28 pt-36 lg:grid-cols-[1.05fr_0.95fr] lg:pb-24 lg:pt-40">
         <div>
@@ -73,7 +75,7 @@ export function HeroSlideshow() {
             transition={{ duration: 0.8, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             Banking and payments platforms,{" "}
-            <span className="text-teal">ready to brand as yours.</span>
+            <span className="text-gradient-light">ready to brand as yours.</span>
           </motion.h1>
           <p className="mt-6 max-w-md text-lg leading-8 text-white/75">
             Collections, onboarding, cards, agent banking, and the switch in front of the core. Staffed by people who already build them.
@@ -96,7 +98,7 @@ export function HeroSlideshow() {
                 aria-current={itemIndex === index ? "true" : undefined}
                 className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition duration-150 ${
                   itemIndex === index
-                    ? "border-teal bg-teal text-ink"
+                    ? "border-transparent bg-[linear-gradient(110deg,#00b0a4,#7be0d8)] text-ink shadow-[0_8px_20px_rgb(0_176_164/0.35)]"
                     : "border-white/20 bg-white/5 text-white/85 hover:border-teal hover:bg-white/10"
                 }`}
               >
@@ -107,7 +109,7 @@ export function HeroSlideshow() {
         </div>
 
         <div className="relative">
-          <div className="glass-panel float-card overflow-hidden rounded-[1.8rem] p-5 shadow-[0_30px_80px_rgb(0_0_0/0.35)]">
+          <div className="glass-panel glass-panel-ring float-card overflow-hidden rounded-[1.8rem] p-5">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={product.slug}
@@ -159,7 +161,7 @@ export function HeroSlideshow() {
                 >
                   {itemIndex === index ? (
                     <span
-                      className={`slide-progress block h-full w-full bg-teal ${paused || reduce ? "is-paused" : ""}`}
+                      className={`slide-progress block h-full w-full ${paused || reduce ? "is-paused" : ""}`}
                       style={{ animationDuration: "7s" }}
                     />
                   ) : null}

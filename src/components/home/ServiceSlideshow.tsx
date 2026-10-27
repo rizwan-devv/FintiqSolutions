@@ -26,13 +26,14 @@ export function ServiceSlideshow() {
   }
 
   return (
-    <section aria-roledescription="carousel" aria-label="Fintiq services">
+    <section className="section-wash" aria-roledescription="carousel" aria-label="Fintiq services">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <p className="font-mono text-[11px] uppercase text-signal-deep">Services</p>
             <h2 className="mt-4 max-w-lg text-4xl md:text-5xl">
-              Platforms are how we start. People are how they stay yours.
+              Platforms are how we start.{" "}
+              <span className="text-gradient">People are how they stay yours.</span>
             </h2>
           </div>
           <div className="flex items-center gap-3">
@@ -55,10 +56,10 @@ export function ServiceSlideshow() {
                 key={item.slug}
                 type="button"
                 onClick={() => go(itemIndex)}
-                className={`rounded-2xl px-4 py-3 text-left transition ${
+                className={`rounded-2xl px-4 py-3 text-left transition duration-200 ${
                   itemIndex === index
-                    ? "bg-navy text-white"
-                    : "text-navy hover:bg-paper-deep"
+                    ? "pill-active"
+                    : "text-navy hover:bg-white/70"
                 }`}
               >
                 <span className="font-mono text-[11px] uppercase tracking-[0.16em] opacity-70">
@@ -69,10 +70,12 @@ export function ServiceSlideshow() {
             ))}
           </div>
 
-          <div className="relative min-h-80 overflow-hidden rounded-[1.7rem] bg-navy p-8 text-white md:p-10">
+          <div className="panel-gradient-rich relative min-h-80 overflow-hidden rounded-[1.7rem] p-8 text-white md:p-10">
+            <div className="aurora pointer-events-none absolute -right-10 top-0 size-56 rounded-full blur-3xl opacity-50" aria-hidden="true" />
             <AnimatePresence mode="wait">
               <motion.div
                 key={service.slug}
+                className="relative"
                 initial={reduce ? false : { opacity: 0, x: 36 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={reduce ? undefined : { opacity: 0, x: -36 }}

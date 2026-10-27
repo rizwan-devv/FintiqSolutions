@@ -49,7 +49,8 @@ export function WorkSlideshow() {
           </Link>
         </div>
 
-        <div className="relative mt-12 overflow-hidden rounded-[1.8rem] bg-navy text-white">
+        <div className="panel-gradient-rich relative mt-12 overflow-hidden rounded-[1.8rem] text-white">
+          <div className="aurora pointer-events-none absolute -right-16 top-0 size-64 rounded-full blur-3xl opacity-45" aria-hidden="true" />
           <AnimatePresence mode="wait" custom={direction}>
             <motion.article
               key={item.title}
@@ -58,7 +59,7 @@ export function WorkSlideshow() {
               animate={{ opacity: 1, x: 0 }}
               exit={reduce ? undefined : { opacity: 0, x: direction * -48 }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="grid gap-8 p-7 md:grid-cols-12 md:p-10"
+              className="relative grid gap-8 p-7 md:grid-cols-12 md:p-10"
             >
               <div className="md:col-span-4">
                 <p className="font-mono text-sm text-teal">

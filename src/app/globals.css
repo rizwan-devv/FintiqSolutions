@@ -9,6 +9,10 @@
   --signal-deep: #087f78;
   --mist: #5c6d86;
   --line: rgb(16 36 88 / 0.12);
+  --grad-brand: linear-gradient(110deg, #102458 0%, #0c6484 52%, #00b0a4 120%);
+  --grad-brand-soft: linear-gradient(145deg, #102458 0%, #16366a 48%, #087f78 100%);
+  --grad-paper: linear-gradient(180deg, #d7e4f4 0%, #c5d6ea 48%, #b8cce3 100%);
+  --grad-glow: radial-gradient(ellipse at 70% 20%, rgb(0 176 164 / 0.28), transparent 55%);
 }
 
 @theme inline {
@@ -31,7 +35,10 @@ html {
 }
 
 body {
-  background: var(--paper-deep);
+  background:
+    var(--grad-glow),
+    var(--grad-paper);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 0.9375rem;
@@ -67,17 +74,85 @@ body {
 }
 
 .glass-panel {
-  background: rgb(255 255 255 / 0.1);
-  border: 1px solid rgb(255 255 255 / 0.16);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.06));
+  border: 1px solid rgb(255 255 255 / 0.2);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.22),
+    0 24px 60px rgb(0 0 0 / 0.22);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glass-panel-ring {
+  position: relative;
+  isolation: isolate;
+}
+
+.glass-panel-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgb(0 176 164 / 0.85), rgb(255 255 255 / 0.15), rgb(16 36 88 / 0.4));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.surface-card {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #f4f8fc 100%);
+  border: 1px solid rgb(16 36 88 / 0.1);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.8) inset,
+    0 18px 40px rgb(16 36 88 / 0.08);
+}
+
+.surface-card:hover {
+  border-color: rgb(0 176 164 / 0.35);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.9) inset,
+    0 24px 50px rgb(16 36 88 / 0.14);
+}
+
+.panel-gradient {
+  background: var(--grad-brand-soft);
+}
+
+.panel-gradient-rich {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgb(0 176 164 / 0.35), transparent 45%),
+    linear-gradient(145deg, #071530 0%, #102458 42%, #0c6484 78%, #087f78 120%);
+}
+
+.pill-active {
+  background: var(--grad-brand);
+  color: white;
+  box-shadow: 0 10px 24px rgb(16 36 88 / 0.22);
+}
+
+.section-wash {
+  background:
+    radial-gradient(ellipse at 0% 0%, rgb(0 176 164 / 0.1), transparent 40%),
+    radial-gradient(ellipse at 100% 100%, rgb(16 36 88 / 0.12), transparent 42%),
+    transparent;
 }
 
 .hover-lift {
   transition:
-    transform 200ms ease,
-    box-shadow 200ms ease,
-    border-color 200ms ease;
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    filter 220ms ease;
 }
 
 .hover-lift:hover {
@@ -122,6 +197,13 @@ h3 {
   color: transparent;
 }
 
+.text-gradient-light {
+  background-image: linear-gradient(105deg, #ffffff 0%, #9de8e1 48%, #00b0a4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .tone-mesh {
   background:
     radial-gradient(ellipse at 0% 0%, rgb(16 36 88 / 0.38), transparent 52%),
@@ -132,6 +214,7 @@ h3 {
 .slide-progress {
   transform-origin: left;
   animation: grow 6.2s linear forwards;
+  background-image: linear-gradient(90deg, #00b0a4, #7be0d8);
 }
 
 .slide-progress.is-paused {
@@ -169,8 +252,15 @@ h3 {
   animation: drift 18s ease-in-out infinite alternate;
 }
 
+.aurora-soft {
+  background:
+    radial-gradient(circle at 40% 40%, rgb(0 176 164 / 0.35), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgb(12 100 132 / 0.4), transparent 48%);
+  animation: drift 22s ease-in-out infinite alternate-reverse;
+}
+
 .brand-bar {
-  background: linear-gradient(90deg, #102458 0%, #0d4f73 72%, #00b0a4 100%);
+  background: linear-gradient(90deg, #102458 0%, #0d4f73 55%, #00b0a4 100%);
 }
 
 .brand-bar::after {
@@ -178,7 +268,7 @@ h3 {
   position: absolute;
   inset: 0 0 0 auto;
   width: 28%;
-  background: #00b0a4;
+  background: linear-gradient(90deg, transparent, #00b0a4);
   clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
 }
 
@@ -189,6 +279,24 @@ h3 {
 .mock-bar {
   transform-origin: left;
   animation: fill 2.8s ease-in-out infinite alternate;
+}
+
+.shine-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.18) 48%, transparent 62%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.shine-sweep:hover::after {
+  animation: shine 0.9s ease;
 }
 
 @keyframes marquee {
@@ -258,10 +366,17 @@ h3 {
   }
 }
 
+@keyframes shine {
+  to {
+    transform: translateX(120%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
   .mock-bar,
   .aurora,
+  .aurora-soft,
   .slide-progress,
   .live-dot,
   .float-card,
@@ -271,6 +386,10 @@ h3 {
 
   .hover-lift:hover {
     transform: none;
+  }
+
+  .shine-sweep:hover::after {
+    animation: none;
   }
 
   .draw-link {

@@ -58,9 +58,10 @@ export function MegaMenu({
           >
             <div className="overflow-hidden rounded-[1.6rem] border border-navy/10 bg-white shadow-[0_28px_80px_rgb(16_36_88/0.18)]">
               <div className={`grid ${isPlatforms ? "lg:grid-cols-[0.95fr_1.05fr]" : "lg:grid-cols-[0.7fr_1.3fr]"}`}>
-                <div className="bg-navy p-7 text-white">
-                  <p className="font-mono text-[11px] uppercase text-teal">{item.label}</p>
-                  <p className="mt-3 font-display text-3xl tracking-tight">
+                <div className="panel-gradient-rich relative overflow-hidden p-7 text-white">
+                  <div className="aurora pointer-events-none absolute -right-16 top-0 size-48 rounded-full blur-3xl opacity-60" aria-hidden="true" />
+                  <p className="relative font-mono text-[11px] uppercase text-teal">{item.label}</p>
+                  <p className="relative mt-3 font-display text-3xl tracking-tight">
                     {isPlatforms
                       ? "Six platforms. Brand one."
                       : isIndustries
@@ -68,7 +69,7 @@ export function MegaMenu({
                         : "Delivery, people, and support."}
                   </p>
                   {isPlatforms && product ? (
-                    <div className="mt-6 max-h-64 overflow-hidden rounded-2xl bg-white/95 p-3 text-navy">
+                    <div className="relative mt-6 max-h-64 overflow-hidden rounded-2xl bg-white/95 p-3 text-navy">
                       <AnimatePresence mode="wait">
                         <motion.div
                           key={product.slug}
@@ -94,7 +95,7 @@ export function MegaMenu({
                   )}
                   <Link
                     href={item.href}
-                    className="mt-6 inline-flex text-sm font-semibold text-teal transition hover:text-white"
+                    className="relative mt-6 inline-flex text-sm font-semibold text-teal transition hover:text-white"
                   >
                     All {item.label.toLowerCase()} →
                   </Link>

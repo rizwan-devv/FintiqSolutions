@@ -25,7 +25,7 @@ export default function ProductsPage() {
             <Link
               key={product.slug}
               href={`/products/${product.slug}`}
-              className={`group flex h-full flex-col rounded-[1.6rem] border border-navy/10 bg-white p-6 shadow-sm transition duration-150 hover:-translate-y-1 hover:border-navy/25 hover:shadow-[0_18px_40px_rgb(16_36_88/0.08)] motion-reduce:transform-none ${
+              className={`hover-lift surface-card shine-sweep group flex h-full flex-col rounded-[1.6rem] p-6 motion-reduce:transform-none ${
                 featured ? "lg:col-span-2" : ""
               }`}
             >

@@ -23,7 +23,7 @@ export function InsightsShelf() {
 
   return (
     <section
-      className=""
+      className="section-wash"
       aria-roledescription="carousel"
       aria-label="Insights"
       onMouseEnter={() => setPaused(true)}
@@ -41,7 +41,7 @@ export function InsightsShelf() {
                 onClick={() => setIndex(itemIndex)}
                 aria-current={itemIndex === index ? "true" : undefined}
                 className={`rounded-2xl px-4 py-3 text-left transition duration-150 ${
-                  itemIndex === index ? "bg-navy text-white" : "bg-white/70 text-navy hover:bg-white"
+                  itemIndex === index ? "pill-active" : "surface-card text-navy"
                 }`}
               >
                 <span className="font-mono text-[11px] uppercase opacity-70">{item.eyebrow}</span>
@@ -59,15 +59,18 @@ export function InsightsShelf() {
               animate={{ opacity: 1, y: 0 }}
               exit={reduce ? undefined : { opacity: 0, y: -16 }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-[1.8rem] bg-navy p-8 text-white shadow-sm md:p-10"
+              className="panel-gradient-rich relative overflow-hidden rounded-[1.8rem] p-8 text-white shadow-sm md:p-10"
             >
-              <p className="font-mono text-[11px] uppercase text-teal">{insight.eyebrow}</p>
-              <h3 className="mt-4 font-display text-4xl">{insight.title}</h3>
-              <p className="mt-4 text-lg leading-8 text-white/85">{insight.summary}</p>
-              <p className="mt-4 leading-7 text-white/75">{insight.paragraphs[0]}</p>
-              <Link href={`/insights/${insight.slug}`} className="draw-link mt-8 inline-flex text-sm font-semibold text-white">
-                Read the note
-              </Link>
+              <div className="aurora-soft pointer-events-none absolute -right-10 bottom-0 size-48 rounded-full blur-3xl opacity-50" aria-hidden="true" />
+              <div className="relative">
+                <p className="font-mono text-[11px] uppercase text-teal">{insight.eyebrow}</p>
+                <h3 className="mt-4 font-display text-4xl">{insight.title}</h3>
+                <p className="mt-4 text-lg leading-8 text-white/85">{insight.summary}</p>
+                <p className="mt-4 leading-7 text-white/75">{insight.paragraphs[0]}</p>
+                <Link href={`/insights/${insight.slug}`} className="draw-link mt-8 inline-flex text-sm font-semibold text-white">
+                  Read the note
+                </Link>
+              </div>
             </motion.article>
           </AnimatePresence>
         </div>

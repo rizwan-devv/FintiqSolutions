@@ -34,9 +34,9 @@ export function PlatformRail() {
           <Link
             key={product.slug}
             href={`/products/${product.slug}`}
-            className="hover-lift group w-[min(86vw,20rem)] shrink-0 snap-start overflow-hidden rounded-[1.6rem] border border-navy/10 bg-white shadow-sm"
+            className="hover-lift surface-card group w-[min(86vw,20rem)] shrink-0 snap-start overflow-hidden rounded-[1.6rem]"
           >
-            <div className="overflow-hidden bg-paper-deep/60 p-4">
+            <div className="overflow-hidden bg-[linear-gradient(180deg,#dce8f5,#eef4fa)] p-4">
               <div className="transition duration-300 group-hover:scale-[1.03] motion-reduce:transform-none">
                 <ProductMock slug={product.slug} />
               </div>

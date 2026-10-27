@@ -36,14 +36,14 @@ export function ChapterNav() {
       aria-label="On this page"
       className="pointer-events-none fixed inset-x-0 top-[5.4rem] z-40 hidden justify-center md:flex"
     >
-      <ol className="pointer-events-auto flex items-center gap-1 rounded-full border border-navy/10 bg-white/90 p-1 shadow-sm backdrop-blur">
+      <ol className="pointer-events-auto flex items-center gap-1 rounded-full border border-navy/10 bg-white/90 p-1 shadow-[0_12px_30px_rgb(16_36_88/0.12)] backdrop-blur-md">
         {chapters.map((chapter) => (
           <li key={chapter.id}>
             <a
               href={`#${chapter.id}`}
               aria-current={chapter.id === active ? "true" : undefined}
               className={`block rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] transition duration-150 ${
-                chapter.id === active ? "bg-navy text-white" : "text-mist hover:text-navy"
+                chapter.id === active ? "pill-active" : "text-mist hover:text-navy"
               }`}
             >
               {chapter.label}

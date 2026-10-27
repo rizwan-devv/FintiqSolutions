@@ -72,7 +72,7 @@ export function Header() {
           <div className="flex items-center gap-3">
             <Link
               href="/contact"
-              className="hidden h-10 items-center justify-center rounded-full bg-[linear-gradient(110deg,#102458_0%,#0c6484_58%,#00b0a4_140%)] px-5 text-sm font-semibold text-white shadow-[0_12px_28px_rgb(16_36_88/0.22)] transition duration-150 ease-out hover:-translate-y-0.5 hover:brightness-110 motion-reduce:transform-none xl:inline-flex"
+              className="shine-sweep hidden h-10 items-center justify-center rounded-full bg-[linear-gradient(110deg,#102458_0%,#0c6484_48%,#00b0a4_115%)] px-5 text-sm font-semibold text-white shadow-[0_12px_28px_rgb(16_36_88/0.22)] transition duration-150 ease-out hover:-translate-y-0.5 hover:brightness-110 hover:shadow-[0_16px_32px_rgb(0_176_164/0.25)] motion-reduce:transform-none xl:inline-flex"
             >
               Talk to us
             </Link>

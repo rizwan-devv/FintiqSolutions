@@ -1,4 +1,4 @@
-# Fintiq Solutions
+# FintiQ Solutions
 
 Public marketing site.
 

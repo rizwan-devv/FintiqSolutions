@@ -7,9 +7,9 @@ export function WhyFintiq() {
       <div className="aurora pointer-events-none absolute -left-20 top-10 size-72 rounded-full blur-3xl opacity-40" aria-hidden="true" />
       <div className="mx-auto max-w-6xl px-6 py-24">
         <Reveal>
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-teal">Why Fintiq</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-teal">Why FintiQ</p>
           <h2 className="mt-4 max-w-2xl font-display text-5xl tracking-tight">
-            Why <span className="text-gradient-light">Fintiq.</span>
+            Why <span className="text-gradient-light">FintiQ.</span>
           </h2>
         </Reveal>
         <div className="mt-14 grid gap-5 md:grid-cols-2">

@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 const steps = [
   {
     title: "Start from a platform",
-    body: "Match the journey to a Fintiq product, or to the core and channels you already run.",
+    body: "Match the journey to a FintiQ product, or to the core and channels you already run.",
   },
   {
     title: "Brand it and pass UAT",

@@ -3,7 +3,11 @@
 import { FormEvent, useState } from "react";
 import { products } from "@/content/site";
 
-type Status = { kind: "idle" } | { kind: "sending" } | { kind: "done"; message: string } | { kind: "error"; message: string };
+type Status =
+  | { kind: "idle" }
+  | { kind: "sending" }
+  | { kind: "done"; message: string; mailto?: string }
+  | { kind: "error"; message: string; mailto?: string };
 
 const field =
   "mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-ink outline-none focus:border-signal-deep";
@@ -24,24 +28,52 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      const body = (await response.json()) as { message?: string };
+      const body = (await response.json()) as { message?: string; mailto?: string };
       if (!response.ok) {
-        setStatus({ kind: "error", message: body.message ?? "Check the form and try again." });
+        setStatus({
+          kind: "error",
+          message: body.message ?? "Check the form and try again.",
+          mailto: body.mailto,
+        });
         return;
       }
-      setStatus({ kind: "done", message: body.message ?? "Received." });
+      setStatus({
+        kind: "done",
+        message: body.message ?? "Received.",
+        mailto: body.mailto,
+      });
       form.reset();
       setInterest("platform");
     } catch {
-      setStatus({ kind: "error", message: "The form could not be sent. Try again in a moment." });
+      setStatus({
+        kind: "error",
+        message: "The form could not be sent. Try again in a moment.",
+        mailto: "info@fintiqsolutions.com",
+      });
     }
   }
 
   if (status.kind === "done") {
     return (
       <div className="rounded-3xl bg-navy p-8 text-white">
-        <p className="font-display text-4xl">Received.</p>
+        <p className="font-mono text-[11px] uppercase text-teal">Received</p>
+        <p className="mt-3 font-display text-4xl">Thank you.</p>
         <p className="mt-4 leading-7 text-white/75">{status.message}</p>
+        {status.mailto ? (
+          <a
+            href={`mailto:${status.mailto}`}
+            className="mt-6 inline-flex text-sm font-semibold text-teal underline-offset-4 hover:underline"
+          >
+            Email {status.mailto}
+          </a>
+        ) : null}
+        <button
+          type="button"
+          className="mt-8 inline-flex h-11 items-center rounded-full border border-white/25 px-5 text-sm font-semibold text-white transition hover:border-teal hover:bg-teal hover:text-navy"
+          onClick={() => setStatus({ kind: "idle" })}
+        >
+          Send another note
+        </button>
       </div>
     );
   }
@@ -118,7 +150,16 @@ export function ContactForm() {
       </label>
       <input name="company_site" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
-      {status.kind === "error" ? <p className="mt-4 text-sm text-red-700">{status.message}</p> : null}
+      {status.kind === "error" ? (
+        <div className="mt-4 space-y-2">
+          <p className="text-sm text-red-700">{status.message}</p>
+          {status.mailto ? (
+            <a href={`mailto:${status.mailto}`} className="text-sm font-semibold text-signal-deep">
+              Email {status.mailto}
+            </a>
+          ) : null}
+        </div>
+      ) : null}
 
       <button
         type="submit"

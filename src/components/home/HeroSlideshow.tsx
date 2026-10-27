@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { products } from "@/content/site";
-import { ProductMock } from "@/components/product/ProductMock";
+import { getProductTheme } from "@/content/themes";
+import { ProductStage } from "@/components/product/ProductStage";
+import { HeroVideo } from "@/components/home/HeroVideo";
 import { buttonGhostLight, buttonPrimary } from "@/components/ui/styles";
 
 const SLIDE_MS = 7000;
@@ -15,6 +17,7 @@ export function HeroSlideshow() {
   const [paused, setPaused] = useState(false);
   const [direction, setDirection] = useState(1);
   const product = products[index];
+  const theme = getProductTheme(product.slug);
 
   useEffect(() => {
     if (reduce || paused) return;
@@ -36,36 +39,14 @@ export function HeroSlideshow() {
     <section
       className="relative min-h-[100svh] overflow-hidden bg-ink-raised text-white"
       aria-roledescription="carousel"
-      aria-label="Fintiq platforms"
+      aria-label="FintiQ platforms"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <AnimatePresence mode="sync" custom={direction}>
-        <motion.div
-          key={`bg-${product.slug}`}
-          className={`hero-bleed absolute inset-0 ${reduce ? "" : "ken-burns"}`}
-          style={{ backgroundImage: bleedFor(index) }}
-          initial={reduce ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={reduce ? undefined : { opacity: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          aria-hidden="true"
-        />
-      </AnimatePresence>
-      <div className="hero-grid hero-grid-on-dark pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink-raised via-ink-raised/85 to-transparent" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink-raised to-transparent" aria-hidden="true" />
-      <div className="aurora pointer-events-none absolute -right-10 top-28 size-[28rem] rounded-full blur-3xl opacity-70" aria-hidden="true" />
-      <div className="aurora-soft pointer-events-none absolute -left-20 bottom-10 size-[22rem] rounded-full blur-3xl opacity-50" aria-hidden="true" />
+      <HeroVideo />
 
-      <p
-        className="pointer-events-none absolute inset-x-0 top-[42%] hidden -translate-y-1/2 select-none text-center font-display text-[clamp(2.5rem,9vw,7.5rem)] font-bold uppercase leading-none tracking-[-0.06em] text-white/[0.045] lg:block"
-        aria-hidden="true"
-      >
-        Ready to brand
-      </p>
 
-      <div className="relative mx-auto grid min-h-[100svh] max-w-6xl items-center gap-10 px-6 pb-28 pt-36 lg:grid-cols-[1.05fr_0.95fr] lg:pb-24 lg:pt-40">
+      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-6xl items-center gap-8 px-6 pb-24 pt-32 sm:pb-28 sm:pt-36 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-24 lg:pt-40">
         <div>
           <motion.p
             className="font-mono text-[11px] uppercase text-teal"
@@ -73,7 +54,7 @@ export function HeroSlideshow() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Fintiq Solutions
+            Fintech platforms · AI solutions
           </motion.p>
           <motion.h1
             className="mt-5 max-w-xl text-[clamp(2.6rem,5.4vw,4.6rem)] leading-[1.02]"
@@ -81,42 +62,93 @@ export function HeroSlideshow() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
-            Banking and payments platforms,{" "}
-            <span className="text-gradient-light">ready to brand as yours.</span>
+            Secure platforms.{" "}
+            <span className="text-gradient-light">AI that makes systems faster.</span>
           </motion.h1>
-          <p className="mt-6 max-w-md text-lg leading-8 text-white/75">
-            Six platforms. Domain-ready teams. A live channel measured by UAT.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <motion.p
+            className="mt-6 max-w-lg text-lg leading-8 text-white/75"
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.16 }}
+          >
+            Enterprise solutions for cards, corporate banking, payments, cash, remittance, and lending —
+            plus AI solutions that accelerate delivery and support intelligent workflows inside those systems.
+          </motion.p>
+          <motion.ul
+            className="mt-5 hidden flex-wrap gap-2 sm:flex"
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            {["Agentic AI delivery", "Ops copilots", "Smarter UAT cycles"].map((item) => (
+              <li
+                key={item}
+                className="rounded-full border border-teal/35 bg-teal/10 px-3 py-1 text-[11px] font-semibold text-teal"
+              >
+                {item}
+              </li>
+            ))}
+          </motion.ul>
+          <motion.div
+            className="mt-8 flex flex-col gap-3 sm:flex-row"
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.22 }}
+          >
             <Link href="/contact" className={buttonPrimary}>
-              Talk to us
+              Contact Us
             </Link>
             <Link href="/products" className={buttonGhostLight}>
-              All platforms
+              Explore solutions
             </Link>
+          </motion.div>
+
+          <div className="mt-8 hidden flex-wrap gap-2 md:flex">
+            {products.map((item, itemIndex) => {
+              const itemTheme = getProductTheme(item.slug);
+              const active = itemIndex === index;
+              return (
+                <button
+                  key={item.slug}
+                  type="button"
+                  onClick={() => go(itemIndex)}
+                  aria-current={active ? "true" : undefined}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition duration-150 ${
+                    active
+                      ? "border-transparent text-ink shadow-[0_8px_20px_rgb(0_0_0/0.25)]"
+                      : "border-white/20 bg-white/5 text-white/85 hover:bg-white/10"
+                  }`}
+                  style={active ? { background: itemTheme.accent } : undefined}
+                >
+                  {item.name}
+                </button>
+              );
+            })}
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {products.map((item, itemIndex) => (
-              <button
-                key={item.slug}
-                type="button"
-                onClick={() => go(itemIndex)}
-                aria-current={itemIndex === index ? "true" : undefined}
-                className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition duration-150 ${
-                  itemIndex === index
-                    ? "border-transparent bg-[linear-gradient(110deg,#00b0a4,#7be0d8)] text-ink shadow-[0_8px_20px_rgb(0_176_164/0.35)]"
-                    : "border-white/20 bg-white/5 text-white/85 hover:border-teal hover:bg-white/10"
-                }`}
-              >
-                {item.name}
-              </button>
-            ))}
+          <div className="mt-8 rounded-2xl border border-navy/10 bg-white p-4 shadow-[0_16px_40px_rgb(0_0_0/0.25)] lg:hidden">
+            <p className="font-mono text-[11px] font-semibold uppercase" style={{ color: theme.accent }}>
+              {product.eyebrow}
+            </p>
+            <h2 className="product-title mt-1 font-display text-xl">{product.name}</h2>
+            <span
+              className="product-title-accent"
+              style={{ backgroundImage: theme.titleGrad }}
+              aria-hidden="true"
+            />
+            <p className="mt-2 text-sm leading-6 text-navy/80">{product.promise}</p>
+            <Link
+              href={`/products/${product.slug}`}
+              className="draw-link mt-3 inline-flex text-sm font-semibold"
+              style={{ color: theme.accent }}
+            >
+              Open {product.name} →
+            </Link>
           </div>
         </div>
 
-        <div className="relative">
-          <div className="glass-panel glass-panel-ring float-card overflow-hidden rounded-[1.8rem] p-5">
+        <div className="relative hidden lg:block">
+          <div className="float-card overflow-hidden rounded-[1.8rem] border border-white/15 shadow-[0_30px_80px_rgb(0_0_0/0.4)]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={product.slug}
@@ -126,23 +158,33 @@ export function HeroSlideshow() {
                 exit={reduce ? undefined : { opacity: 0, x: direction * -44 }}
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="flex items-center justify-between">
-                  <p className="font-mono text-[11px] uppercase text-teal">{product.eyebrow}</p>
-                  <p className="font-mono text-[11px] text-white/55">
-                    {String(index + 1).padStart(2, "0")} / {String(products.length).padStart(2, "0")}
-                  </p>
+                <ProductStage slug={product.slug} />
+                <div className="border-t border-navy/10 bg-gradient-to-b from-white to-[#f3f6fb] px-5 py-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="font-mono text-[11px] font-semibold uppercase" style={{ color: theme.accent }}>
+                        {product.eyebrow}
+                      </p>
+                      <h2 className="product-title mt-1 font-display text-2xl">{product.name}</h2>
+                      <span
+                        className="product-title-accent"
+                        style={{ backgroundImage: theme.titleGrad }}
+                        aria-hidden="true"
+                      />
+                      <p className="mt-2 text-sm leading-6 text-navy/80">{product.promise}</p>
+                    </div>
+                    <p className="font-mono text-[11px] font-semibold text-navy/45">
+                      {String(index + 1).padStart(2, "0")} / {String(products.length).padStart(2, "0")}
+                    </p>
+                  </div>
+                  <Link
+                    href={`/products/${product.slug}`}
+                    className="draw-link mt-3 inline-flex text-sm font-semibold"
+                    style={{ color: theme.accent }}
+                  >
+                    Open {product.name} →
+                  </Link>
                 </div>
-                <h2 className="mt-3 font-display text-3xl">{product.name}</h2>
-                <p className="mt-2 max-w-sm text-sm leading-6 text-white/70">{product.promise}</p>
-                <div className="mt-5 rounded-2xl bg-white p-1 text-navy">
-                  <ProductMock slug={product.slug} />
-                </div>
-                <Link
-                  href={`/products/${product.slug}`}
-                  className="draw-link mt-4 inline-flex text-sm font-semibold text-white"
-                >
-                  Open {product.name} →
-                </Link>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -183,28 +225,46 @@ export function HeroSlideshow() {
             >
               →
             </button>
-            <button
-              type="button"
-              className="hidden h-10 rounded-full px-3 text-xs font-semibold text-white/70 sm:inline-flex"
-              onClick={() => setPaused((value) => !value)}
-            >
-              {paused ? "Play" : "Pause"}
-            </button>
           </div>
         </div>
+
+        <div className="mt-2 flex items-center gap-3 lg:hidden">
+          <button
+            type="button"
+            className="inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white"
+            aria-label="Previous platform"
+            onClick={() => go(index - 1)}
+          >
+            ←
+          </button>
+          <div className="flex flex-1 gap-1.5">
+            {products.map((item, itemIndex) => (
+              <button
+                key={item.slug}
+                type="button"
+                aria-label={item.name}
+                aria-current={itemIndex === index ? "true" : undefined}
+                onClick={() => go(itemIndex)}
+                className={`h-1.5 flex-1 rounded-full ${itemIndex === index ? "bg-teal" : "bg-white/25"}`}
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            className="inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white"
+            aria-label="Next platform"
+            onClick={() => go(index + 1)}
+          >
+            →
+          </button>
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-5 hidden justify-center sm:flex">
+        <span className="scroll-cue font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">
+          Scroll
+        </span>
       </div>
     </section>
   );
-}
-
-function bleedFor(index: number) {
-  const palettes = [
-    "radial-gradient(ellipse at 80% 20%, rgb(0 176 164 / 0.45), transparent 42%), linear-gradient(145deg, #0b1c40 0%, #102458 48%, #0a4f5c 100%)",
-    "radial-gradient(ellipse at 70% 30%, rgb(16 36 88 / 0.2), transparent 40%), linear-gradient(160deg, #071530 0%, #123a6b 55%, #087f78 120%)",
-    "radial-gradient(ellipse at 85% 15%, rgb(0 176 164 / 0.35), transparent 45%), linear-gradient(150deg, #0b1c40 0%, #16366a 50%, #0c6484 100%)",
-    "radial-gradient(ellipse at 75% 25%, rgb(0 140 150 / 0.4), transparent 44%), linear-gradient(155deg, #061228 0%, #102458 46%, #0d5f6a 100%)",
-    "radial-gradient(ellipse at 90% 10%, rgb(0 176 164 / 0.3), transparent 40%), linear-gradient(140deg, #0a1838 0%, #1a3f72 52%, #087f78 110%)",
-    "radial-gradient(ellipse at 65% 20%, rgb(16 36 88 / 0.35), transparent 42%), linear-gradient(165deg, #071530 0%, #102458 40%, #0c6484 100%)",
-  ];
-  return palettes[index % palettes.length];
 }

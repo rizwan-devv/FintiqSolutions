@@ -3,7 +3,7 @@ import { CaseStudies } from "@/components/home/CaseStudies";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Selected Fintiq deployments — problem, what shipped, result.",
+  description: "Selected FintiQ deployments — problem, what shipped, result.",
 };
 
 export default function WorkPage() {

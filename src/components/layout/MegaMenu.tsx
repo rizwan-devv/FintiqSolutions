@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ProductMock } from "@/components/product/ProductMock";
+import { ProductStage } from "@/components/product/ProductStage";
 import { getProduct, type NavItem } from "@/content/site";
+import { getProductTheme } from "@/content/themes";
 
 type Child = NonNullable<NavItem["children"]>[number];
 
@@ -63,13 +64,13 @@ export function MegaMenu({
                   <p className="relative font-mono text-[11px] uppercase text-teal">{item.label}</p>
                   <p className="relative mt-3 font-display text-3xl tracking-tight">
                     {isPlatforms
-                      ? "Six platforms. Brand one."
+                      ? "Seven solutions. Brand yours."
                       : isIndustries
                         ? "Built for the institution."
                         : "Delivery, people, and support."}
                   </p>
                   {isPlatforms && product ? (
-                    <div className="relative mt-6 max-h-64 overflow-hidden rounded-2xl bg-white/95 p-3 text-navy">
+                    <div className="relative mt-6 overflow-hidden rounded-2xl border border-white/15">
                       <AnimatePresence mode="wait">
                         <motion.div
                           key={product.slug}
@@ -78,11 +79,7 @@ export function MegaMenu({
                           exit={reduce ? undefined : { opacity: 0, y: -8 }}
                           transition={{ duration: 0.25 }}
                         >
-                          <p className="font-mono text-[10px] uppercase text-signal-deep">{product.eyebrow}</p>
-                          <p className="mt-1 text-sm font-semibold">{product.name}</p>
-                          <div className="mt-3 origin-top scale-[0.88]">
-                            <ProductMock slug={product.slug} />
-                          </div>
+                          <ProductStage slug={product.slug} compact className="rounded-none" />
                         </motion.div>
                       </AnimatePresence>
                     </div>
@@ -104,6 +101,10 @@ export function MegaMenu({
                 <div className="grid gap-1 p-4 sm:grid-cols-2 sm:p-5">
                   {item.children.map((child) => {
                     const active = child.href === activeHref;
+                    const childSlug = child.href.startsWith("/products/")
+                      ? child.href.replace("/products/", "")
+                      : null;
+                    const childTheme = childSlug ? getProductTheme(childSlug) : null;
                     return (
                       <Link
                         key={child.href}
@@ -119,9 +120,10 @@ export function MegaMenu({
                         </span>
                         <span className="mt-1 block text-xs leading-5 text-mist">{child.note}</span>
                         <span
-                          className={`mt-3 block h-1.5 w-1.5 rounded-full bg-teal transition ${
+                          className={`mt-3 block h-1.5 w-1.5 rounded-full transition ${
                             active ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                           }`}
+                          style={{ background: childTheme?.accent ?? "#00b0a4" }}
                           aria-hidden="true"
                         />
                       </Link>

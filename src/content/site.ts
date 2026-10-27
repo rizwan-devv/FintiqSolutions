@@ -1,10 +1,18 @@
 export const company = {
-  legalName: "Fintiq Solutions (Private) Limited",
+  legalName: "FintiQ Solutions (Private) Limited",
+  brandName: "FintiQ Solutions",
+  shortName: "FintiQ",
+  siteUrl: "https://fintiqsolutions.com",
   lines: ["House # 5, Street 7, Block C", "Naval Anchorage, Islamabad"],
+  tagline: "Accelerate digital financial growth with secure fintech platforms.",
   emails: [
     { label: "For Info", address: "info@fintiqsolutions.com" },
-    { label: "For Support", address: "info@fintiqsolutions.com" },
+    { label: "For Support", address: "support@fintiqsolutions.com" },
   ],
+  /** Set when the company LinkedIn page is live. */
+  linkedin: "" as string,
+  disclaimer:
+    "We operate as a technology development partner. Licensed institutions remain the system of record for funds and regulated decisions.",
 }
 
 export type Block = {
@@ -44,6 +52,8 @@ export type Product = {
   capabilities: Block[]
   journey: Block[]
   services: string[]
+  architecture: Block[]
+  uat: Block
 }
 
 export type Service = {
@@ -58,298 +68,331 @@ export type Service = {
   products: string[]
 }
 
+export type Channel = {
+  slug: string
+  name: string
+  eyebrow: string
+  promise: string
+  related: string[]
+}
+
+const commonServices = [
+  "platform-implementation",
+  "payments-and-core-integration",
+  "production-support",
+]
+
 export const products: Product[] = [
   {
-    slug: "paybridge",
-    name: "PayBridge",
-    eyebrow: "Merchant collections",
-    promise: "Collect, invoice, disburse, and settle.",
-    summary: "Invoices, hosted checkout, local rails, MDR, settlement, and disbursement — processor chosen per merchant.",
-    audience: "Payment companies, banks with their own IPG, and institutions that collect fees.",
-    outcome: "Merchant portal, admin console, and a two-call collection API, separate from the back office.",
+    slug: "card-payment-system",
+    name: "Card Payment System",
+    eyebrow: "Cards",
+    promise: "Issue, authorize, and service cards under one control plane.",
+    summary:
+      "A complete card stack for issuance, authorization paths, limits, PIN, and servicing — built for banks and wallet issuers that need a desk and an app on one system.",
+    audience: "Banks, wallets, and payment companies issuing debit, prepaid, or virtual cards.",
+    outcome: "One control plane for request through to live card, with card data protected and a clear audit trail.",
+    capabilities: [
+      {
+        title: "Issuance and servicing",
+        body: "Request, approval, generation, limits, PIN, status, and who changed what — in one desk workflow.",
+      },
+      {
+        title: "Cardholder channel",
+        body: "A separate API for the cardholder app so servicing does not expose bureau files or sensitive production artifacts.",
+      },
+      {
+        title: "Controls and audit",
+        body: "Roles, product rules, and a trail operators and compliance can defend.",
+      },
+    ],
+    journey: [
+      { title: "Map card products", body: "Products, limits, and servicing rules for the institution." },
+      { title: "Stand up desk and APIs", body: "Portal for the desk. Contract for the cardholder app." },
+      { title: "Prove a live card", body: "Issue, authorize, and service a real journey in UAT." },
+    ],
+    architecture: [
+      { title: "Cardholder & desk channels", body: "App APIs for the cardholder; portal for issuance and servicing." },
+      { title: "Card control plane", body: "Products, limits, PIN, status, and audit on one stack." },
+      { title: "Institution & network edge", body: "Core postings and network paths stay under the licensed institution." },
+    ],
+    uat: {
+      title: "Issue → authorize → service",
+      body: "UAT is a live card journey: request, approval, authorization, and a servicing action signed by the desk.",
+    },
+    services: commonServices,
+  },
+  {
+    slug: "corporate-banking",
+    name: "Corporate Banking",
+    eyebrow: "Corporate",
+    promise: "Give businesses a portal for accounts, payments, and approvals.",
+    summary:
+      "Corporate banking workflows for companies and institutions: multi-user access, approval matrices, bulk payments, and visibility finance teams can run day to day.",
+    audience: "Banks and financial institutions serving SMEs, corporates, and enterprise clients.",
+    outcome: "A branded corporate portal with maker-checker flows and a clean handoff to core banking.",
+    capabilities: [
+      {
+        title: "Corporate portal",
+        body: "Accounts, payments, beneficiaries, and statements in a portal the institution brands as its own.",
+      },
+      {
+        title: "Approvals that match the firm",
+        body: "Maker-checker and multi-level approvals configured to the client’s operating model.",
+      },
+      {
+        title: "Bulk and scheduled payments",
+        body: "Payroll-style and vendor disbursements without leaving the corporate desk.",
+      },
+    ],
+    journey: [
+      { title: "Define client journeys", body: "Who logs in, who approves, which payment types go live first." },
+      { title: "Connect the core", body: "Balances and postings stay with the institution’s core." },
+      { title: "UAT with corporate ops", body: "A real payment path signed by the bank’s operators." },
+    ],
+    architecture: [
+      { title: "Corporate portal", body: "Branded access for accounts, beneficiaries, and payments." },
+      { title: "Approval & payment engine", body: "Maker-checker matrices and bulk payment workflows." },
+      { title: "Core banking handoff", body: "Balances and postings remain with the institution’s core." },
+    ],
+    uat: {
+      title: "Approve a real corporate payment",
+      body: "UAT is a maker-checker payment path signed by corporate ops — not a slide walkthrough.",
+    },
+    services: ["platform-implementation", "payments-and-core-integration", "resource-augmentation", "production-support"],
+  },
+  {
+    slug: "payment-gateway",
+    name: "Payment Gateway",
+    eyebrow: "Payments",
+    promise: "Collect online payments across channels with one integration.",
+    summary:
+      "A merchant-ready payment gateway for invoices, hosted checkout, multi-rail collection, settlement, and disbursement — with a merchant portal operations can run.",
+    audience: "Banks, PSPs under license, and institutions that collect fees or run merchant books.",
+    outcome: "Merchant and admin portals, a stable collection API, and settlement finance can close without three tools.",
     capabilities: [
       {
         title: "Merchant and admin portals",
-        body: "Merchants manage invoices, payment configuration, and settlement. Your operations team manages merchants, MDR, and the gateways each merchant is allowed to use.",
+        body: "Merchants manage invoices and payment config. Operations manages merchants, pricing, and allowed processors.",
       },
       {
-        title: "Hosted checkout",
-        body: "An invoice becomes a payment session. JazzCash, Easypaisa, and PayFast are already in the product, selected per merchant rather than hard-coded in the storefront.",
+        title: "Hosted checkout and APIs",
+        body: "A payment session merchants can open from web or API, with status and callbacks in one shape.",
       },
       {
-        title: "A two-call collection API",
-        body: "Create and initiate a payment, then read its status. The merchant supplies a callback URL and handles the response. The same shape works in test and live.",
-      },
-      {
-        title: "MDR, settlement, and disbursement",
-        body: "Pricing, what the merchant is owed, and payouts live next to the collection, so finance is not reconciling three tools at month end.",
-      },
-      {
-        title: "Storefront plugin",
-        body: "A WooCommerce plugin lets an online store collect through the same platform the merchant portal already runs.",
+        title: "Settlement and disbursement",
+        body: "What the merchant is owed sits next to the collection path — not in a month-end spreadsheet.",
       },
     ],
     journey: [
+      { title: "Brand the portals", body: "Institution name and language on the merchant experience." },
+      { title: "Connect collection rails", body: "Processors and callbacks in a controlled environment." },
+      { title: "Prove a live payment", body: "Invoice → checkout → callback → settlement line in UAT." },
+    ],
+    architecture: [
+      { title: "Merchant & admin portals", body: "Checkout, invoices, and ops configuration under institution branding." },
+      { title: "Gateway session layer", body: "Payment sessions, status, and callbacks in one API shape." },
+      { title: "Collection rails & settlement", body: "Processors and settlement lines wired for finance close." },
+    ],
+    uat: {
+      title: "Invoice → checkout → settlement",
+      body: "UAT proves a live collection: invoice, hosted checkout, callback, and a settlement line ops can close.",
+    },
+    services: commonServices,
+  },
+  {
+    slug: "cash-management-system",
+    name: "Cash Management System",
+    eyebrow: "Treasury",
+    promise: "See cash positions, move funds, and control liquidity in one desk.",
+    summary:
+      "Cash and liquidity workflows for institutions and corporates: positions, pooling views, payment factories, and controls that keep treasury operations structured.",
+    audience: "Banks and large corporates that need visibility and control over cash movement.",
+    outcome: "A cash desk with clear positions, controlled payments, and an audit trail finance can trust.",
+    capabilities: [
       {
-        title: "Brand the portals",
-        body: "Name, color, and merchant language become the institution’s. The collection engine stays.",
+        title: "Position and visibility",
+        body: "Account-level and consolidated views so treasury sees where cash sits.",
       },
       {
-        title: "Connect the rails",
-        body: "JazzCash, Easypaisa, and PayFast credentials land in merchant payment config, with callbacks on a public HTTPS address.",
+        title: "Controlled movement",
+        body: "Internal transfers and external payments with roles and approval paths.",
       },
       {
-        title: "Prove a payment",
-        body: "Invoice, checkout, callback, status, and a settlement line are walked with operations before go-live.",
-      },
-      {
-        title: "Open it to merchants",
-        body: "The institution invites merchants, sets MDR, and runs the book from the admin console.",
+        title: "Reporting for the desk",
+        body: "Operational reports that match how cash teams actually close the day.",
       },
     ],
+    journey: [
+      { title: "Map cash sources", body: "Accounts, entities, and the first reporting cut." },
+      { title: "Wire movement rules", body: "Who can move what, and what needs dual control." },
+      { title: "Run a treasury UAT", body: "Position, payment, and report signed by the desk." },
+    ],
+    architecture: [
+      { title: "Treasury desk", body: "Positions, pooling views, and payment factory controls." },
+      { title: "Liquidity workflows", body: "Internal transfers and external payments with dual control." },
+      { title: "Account & rail feeds", body: "Cash sources stay tied to the institution’s books and rails." },
+    ],
+    uat: {
+      title: "Position → payment → report",
+      body: "UAT is a treasury cycle: see a position, move funds under control, and close with a desk report.",
+    },
     services: ["platform-implementation", "payments-and-core-integration", "production-support"],
   },
   {
-    slug: "corporate-onboarding",
-    name: "Corporate Onboarding",
-    eyebrow: "Entity accounts",
-    promise: "Open entity accounts without a branch visit.",
-    summary: "Firm portal plus partner app for KYC. Ops reviews; approval provisions the account.",
-    audience: "Banks, wallets, and EMIs opening entity accounts without a branch visit.",
-    outcome: "Branchless entity onboarding with partner KYC and a tracking ID ops can approve.",
+    slug: "remittance-system",
+    name: "Remittance System",
+    eyebrow: "Transfers",
+    promise: "Move funds across corridors with clear status and compliance checks.",
+    summary:
+      "Remittance and fund-transfer workflows for institutions: send, receive, status tracking, compliance screens, and partner corridors behind a stable operations console.",
+    audience: "Banks, exchange companies, and licensed remittance operators.",
+    outcome: "A remittance desk with corridor configuration, case handling, and a trail compliance can review.",
     capabilities: [
       {
-        title: "Entity types already modeled",
-        body: "Sole proprietorship, small business, partnership, and LLP, with the document pack and partner rules that belong to each.",
+        title: "Send and receive flows",
+        body: "Customer and agent paths for outbound and inbound remittances with status the desk can follow.",
       },
       {
-        title: "Portal for the firm, app for the people",
-        body: "The lead files the entity. Each partner gets an invite, a one-time PIN, and completes CNIC, selfie, and a NADRA fingerprint check in the app. The fingerprint is verified and not stored.",
+        title: "Compliance screens",
+        body: "Checks and holds that keep high-risk cases in a reviewable queue.",
       },
       {
-        title: "Review the case, then provision",
-        body: "Sanctions, identity, and documents sit in an admin queue. Approval calls the account API and the new corporate user can sign in.",
-      },
-      {
-        title: "Built against the onboarding framework",
-        body: "Entity fields, annex documents, risk rating, a written decision window, and a draft the applicant can resume. High-risk cases carry extra review notes.",
-      },
-      {
-        title: "A skin per institution",
-        body: "The same platform takes the institution’s name, colors, app link, and the account system it must provision into.",
+        title: "Partner corridors",
+        body: "Corridor and partner configuration without rebuilding the customer experience.",
       },
     ],
     journey: [
-      {
-        title: "Confirm the entity types",
-        body: "We lock which of the four entity types go live first, and which documents your compliance team expects.",
-      },
-      {
-        title: "Connect identity and the core",
-        body: "OTP, NADRA, and the account-provisioning API are pointed at the institution’s environments.",
-      },
-      {
-        title: "Walk a partnership",
-        body: "Lead, two partners on the app, document upload, admin decision, and a provisioned account. That case is the UAT script.",
-      },
-      {
-        title: "Hand the queue to operations",
-        body: "Reviewers work the tracking ID, the risk rating, and the decision. Applicants see where the case stands.",
-      },
+      { title: "Name the corridors", body: "First corridors, partners, and fee model." },
+      { title: "Stand up the desk", body: "Ops console, roles, and compliance queue." },
+      { title: "Prove end to end", body: "A successful remittance and a held case in UAT." },
     ],
-    services: ["platform-implementation", "onboarding-and-compliance", "resource-augmentation"],
+    architecture: [
+      { title: "Customer & agent channels", body: "Send and receive journeys with status the desk can follow." },
+      { title: "Remittance control plane", body: "Corridors, fees, compliance holds, and case queues." },
+      { title: "Partner corridors", body: "Partner and rail configuration without rebuilding the channel." },
+    ],
+    uat: {
+      title: "Success path + held case",
+      body: "UAT covers a completed remittance and a compliance hold that ops can resolve with a trail.",
+    },
+    services: commonServices,
   },
   {
-    slug: "card-management",
-    name: "Card Management",
-    eyebrow: "Issuance and servicing",
-    promise: "Issue and service cards under one control plane.",
-    summary: "One control plane for request, approval, generation, limits, PIN, and status.",
-    audience: "Banks and wallets that issue cards and need the desk and app on one system.",
-    outcome: "Issuance and servicing with PAN protected at rest and a separate app API.",
+    slug: "loan-origination-system",
+    name: "Loan Origination System",
+    eyebrow: "Lending · LOS",
+    promise: "Capture, assess, and decide loan applications in a governed pipeline.",
+    summary:
+      "An LOS for application intake, document collection, credit assessment steps, and decisioning workflows — so lending teams move from application to approval with a clear trail.",
+    audience: "Banks, microfinance, and lending businesses launching or modernizing origination.",
+    outcome: "A structured origination pipeline with stages, roles, and evidence for each decision.",
     capabilities: [
       {
-        title: "Request through to a live card",
-        body: "A request is approved, the card is generated, and a production or bureau file can be written for the printer. The file is never served back through the API.",
+        title: "Application intake",
+        body: "Digital applications with document packs and status the applicant and desk can follow.",
       },
       {
-        title: "Everyday servicing",
-        body: "Inquiry, status change, PIN change, forgotten PIN, products, limits, available limit, and spending summary.",
+        title: "Assessment workflow",
+        body: "Credit and compliance steps as a queue — not a scattered email chain.",
       },
       {
-        title: "The desk’s own reference data",
-        body: "Banks, branches, products, and statuses are maintained in the portal, with users, roles, and permissions around them.",
-      },
-      {
-        title: "Card data stays protected",
-        body: "PAN and other cardholder data are encrypted at rest. Staff lookup uses a hash. The browser does not become a place where a full PAN casually appears.",
-      },
-      {
-        title: "Two doors",
-        body: "A portal API for the card desk and a mobile API for the cardholder app, so the app team is not clicking through back-office screens.",
+        title: "Decision and handoff",
+        body: "Approval, decline, or refer — then a clean pass into loan management.",
       },
     ],
     journey: [
+      { title: "Model products", body: "Loan products, documents, and decision stages." },
+      { title: "Wire integrations", body: "Identity, bureau, and core hooks the institution already uses." },
+      { title: "UAT a full file", body: "Application through decision with lending ops." },
+    ],
+    architecture: [
+      { title: "Applicant & desk channels", body: "Digital intake and a queue lending ops can work." },
+      { title: "Origination pipeline", body: "Stages, documents, assessment, and decision evidence." },
+      { title: "Bureau & core hooks", body: "Identity and credit checks the institution already trusts." },
+    ],
+    uat: {
+      title: "Application through decision",
+      body: "UAT is a full file: intake, assessment steps, and an approve/decline/refer with lending ops.",
+    },
+    services: ["platform-implementation", "compliance-engineering", "resource-augmentation", "production-support"],
+  },
+  {
+    slug: "loan-management-system",
+    name: "Loan Management System",
+    eyebrow: "Lending · LMS",
+    promise: "Service the book: schedules, repayments, collections, and changes.",
+    summary:
+      "An LMS for the live loan book — repayment schedules, collections queues, restructuring paths, and operational reports after origination is done.",
+    audience: "Institutions that need post-disbursement control of the lending portfolio.",
+    outcome: "A servicing desk with schedules, arrears visibility, and an audit of changes to the book.",
+    capabilities: [
       {
-        title: "Map the card products",
-        body: "Products, limits, statuses, and the bureau file format are confirmed against the way the desk works today.",
+        title: "Schedules and repayments",
+        body: "Installments, receipts, and status that finance and collections share.",
       },
       {
-        title: "Stand up portal and app APIs",
-        body: "The desk gets the console. The app gets inquiry, status, limits, and PIN.",
+        title: "Collections and cases",
+        body: "Arrears queues and case notes so follow-up is structured.",
       },
       {
-        title: "Prove a card",
-        body: "Request, approve, generate, set a limit, change a PIN, and read the audit line. That is the acceptance case.",
-      },
-      {
-        title: "Leave the rules with the bank",
-        body: "Roles and reference data stay in the institution’s hands after go-live.",
+        title: "Book changes",
+        body: "Restructure and adjustment paths with dual control where required.",
       },
     ],
-    services: ["platform-implementation", "production-support", "resource-augmentation"],
+    journey: [
+      { title: "Import or open the book", body: "Products, accounts, and servicing rules." },
+      { title: "Connect receipts", body: "Payment channels that update the schedule." },
+      { title: "Prove a cycle", body: "Repayment, arrears case, and report in UAT." },
+    ],
+    architecture: [
+      { title: "Servicing desk", body: "Schedules, receipts, arrears queues, and case notes." },
+      { title: "Book control", body: "Restructure and adjustment paths with dual control where required." },
+      { title: "Receipt channels", body: "Payment rails that update the schedule without a spreadsheet bridge." },
+    ],
+    uat: {
+      title: "Repayment + arrears cycle",
+      body: "UAT proves a repayment, an arrears case, and an operational report collections can defend.",
+    },
+    services: ["platform-implementation", "resource-augmentation", "production-support"],
   },
+]
+
+export const channels: Channel[] = [
   {
     slug: "agent-banking",
     name: "Agent Banking",
-    eyebrow: "Agent channel",
-    promise: "Give agents a wallet, payments, and cash movement.",
-    summary: "One API for the agent app: device, balance, QR, transfers, bills, cash in/out.",
-    audience: "Institutions whose agents cash in, transfer, and pay bills from Android.",
-    outcome: "App talks only to Fintiq. Core stays the system of record for funds.",
-    capabilities: [
-      {
-        title: "Login and the device",
-        body: "Login, device OTP, and registration are handled here, so a replaced phone is a product flow rather than a core change.",
-      },
-      {
-        title: "What the agent sees",
-        body: "Balance, limits, mini-statement, and QR, served to the app without a fan-out of core hosts.",
-      },
-      {
-        title: "What the agent does with money",
-        body: "IBFT, wallet-to-wallet, bill payment, and cash-in / cash-out are accepted by this API and forwarded to the transaction platform.",
-      },
-      {
-        title: "One base URL for the app",
-        body: "The Android team points at a single host. Core addresses stay behind that host.",
-      },
-    ],
-    journey: [
-      {
-        title: "List the agent journeys",
-        body: "Cash-in, cash-out, transfer, and bill pay are ordered by what must work on day one.",
-      },
-      {
-        title: "Point the forwarder at the core",
-        body: "The API keeps device and session logic, and forwards the payment to the institution’s transaction host.",
-      },
-      {
-        title: "Run the app against one host",
-        body: "Login, a balance, and one successful transfer are the first UAT. Failed and duplicate cases follow.",
-      },
-      {
-        title: "Keep the app team unblocked",
-        body: "When the core is down or changing, the app still builds against the same contract.",
-      },
-    ],
-    services: ["platform-implementation", "payments-and-core-integration", "resource-augmentation"],
+    eyebrow: "Channel",
+    promise: "Agent wallets, cash-in/out, and transfers on a stable app backend.",
+    related: ["payment-gateway", "remittance-system", "card-payment-system"],
   },
   {
-    slug: "core-switch",
-    name: "Core Switch",
-    eyebrow: "Channel integration",
-    promise: "Put a stable API between the app and the core.",
-    summary: "Channel API in front of the core. Mobile team integrates once.",
-    audience: "Banks putting a new mobile channel on a core built for branch screens.",
-    outcome: "Sandbox first, then the same contract toward the live core.",
-    capabilities: [
-      {
-        title: "A channel API",
-        body: "Account and OTP flows the app needs, shaped for a mobile channel rather than for a branch screen.",
-      },
-      {
-        title: "A sandbox before the core is ready",
-        body: "Health, test data, and a Postman collection so the app can be built while the core connection is still being agreed.",
-      },
-      {
-        title: "The core stays the core",
-        body: "Balances and postings remain in the core banking system. The switch is the translation, not a second ledger.",
-      },
-      {
-        title: "A handoff the vendor can read",
-        body: "API guide, test data, and a collection. The app team and the core team share one description of the contract.",
-      },
-    ],
-    journey: [
-      {
-        title: "Name the first journeys",
-        body: "The smallest set of core operations the app must complete, written as API operations.",
-      },
-      {
-        title: "Give the app a sandbox",
-        body: "The mobile team integrates against the switch with published test data.",
-      },
-      {
-        title: "Turn the switch toward the core",
-        body: "The same contract is backed by the core system. The app does not retarget.",
-      },
-      {
-        title: "Keep the contract",
-        body: "Later core changes are absorbed in the switch, with the app’s calls left intact.",
-      },
-    ],
-    services: ["payments-and-core-integration", "platform-implementation", "production-support"],
+    slug: "consumer-banking",
+    name: "Consumer Banking",
+    eyebrow: "Channel",
+    promise: "Retail journeys for accounts, payments, and self-service.",
+    related: ["card-payment-system", "payment-gateway", "loan-origination-system"],
   },
   {
-    slug: "operations-back-office",
-    name: "Operations Back Office",
-    eyebrow: "Control room",
-    promise: "Run customers, KYC, money movement, and audit from one console.",
-    summary: "Customers, KYC queue, wallets, transactions, callbacks, roles, and audit — one console.",
-    audience: "Ops, finance, and compliance running a live wallet or payments product.",
-    outcome: "One console with PII masking and a clear audit trail.",
-    capabilities: [
-      {
-        title: "Customers and KYC",
-        body: "A customer record, a KYC queue, and a funnel report so compliance can see where cases stall.",
-      },
-      {
-        title: "Money movement",
-        body: "Wallets, transactions, failed transactions, and callbacks, including the ones that need a human.",
-      },
-      {
-        title: "Who may do what",
-        body: "Admin users, roles, and menus. A reviewer and a finance user do not share the same actions.",
-      },
-      {
-        title: "Audit and reports",
-        body: "An audit log, volume, growth, and system health, exported when finance needs a file.",
-      },
-      {
-        title: "Masked by default",
-        body: "Staff see what their role allows. The full personal record is not the casual view.",
-      },
-    ],
-    journey: [
-      {
-        title: "Sit with operations",
-        body: "The queues they actually work — KYC, failed payments, callbacks — become the home of the console.",
-      },
-      {
-        title: "Set the roles",
-        body: "Compliance, finance, and support each get a menu. Audit is on for every sensitive action.",
-      },
-      {
-        title: "Connect the live book",
-        body: "Customers, wallets, and transactions read from the running platform.",
-      },
-      {
-        title: "Retire the spreadsheet",
-        body: "The daily questions move into the console, with a report when a number has to leave the building.",
-      },
-    ],
-    services: ["platform-implementation", "production-support", "resource-augmentation"],
+    slug: "wallet-banking",
+    name: "Wallet Banking",
+    eyebrow: "Channel",
+    promise: "Digital wallet experiences for balance, P2P, bills, and top-up.",
+    related: ["payment-gateway", "card-payment-system", "cash-management-system"],
+  },
+  {
+    slug: "merchant-portal",
+    name: "Merchant Portal",
+    eyebrow: "Portal",
+    promise: "Merchants manage invoices, checkout, and settlement in one place.",
+    related: ["payment-gateway", "cash-management-system"],
+  },
+  {
+    slug: "corporate-portal",
+    name: "Corporate Portal",
+    eyebrow: "Portal",
+    promise: "Business users approve payments and view accounts under bank branding.",
+    related: ["corporate-banking", "cash-management-system", "remittance-system"],
   },
 ]
 
@@ -358,303 +401,161 @@ export const services: Service[] = [
     slug: "platform-implementation",
     name: "Platform implementation",
     eyebrow: "Delivery",
-    summary: "Brand a Fintiq platform, connect core and rails, pass UAT with your operators.",
-    audience:
-      "An institution that wants a working platform with its own name on it, on a timeline operations can plan around.",
-    outcome:
-      "Your operators sign a real journey, then run the book from the admin console we leave with them.",
+    summary: "Brand a FintiQ platform, connect core and rails, pass UAT with your operators.",
+    audience: "Institutions that want a working platform with their own name on it.",
+    outcome: "Operators sign a real journey, then run the book from the admin console we leave with them.",
     capabilities: [
-      {
-        title: "Brand and configure",
-        body: "Name, color, app identity, entity types, card products, merchant rules, and roles are set for the institution, not left as a generic demo.",
-      },
-      {
-        title: "Integrate",
-        body: "The platform is pointed at your core, your wallet host, and the local payment rails the product already speaks.",
-      },
-      {
-        title: "UAT with the operators",
-        body: "The acceptance case is a real journey: an invoice collected, an entity approved, a card issued, or an agent transfer completed.",
-      },
-      {
-        title: "Leave a system your team can run",
-        body: "Admin roles, runbooks, and a named handover. The institution operates the book.",
-      },
+      { title: "Brand and configure", body: "Name, color, roles, products, and rules set for the institution." },
+      { title: "Integrate", body: "Pointed at your core, wallet host, and the payment rails in scope." },
+      { title: "UAT with operators", body: "Acceptance is a live payment, transfer, card, or loan journey." },
+      { title: "Handover", body: "Admin roles, runbooks, and a named contact after go-live." },
     ],
     journey: [
-      {
-        title: "Choose the platform",
-        body: "One product, or several that share onboarding, cards, and payments.",
-      },
-      {
-        title: "Fix the first release",
-        body: "The journeys in scope, the environments, and the people who sign UAT.",
-      },
-      {
-        title: "Build in the open",
-        body: "Weekly evidence against the acceptance case, in your environment.",
-      },
-      {
-        title: "Go live and stay",
-        body: "Support continues, or a squad stays on the roadmap through resource augmentation.",
-      },
+      { title: "Choose the platform", body: "One solution, or several that share channels and ops." },
+      { title: "Fix the first release", body: "Journeys, environments, and who signs UAT." },
+      { title: "Build in the open", body: "Weekly evidence against the acceptance case." },
+      { title: "Go live and stay", body: "Support continues, or a squad stays on the roadmap." },
     ],
-    products: ["paybridge", "corporate-onboarding", "card-management", "agent-banking", "core-switch", "operations-back-office"],
+    products: products.map((p) => p.slug),
   },
   {
     slug: "payments-and-core-integration",
     name: "Payments and core integration",
     eyebrow: "Integration",
     summary: "Local rails and core behind one channel contract the app team can build against.",
-    audience:
-      "Teams whose mobile or merchant channel is waiting on a payment rail or a core that speaks a different language.",
-    outcome:
-      "A contract the app team can build against, with a successful call and a failed call already traced.",
+    audience: "Teams whose mobile or merchant channel is waiting on a rail or a core.",
+    outcome: "A contract the app team can build against, with success and failure already traced.",
     capabilities: [
-      {
-        title: "Local collection rails",
-        body: "JazzCash, Easypaisa, and PayFast, including callbacks, return URLs, and the merchant configuration that selects them.",
-      },
-      {
-        title: "Disbursement and bills",
-        body: "Payouts and bill payment isolated from the portal, so a gateway change does not rewrite the merchant experience.",
-      },
-      {
-        title: "Core and wallet hosts",
-        body: "The switch or the agent API translates the app’s call into the host the institution already runs.",
-      },
-      {
-        title: "A collection the other team can run",
-        body: "Postman, test data, and a written contract so the app vendor and the core team are not guessing.",
-      },
+      { title: "Collection and disbursement rails", body: "Callbacks, return URLs, and merchant or corridor configuration." },
+      { title: "Core and wallet hosts", body: "The channel layer translates the app call into the host you already run." },
+      { title: "Sandbox and collections", body: "Postman, test data, and a written contract for the other team." },
     ],
     journey: [
-      {
-        title: "Name the host",
-        body: "Which rail or core, which environment, and which first operation.",
-      },
-      {
-        title: "Write the contract",
-        body: "The request, the response, and the failures, including timeout and duplicate.",
-      },
-      {
-        title: "Prove it with their sandbox",
-        body: "A successful call and a failed call, traced end to end.",
-      },
-      {
-        title: "Hand over the collection",
-        body: "The other team keeps the collection. We keep the integration when you want us to.",
-      },
+      { title: "Name the host", body: "Which rail or core, which environment, which first operation." },
+      { title: "Write the contract", body: "Request, response, timeout, and duplicate handling." },
+      { title: "Prove it", body: "A successful call and a failed call, traced end to end." },
     ],
-    products: ["paybridge", "agent-banking", "core-switch"],
+    products: ["payment-gateway", "remittance-system", "corporate-banking", "cash-management-system"],
   },
   {
-    slug: "onboarding-and-compliance",
-    name: "Onboarding and compliance engineering",
-    eyebrow: "KYC",
-    summary: "Entity KYC, NADRA checks, sanctions review, and an audit trail compliance can defend.",
-    audience:
-      "Compliance and onboarding leads who need a digital entity journey they can defend, with operations still making the decision.",
-    outcome:
-      "A review queue, a tracking ID, and an audit of the decision. The institution still makes the decision.",
+    slug: "compliance-engineering",
+    name: "Compliance engineering",
+    eyebrow: "Governance",
+    summary: "Onboarding, KYC queues, and audit trails shaped for regulated review.",
+    audience: "Compliance and operations teams that need evidence, not only screens.",
+    outcome: "Workflows and logs that match how your reviewers actually decide.",
     capabilities: [
-      {
-        title: "The entity journey",
-        body: "Fields, documents, partners, and the resume window, aligned to the SBP consolidated customer-onboarding framework for entity opening.",
-      },
-      {
-        title: "Identity",
-        body: "CNIC capture and a NADRA fingerprint check on the partner’s own phone. The check is the record. The fingerprint image is not kept.",
-      },
-      {
-        title: "The review queue",
-        body: "Sanctions and identity start pending. A person clears or rejects, with a reason the applicant can be given in writing.",
-      },
-      {
-        title: "Evidence",
-        body: "Tracking ID, risk rating, decision time, and an audit of the review. The regulated institution remains the institution that decides.",
-      },
+      { title: "Identity and document packs", body: "Entity and consumer paths with the checks your policy requires." },
+      { title: "Review queues", body: "Holds, notes, and dual control where the framework demands it." },
+      { title: "Evidence", body: "An audit trail compliance can defend." },
     ],
     journey: [
-      {
-        title: "Read your current checklist",
-        body: "We map the desk’s entity checklist onto the platform’s entity types.",
-      },
-      {
-        title: "Close the gaps",
-        body: "Documents, risk rules, and the wording of a rejection are adjusted to the institution.",
-      },
-      {
-        title: "Run a high-risk case",
-        body: "Extra review notes and the path a high-risk file takes before anyone is approved.",
-      },
-      {
-        title: "Train the reviewers",
-        body: "The queue, the tracking ID, and what approval actually provisions.",
-      },
+      { title: "Read the checklist", body: "Your current policy and the first journeys in scope." },
+      { title: "Close the gaps", body: "Screens and queues that match the framework." },
+      { title: "Train the reviewers", body: "A high-risk case walked end to end." },
     ],
-    products: ["corporate-onboarding", "operations-back-office"],
+    products: ["loan-origination-system", "remittance-system", "corporate-banking"],
   },
   {
     slug: "resource-augmentation",
     name: "Resource augmentation",
     eyebrow: "People",
-    summary: "Payments, onboarding, and cards engineers on your backlog and tools from day one.",
-    audience:
-      "A product or engineering lead who needs a person or a squad and does not want the first month spent learning what an MDR or an entity KYC case is.",
-    outcome:
-      "Named people on your backlog, in your repository, with a handover note when someone rolls off.",
+    summary: "Payments, onboarding, cards, and lending engineers on your backlog from day one.",
+    audience: "Product and technology leaders who need domain-ready capacity.",
+    outcome: "Named people on your tools, shipping against your acceptance cases.",
     capabilities: [
-      {
-        title: "Java and Spring Boot",
-        body: "API engineers for portals, switches, payment services, and the account flows behind an app.",
-      },
-      {
-        title: "React and TypeScript",
-        body: "Portal engineers for merchant admin, onboarding, card desks, and operations consoles.",
-      },
-      {
-        title: "Android",
-        body: "Engineers for KYC apps and agent apps, including the device and OTP journeys those apps depend on.",
-      },
-      {
-        title: "Payments, QA, and DevOps",
-        body: "Gateway integration, UAT collections, Docker environments, reverse proxies, database migrations, and log review.",
-      },
-      {
-        title: "Banking analysis",
-        body: "Analysts who can sit with operations on onboarding, cards, and settlement and turn that into a backlog.",
-      },
+      { title: "Domain-ready engineers", body: "Java, React, Android, payments, QA, DevOps, banking analysis." },
+      { title: "Squad or specialist", body: "One person in your stand-up, or a full delivery squad." },
+      { title: "Stay after build", body: "Retain capacity on the roadmap after go-live." },
     ],
     journey: [
-      {
-        title: "One specialist",
-        body: "A named role, embedded in your stand-up and your repository.",
-      },
-      {
-        title: "A squad",
-        body: "Backend, frontend, mobile, and QA, sized to a release rather than to a headcount target.",
-      },
-      {
-        title: "Build, then stay",
-        body: "A team implements a Fintiq platform and leaves people on the roadmap after go-live.",
-      },
-      {
-        title: "A retainer",
-        body: "Production fixes and small changes, with handover notes when someone rolls off.",
-      },
+      { title: "Scope the seat", body: "Role, tools, and the first month’s backlog." },
+      { title: "Land and ship", body: "First delivery in your environment — not ramp training." },
+      { title: "Extend or hand over", body: "Keep the squad, or a clean exit." },
     ],
-    products: ["paybridge", "corporate-onboarding", "card-management", "agent-banking", "operations-back-office"],
+    products: products.map((p) => p.slug),
   },
   {
     slug: "production-support",
     name: "Production support",
     eyebrow: "Run",
     summary: "Releases, monitoring, and a named contact after go-live.",
-    audience:
-      "The team that owns the live service and wants releases, logs, and a person to call when a callback stops arriving.",
-    outcome:
-      "A release path, something to look at when a payment or a KYC case stalls, and a named contact.",
+    audience: "Institutions that need cover when the channel is live.",
+    outcome: "Stable releases and a clear path when something breaks.",
     capabilities: [
-      {
-        title: "Environments that match",
-        body: "Docker-based delivery so test and production are the same shape, with secrets kept out of the repository.",
-      },
-      {
-        title: "Releases",
-        body: "A known path from the branch you approved to the host that serves customers.",
-      },
-      {
-        title: "Something to look at",
-        body: "Health, logs, and the failed payments or KYC cases that need a person.",
-      },
-      {
-        title: "A named contact",
-        body: "After go-live the question has a destination. Runbooks travel with the release.",
-      },
+      { title: "Environments that match", body: "Parity between what you tested and what you run." },
+      { title: "Releases", body: "Controlled changes with notes of what moved." },
+      { title: "Named contact", body: "Someone accountable when operations needs an answer." },
     ],
     journey: [
-      {
-        title: "Agree the window",
-        body: "Hours, severity, and who on your side can approve a production change.",
-      },
-      {
-        title: "Watch the live paths",
-        body: "Callbacks, sign-in, and the queue your operators actually use.",
-      },
-      {
-        title: "Fix forward",
-        body: "A change ships the same way the platform shipped, with a note of what moved.",
-      },
-      {
-        title: "Hand back when you want",
-        body: "Your team can take the runbooks. We can stay on a retainer. Both are a planned step.",
-      },
+      { title: "Agree the window", body: "Coverage hours and severity paths." },
+      { title: "Watch the live paths", body: "Callbacks, sign-in, and the queues operators use." },
+      { title: "Fix forward", body: "Ship the change the same way the platform shipped." },
     ],
-    products: ["paybridge", "card-management", "core-switch", "operations-back-office"],
+    products: products.map((p) => p.slug),
   },
 ]
 
 export const buyers: Buyer[] = [
   {
     title: "Banks",
-    body: "Entity accounts, cards, agent channels, and a clean API in front of the core.",
+    body: "Corporate banking, cards, remittance, and lending platforms connected to your core.",
     platforms: [
-      { slug: "corporate-onboarding", label: "Corporate Onboarding" },
-      { slug: "card-management", label: "Card Management" },
-      { slug: "core-switch", label: "Core Switch" },
+      { slug: "corporate-banking", label: "Corporate Banking" },
+      { slug: "card-payment-system", label: "Card Payment System" },
+      { slug: "loan-origination-system", label: "LOS" },
     ],
   },
   {
-    title: "Wallets",
-    body: "Agent cash, partner KYC on phone, one ops console after launch.",
+    title: "Wallets & branchless",
+    body: "Agent, consumer, and wallet channels with payment and cash controls behind them.",
     platforms: [
-      { slug: "agent-banking", label: "Agent Banking" },
-      { slug: "corporate-onboarding", label: "Corporate Onboarding" },
-      { slug: "operations-back-office", label: "Operations Back Office" },
+      { slug: "payment-gateway", label: "Payment Gateway" },
+      { slug: "cash-management-system", label: "Cash Management" },
+      { slug: "remittance-system", label: "Remittance" },
     ],
   },
   {
-    title: "Payments & collections",
-    body: "Merchant gateway: invoices, checkout, settlement, and disbursement on local rails.",
+    title: "Lending businesses",
+    body: "Originate and service the book with LOS and LMS that share one operating model.",
     platforms: [
-      { slug: "paybridge", label: "PayBridge" },
-      { slug: "operations-back-office", label: "Operations Back Office" },
+      { slug: "loan-origination-system", label: "LOS" },
+      { slug: "loan-management-system", label: "LMS" },
     ],
   },
 ]
 
 export const reasons: Block[] = [
   {
-    title: "You stay the system of record",
-    body: "Fintiq builds the channel. Funds and account decisions stay with the institution.",
+    title: "Technology partner, not a licensee claim",
+    body: "FintiQ builds platforms. Licensed institutions keep funds and regulated decisions.",
   },
   {
-    title: "White-label per institution",
-    body: "Name, colors, and the core behind it are yours. The platform stays.",
+    title: "Secure, scalable architecture",
+    body: "Structured systems for payments, wallets, lending, and financial operations.",
   },
   {
-    title: "The app integrates once",
-    body: "One channel API. Core changes stay behind the switch.",
+    title: "Integration-ready",
+    body: "APIs and channel layers that sit cleanly in front of banking infrastructure.",
   },
   {
-    title: "Local rails, SBP-aligned onboarding",
-    body: "JazzCash, Easypaisa, PayFast, and entity opening under the SBP framework.",
+    title: "Governance-aware delivery",
+    body: "Clear milestones, UAT journeys, and audit trails operations can defend.",
   },
 ]
 
 export const delivery: Block[] = [
   {
     title: "Domain-ready from week one",
-    body: "Payments, KYC, cards, agent channels — already shipped. Short ramp.",
+    body: "Payments, cards, wallets, remittance, and lending — already shipped. Short ramp.",
+  },
+  {
+    title: "Agentic AI in the build",
+    body: "We use agentic AI where it speeds analysis, testing, and delivery — with humans accountable for release.",
   },
   {
     title: "UAT sets the clock",
-    body: "Done means a live payment, account, card, or transfer. That journey is the plan.",
-  },
-  {
-    title: "One contract for the app",
-    body: "App and portal build on Fintiq. Core and rails stay behind.",
+    body: "Done means a live payment, transfer, card, or loan journey. That path is the plan.",
   },
   {
     title: "Support after go-live",
@@ -665,7 +566,7 @@ export const delivery: Block[] = [
 export const engagements: Block[] = [
   {
     title: "One specialist",
-    body: "A named engineer in your stand-up, fluent in payments, onboarding, or cards.",
+    body: "A named engineer in your stand-up, fluent in payments, cards, or lending.",
   },
   {
     title: "A squad",
@@ -673,7 +574,7 @@ export const engagements: Block[] = [
   },
   {
     title: "Build, then stay",
-    body: "Ship a Fintiq platform, pass UAT, keep people on the roadmap.",
+    body: "Ship a FintiQ platform, pass UAT, keep people on the roadmap.",
   },
   {
     title: "A retainer",
@@ -684,94 +585,92 @@ export const engagements: Block[] = [
 export const roles = [
   "Java and Spring Boot",
   "React",
-  "Android KYC and agent apps",
+  "Android agent and wallet apps",
   "Payment integration",
   "QA and UAT",
   "DevOps",
   "Banking business analysis",
+  "AI-assisted delivery",
 ]
 
 export const work: CaseStudy[] = [
   {
-    title: "Institutional collections",
-    problem: "Invoice and collect on local rails without three tools at month end.",
-    shipped: "Portals, JazzCash / Easypaisa / PayFast, MDR, settlement, two-call API.",
+    title: "Institutional payment gateway",
+    problem: "Collections, settlement, and merchant ops lived in separate tools.",
+    shipped: "Payment gateway with merchant portal, checkout, and settlement desk.",
     result: "Institution runs the merchant book. Platform runs the payment path.",
   },
   {
-    title: "Corporate onboarding for a bank",
-    problem: "Entity accounts still meant a branch visit and paper per partner.",
-    shipped: "Firm portal, partner app (CNIC, selfie, NADRA), ops review, provisioning.",
-    result: "Tracking ID for the applicant. Bank keeps the decision.",
+    title: "Corporate banking portal",
+    problem: "Business clients needed approvals and bulk payments without branch friction.",
+    shipped: "Corporate portal with maker-checker flows wired to the core.",
+    result: "Corporate ops signed a live payment journey in UAT.",
   },
   {
-    title: "Channel in front of the core",
-    problem: "New mobile channel on a core built for branch screens.",
-    shipped: "Channel API, sandbox, Postman — then the same contract to the core.",
-    result: "App integrated once. Core kept balances and postings.",
+    title: "Lending stack",
+    problem: "Origination and servicing were split across spreadsheets and legacy screens.",
+    shipped: "LOS into LMS with a shared operating model for the lending desk.",
+    result: "Application through repayment tracked in one governed pipeline.",
   },
 ]
 
 export const railPartners = [
-  { name: "JazzCash", note: "Wallet collection" },
-  { name: "Easypaisa", note: "Wallet collection" },
-  { name: "PayFast", note: "Account collection" },
-  { name: "NADRA", note: "Identity check" },
+  { name: "Payment rails", note: "Collection & payout" },
+  { name: "Core banking", note: "System of record" },
+  { name: "Identity", note: "KYC checks" },
+  { name: "Card networks", note: "Issuance paths" },
 ]
 
 export const integrations: (Block & { href: string })[] = [
   {
-    title: "PayBridge, two calls",
-    body: "Create and initiate, then status. Same shape in test and live.",
-    href: "/products/paybridge",
+    title: "Payment Gateway API",
+    body: "Create, initiate, and read status — same shape in test and live.",
+    href: "/products/payment-gateway",
   },
   {
-    title: "WooCommerce plugin",
-    body: "Storefront checkout through the merchant platform you already run.",
-    href: "/products/paybridge",
+    title: "Corporate banking channel",
+    body: "Approvals and bulk payments against a documented contract.",
+    href: "/products/corporate-banking",
   },
   {
-    title: "Core Switch sandbox",
-    body: "Health, OTP, test data, and Postman — then the same contract to the core.",
-    href: "/products/core-switch",
+    title: "Lending handoff",
+    body: "LOS decision into LMS servicing without a spreadsheet bridge.",
+    href: "/products/loan-origination-system",
   },
 ]
 
 export const insights: Insight[] = [
   {
-    slug: "entity-onboarding-framework",
-    eyebrow: "Onboarding",
-    title: "Entity opening under the SBP framework",
-    summary: "Entity type, partner KYC, review queue — institution keeps the decision.",
+    slug: "technology-partner-in-regulated-markets",
+    eyebrow: "Governance",
+    title: "Building as a technology partner in regulated markets",
+    summary: "Platforms for institutions that keep the license, the ledger, and the decision.",
     paragraphs: [
-      "The SBP consolidated customer-onboarding framework describes how an entity account is opened: who the customer is, which documents belong to that entity type, how risk is rated, and how a decision is recorded. A form that only asks for a trade name does not meet that bar.",
-      "Corporate Onboarding models four entity types: sole proprietorship, small business, partnership, and LLP. The lead files the entity in a web portal. Each partner is invited into a mobile app, confirms with a one-time PIN, and completes CNIC, a selfie, and a NADRA fingerprint check. The check is the record. The fingerprint image is not stored.",
-      "Operations reviews sanctions, identity, and documents against a tracking ID. Approval is what provisions the account. The regulated institution remains the system of record for that decision and for the funds that follow. High-risk files carry extra review notes, and a draft can be resumed.",
-      "The same platform takes each institution’s name, colors, app link, and the account system it must provision into. Delivery is engineering against the framework. It is not a claim that Fintiq holds an EMI, PSO, or PSP license.",
+      "Fintech systems must operate reliably and handle financial data in a structured way. FintiQ builds platforms that support controlled financial workflows while aligning with regulated environments.",
+      "We operate strictly as a technology development partner. Licensed financial institutions remain the system of record for customer funds and for regulated decisions such as account opening and credit approval.",
+      "Delivery is measured by a real UAT journey — a payment, transfer, card, or loan path signed by the institution’s operators — not by slide decks alone.",
     ],
   },
   {
-    slug: "merchant-collections-on-local-rails",
-    eyebrow: "Collections",
-    title: "Collections on JazzCash, Easypaisa, PayFast",
-    summary: "Processor per merchant. Checkout, settlement, and disbursement in one book.",
+    slug: "agentic-ai-in-fintech-delivery",
+    eyebrow: "AI",
+    title: "Agentic AI that speeds delivery without skipping governance",
+    summary: "Faster analysis, tests, and documentation — with humans accountable for release.",
     paragraphs: [
-      "A merchant collection platform fails when the storefront, the gateway, and the settlement file are three products. PayBridge keeps the invoice, the hosted checkout, the merchant’s allowed processors, and what the merchant is owed in one book.",
-      "JazzCash, Easypaisa, and PayFast are already in the product. Merchant configuration chooses the processor. The storefront does not hard-code a rail, and a second merchant can clear on a different one.",
-      "The collection API is two calls: create and initiate, then status. The merchant supplies a callback URL and handles the response. The same shape works in test and live. A WooCommerce plugin lets an online store use the platform the merchant portal already runs.",
-      "MDR, settlement, and disbursement sit next to the collection, so finance is not closing the month in a spreadsheet. The institution invites merchants and runs the book from the admin console.",
+      "We use agentic AI to accelerate engineering work: exploring APIs, drafting tests, reviewing diffs, and preparing release notes so squads spend more time on the journeys that matter.",
+      "Appropriate use means AI assists the build. Release authority, access to production, and regulated decisions stay with people and with the licensed institution.",
+      "The result is shorter cycles on platform implementation and integration work, without weakening the audit trail operations and compliance expect.",
     ],
   },
   {
-    slug: "agent-app-one-host",
-    eyebrow: "Agent banking",
-    title: "Agent app, one host",
-    summary: "Device, balance, transfer, cash — via Fintiq. Core keeps the funds.",
+    slug: "channels-behind-one-operating-model",
+    eyebrow: "Channels",
+    title: "Agent, consumer, wallet, and portals on one operating model",
+    summary: "Channels differ. The books, rails, and controls behind them should not.",
     paragraphs: [
-      "An agent app becomes expensive when every screen knows a different core address. Agent Banking gives the Android team one base URL. Login, device OTP, registration, balance, limits, QR, IBFT, wallet-to-wallet, bills, and cash-in or cash-out are accepted there.",
-      "The API keeps device and session logic. Payment calls are forwarded to the institution’s transaction platform. The app does not become a second ledger, and the core stays the system of record for the movement of funds.",
-      "When the core is down or changing, the app still builds against the same contract. The first UAT is a login, a balance, and one successful transfer. Failed and duplicate cases follow.",
-      "Core Switch is the same idea for a bank mobile channel that is not an agent app: a sandbox with health, OTP, and a Postman collection, then the same contract turned toward the core. The app team integrates once.",
+      "Agent banking, consumer banking, and wallet banking are how customers and agents meet the institution. Merchant and corporate portals are how businesses operate day to day.",
+      "FintiQ represents those channels on top of shared platforms — payment gateway, cards, cash, remittance, and lending — so each channel does not invent its own ledger.",
+      "The first UAT is always a real journey on the channel in scope, with core and rails still behind the platform.",
     ],
   },
 ]
@@ -785,7 +684,7 @@ export type NavItem = {
 export const navigation: NavItem[] = [
   {
     href: "/products",
-    label: "Platforms",
+    label: "Solutions",
     children: products.map((product) => ({
       href: `/products/${product.slug}`,
       label: product.name,
@@ -801,8 +700,10 @@ export const navigation: NavItem[] = [
       note: service.eyebrow,
     })),
   },
+  { href: "/delivery", label: "Delivery" },
   { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
+  { href: "/about", label: "About Us" },
+  { href: "/contact", label: "Contact Us" },
 ]
 
 export function getProduct(slug: string) {
@@ -815,4 +716,8 @@ export function getService(slug: string) {
 
 export function getInsight(slug: string) {
   return insights.find((insight) => insight.slug === slug)
+}
+
+export function getChannel(slug: string) {
+  return channels.find((channel) => channel.slug === slug)
 }

@@ -4,15 +4,15 @@
   --ink: #102458;
   --ink-raised: #0b1c40;
   --paper: #ffffff;
-  --paper-deep: #c5d6ea;
+  --paper-deep: #e8eef6;
   --signal: #00b0a4;
   --signal-deep: #087f78;
   --mist: #5c6d86;
   --line: rgb(16 36 88 / 0.12);
   --grad-brand: linear-gradient(110deg, #102458 0%, #0c6484 52%, #00b0a4 120%);
   --grad-brand-soft: linear-gradient(145deg, #102458 0%, #16366a 48%, #087f78 100%);
-  --grad-paper: linear-gradient(180deg, #d7e4f4 0%, #c5d6ea 48%, #b8cce3 100%);
-  --grad-glow: radial-gradient(ellipse at 70% 20%, rgb(0 176 164 / 0.28), transparent 55%);
+  --grad-paper: linear-gradient(180deg, #f4f7fb 0%, #e8eef6 48%, #dde6f2 100%);
+  --grad-glow: radial-gradient(ellipse at 70% 10%, rgb(0 176 164 / 0.12), transparent 50%);
 }
 
 @theme inline {
@@ -28,6 +28,25 @@
   --font-sans: var(--font-jakarta), sans-serif;
   --font-display: var(--font-jakarta), sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+.font-brand {
+  font-family: var(--font-space-grotesk), var(--font-jakarta), system-ui, sans-serif;
+}
+
+.brand-wordmark {
+  background-image: linear-gradient(105deg, #071530 0%, #102458 38%, #0c6484 72%, #00b0a4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 1px 0 rgb(16 36 88 / 0.06));
+}
+
+.brand-q {
+  background-image: linear-gradient(160deg, #00d4c6 0%, #00b0a4 55%, #087f78 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 html {
@@ -204,6 +223,21 @@ h3 {
   color: transparent;
 }
 
+/* Solid navy titles on light surfaces — gradient clip was washing out / painting blocks */
+.product-title {
+  color: #102458;
+  letter-spacing: -0.035em;
+}
+
+.product-title-accent {
+  display: block;
+  height: 3px;
+  width: 2.25rem;
+  margin-top: 0.55rem;
+  border-radius: 9999px;
+  background-image: linear-gradient(90deg, #102458 0%, #0c6484 48%, #00b0a4 100%);
+}
+
 .tone-mesh {
   background:
     radial-gradient(ellipse at 0% 0%, rgb(16 36 88 / 0.38), transparent 52%),
@@ -372,6 +406,144 @@ h3 {
   }
 }
 
+.hero-video-fallback {
+  background:
+    radial-gradient(ellipse at 75% 20%, rgb(0 176 164 / 0.4), transparent 42%),
+    radial-gradient(ellipse at 20% 80%, rgb(12 100 132 / 0.45), transparent 48%),
+    linear-gradient(145deg, #061228 0%, #102458 48%, #0a4f5c 100%);
+  background-size: 140% 140%;
+  animation: hero-fallback-pan 18s ease-in-out infinite alternate;
+}
+
+@keyframes hero-fallback-pan {
+  from {
+    background-position: 0% 40%;
+    filter: saturate(1);
+  }
+  to {
+    background-position: 100% 60%;
+    filter: saturate(1.15);
+  }
+}
+
+.hero-video-veil {
+  background:
+    linear-gradient(90deg, rgb(7 21 48 / 0.88) 0%, rgb(7 21 48 / 0.55) 48%, rgb(7 21 48 / 0.72) 100%),
+    linear-gradient(180deg, rgb(7 21 48 / 0.35) 0%, transparent 30%, rgb(7 21 48 / 0.75) 100%);
+}
+
+.scroll-cue {
+  animation: scroll-cue 2.2s ease-in-out infinite;
+}
+
+.product-stage {
+  isolation: isolate;
+}
+
+.product-stage-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at 70% 20%, black 20%, transparent 75%);
+}
+
+.product-stage-mock {
+  transform: translateZ(0);
+}
+
+.fintech-bubble {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  background:
+    radial-gradient(circle at 35% 28%, rgb(255 255 255 / 0.18), transparent 42%),
+    rgb(8 18 40 / 0.78);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.2),
+    0 0 0 1px rgb(0 0 0 / 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  text-align: center;
+  will-change: transform, opacity, filter;
+}
+
+.fintech-bubble-label {
+  font-family: var(--font-display);
+  font-size: clamp(0.65rem, 1.5vw, 0.95rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #fff;
+  padding: 0 0.4rem;
+}
+
+.fintech-bubble-note {
+  margin-top: 0.2rem;
+  font-family: var(--font-mono);
+  font-size: clamp(0.45rem, 0.9vw, 0.62rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.7);
+}
+
+.fintech-bubble-teal {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    0 0 28px rgb(0 176 164 / 0.45),
+    0 0 0 1px rgb(0 176 164 / 0.35);
+  border-color: rgb(0 176 164 / 0.55);
+}
+
+.fintech-bubble-cyan {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    0 0 28px rgb(46 230 197 / 0.4),
+    0 0 0 1px rgb(46 230 197 / 0.35);
+  border-color: rgb(46 230 197 / 0.5);
+}
+
+.fintech-bubble-blue {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    0 0 28px rgb(79 124 255 / 0.42),
+    0 0 0 1px rgb(79 124 255 / 0.35);
+  border-color: rgb(79 124 255 / 0.5);
+}
+
+.fintech-bubble-gold {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    0 0 28px rgb(232 184 109 / 0.4),
+    0 0 0 1px rgb(232 184 109 / 0.35);
+  border-color: rgb(232 184 109 / 0.5);
+}
+
+.fintech-bubble-steel {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    0 0 28px rgb(110 200 255 / 0.38),
+    0 0 0 1px rgb(110 200 255 / 0.32);
+  border-color: rgb(110 200 255 / 0.45);
+}
+
+
+@keyframes scroll-cue {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translateY(6px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
   .mock-bar,
@@ -380,7 +552,9 @@ h3 {
   .slide-progress,
   .live-dot,
   .float-card,
-  .ken-burns {
+  .ken-burns,
+  .hero-video-fallback,
+  .scroll-cue {
     animation: none;
   }
 

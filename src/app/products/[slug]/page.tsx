@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DetailView } from "@/components/story/DetailView";
-import { ProductMock } from "@/components/product/ProductMock";
+import { ProductStage } from "@/components/product/ProductStage";
 import { getProduct, getService, products } from "@/content/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -13,7 +13,14 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = getProduct((await params).slug);
   if (!product) return { title: "Product" };
-  return { title: product.name, description: product.summary };
+  return {
+    title: product.name,
+    description: product.summary,
+    openGraph: {
+      title: `${product.name} · FintiQ Solutions`,
+      description: product.promise,
+    },
+  };
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -35,8 +42,11 @@ export default async function ProductPage({ params }: Props) {
       blocks={product.capabilities}
       steps={product.journey}
       links={links}
+      themeSlug={product.slug}
+      architecture={product.architecture}
+      uat={product.uat}
     >
-      <ProductMock slug={product.slug} />
+      <ProductStage slug={product.slug} />
     </DetailView>
   );
 }

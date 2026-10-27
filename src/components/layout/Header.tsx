@@ -40,13 +40,13 @@ export function Header() {
       <div
         className={`border-b transition ${
           scrolled || mobile || open
-            ? "border-navy/10 bg-white/95 backdrop-blur-md"
-            : "border-transparent bg-white/80 backdrop-blur-md"
+            ? "border-navy/10 bg-white/98 shadow-[0_8px_30px_rgb(16_36_88/0.06)] backdrop-blur-md"
+            : "border-transparent bg-white/92 backdrop-blur-md"
         }`}
       >
-        <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6">
+        <div className="flex h-20 w-full items-center gap-5 pl-3 pr-3 sm:gap-6 sm:pl-4 sm:pr-5 lg:pl-5 lg:pr-6">
           <Logo />
-          <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary">
+          <nav className="ml-auto hidden items-center gap-5 xl:flex" aria-label="Primary">
             {navigation.map((item) =>
               item.children && item.children.length > 0 ? (
                 <MegaMenu
@@ -69,12 +69,12 @@ export function Header() {
               ),
             )}
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="ml-auto flex items-center gap-3 xl:ml-0">
             <Link
               href="/contact"
               className="shine-sweep hidden h-10 items-center justify-center rounded-full bg-[linear-gradient(110deg,#102458_0%,#0c6484_48%,#00b0a4_115%)] px-5 text-sm font-semibold text-white shadow-[0_12px_28px_rgb(16_36_88/0.22)] transition duration-150 ease-out hover:-translate-y-0.5 hover:brightness-110 hover:shadow-[0_16px_32px_rgb(0_176_164/0.25)] motion-reduce:transform-none xl:inline-flex"
             >
-              Talk to us
+              Contact Us
             </Link>
             <button
               type="button"
@@ -113,7 +113,7 @@ export function Header() {
               </div>
             ))}
             <Link href="/contact" className={`${buttonPrimary} mt-6 w-full`}>
-              Talk to us
+              Contact Us
             </Link>
           </nav>
         ) : null}

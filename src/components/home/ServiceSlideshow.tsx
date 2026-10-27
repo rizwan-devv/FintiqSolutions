@@ -26,12 +26,12 @@ export function ServiceSlideshow() {
   }
 
   return (
-    <section className="section-wash" aria-roledescription="carousel" aria-label="Fintiq services">
-      <div className="mx-auto max-w-6xl px-6 py-24">
+    <section className="section-wash" aria-roledescription="carousel" aria-label="FintiQ services">
+      <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <p className="font-mono text-[11px] uppercase text-signal-deep">Services</p>
-            <h2 className="mt-4 max-w-lg text-4xl md:text-5xl">
+            <h2 className="mt-3 max-w-lg text-4xl md:text-5xl">
               Platforms. <span className="text-gradient">People after go-live.</span>
             </h2>
           </div>

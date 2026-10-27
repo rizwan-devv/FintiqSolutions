@@ -12,20 +12,21 @@ export function WorkSlideshow() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [direction, setDirection] = useState(1);
-  const item = work[index];
+  const items = work.slice(0, 3);
+  const item = items[index];
 
   useEffect(() => {
     if (reduce || paused) return;
     const id = window.setInterval(() => {
       setDirection(1);
-      setIndex((current) => (current + 1) % work.length);
+      setIndex((current) => (current + 1) % items.length);
     }, SLIDE_MS);
     return () => window.clearInterval(id);
-  }, [reduce, paused, index]);
+  }, [reduce, paused, index, items.length]);
 
   function go(next: number) {
-    const normalized = (next + work.length) % work.length;
-    const delta = (normalized - index + work.length) % work.length;
+    const normalized = (next + items.length) % items.length;
+    const delta = (normalized - index + items.length) % items.length;
     setDirection(delta > 0 && delta <= work.length / 2 ? 1 : -1);
     setIndex(normalized);
   }
@@ -38,14 +39,14 @@ export function WorkSlideshow() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="mx-auto max-w-6xl px-6 py-24">
+      <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <p className="font-mono text-[11px] uppercase text-signal-deep">Work</p>
-            <h2 className="mt-4 max-w-2xl font-display text-5xl tracking-tight">What shipped, and what changed.</h2>
+            <h2 className="mt-3 max-w-2xl font-display text-4xl tracking-tight md:text-5xl">Selected work.</h2>
           </div>
           <Link href="/work" className="draw-link text-sm font-semibold text-signal-deep">
-            All {work.length} engagements
+            All work →
           </Link>
         </div>
 
@@ -63,22 +64,22 @@ export function WorkSlideshow() {
             >
               <div className="md:col-span-4">
                 <p className="font-mono text-sm text-teal">
-                  {String(index + 1).padStart(2, "0")} / {String(work.length).padStart(2, "0")}
+                  {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
                 </p>
-                <h3 className="mt-4 font-display text-4xl">{item.title}</h3>
+                <h3 className="mt-3 font-display text-3xl md:text-4xl">{item.title}</h3>
               </div>
-              <dl className="grid gap-6 md:col-span-8">
+              <dl className="grid gap-4 md:col-span-8">
                 <div>
                   <dt className="font-mono text-[11px] uppercase text-white/55">Problem</dt>
-                  <dd className="mt-2 text-lg leading-8 text-white/85">{item.problem}</dd>
+                  <dd className="mt-1 leading-7 text-white/85">{item.problem}</dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-[11px] uppercase text-white/55">What we shipped</dt>
-                  <dd className="mt-2 leading-7 text-white/85">{item.shipped}</dd>
+                  <dt className="font-mono text-[11px] uppercase text-white/55">Shipped</dt>
+                  <dd className="mt-1 leading-7 text-white/85">{item.shipped}</dd>
                 </div>
                 <div>
                   <dt className="font-mono text-[11px] uppercase text-white/55">Result</dt>
-                  <dd className="mt-2 text-lg leading-8 text-white">{item.result}</dd>
+                  <dd className="mt-1 leading-7 text-white">{item.result}</dd>
                 </div>
               </dl>
             </motion.article>
@@ -95,7 +96,7 @@ export function WorkSlideshow() {
             ←
           </button>
           <div className="flex flex-1 gap-2">
-            {work.map((study, studyIndex) => (
+            {items.map((study, studyIndex) => (
               <button
                 key={study.title}
                 type="button"

@@ -10,31 +10,21 @@ export const metadata: Metadata = {
   description: "Fintiq Solutions builds and staffs digital banking and payments platforms.",
 };
 
-const paragraphs = [
-  "Fintiq Solutions is a product and engineering company for institutions that move money.",
-  "We build platforms we can brand for a client, and we place engineers into a team that already has a backlog.",
-  "The work spans merchant collections, entity onboarding, cards, agent banking, and the integration layer in front of a core.",
-  "We work with compliance, operations, and the vendors already in the room. The regulated institution remains the institution.",
-];
-
 export default function AboutPage() {
   return (
     <main>
-      <header className="mx-auto max-w-6xl px-6 pb-16 pt-36">
+      <header className="mx-auto max-w-6xl px-6 pb-10 pt-36">
         <p className="font-mono text-[11px] uppercase text-signal-deep">About</p>
-        <h1 className="mt-4 max-w-3xl font-display text-5xl tracking-tight md:text-7xl">
-          Software for the desk that has to move the money.
+        <h1 className="mt-3 max-w-3xl font-display text-5xl tracking-tight md:text-6xl">
+          Software for the desk that moves money.
         </h1>
+        <p className="mt-5 max-w-2xl text-lg leading-8 text-mist">
+          Platforms you can brand, domain-ready engineers, delivery measured by UAT.
+          The institution stays the system of record.
+        </p>
       </header>
-      <section className="text-ink">
-        <div className="mx-auto max-w-3xl space-y-6 px-6 py-20 text-lg leading-8">
-          {paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
-      </section>
       <section className="bg-paper-deep">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 md:grid-cols-2">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-14 md:grid-cols-2">
           <Image
             src="/brand/letterhead.png"
             alt="Fintiq Solutions letterhead"
@@ -44,16 +34,16 @@ export default function AboutPage() {
           />
           <div>
             <p className="font-mono text-[11px] uppercase text-signal-deep">Registered office</p>
-            <h2 className="mt-3 font-display text-4xl text-navy">{company.legalName}</h2>
-            <p className="mt-4 text-lg leading-8 text-mist">
+            <h2 className="mt-3 font-display text-3xl text-navy">{company.legalName}</h2>
+            <p className="mt-3 leading-7 text-mist">
               {company.lines[0]}
               <br />
               {company.lines[1]}
             </p>
-            <div className="mt-6">
+            <div className="mt-5">
               <ContactEmails />
             </div>
-            <Link href="/contact" className={`${buttonPrimary} mt-8`}>
+            <Link href="/contact" className={`${buttonPrimary} mt-6`}>
               Talk to us
             </Link>
           </div>

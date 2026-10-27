@@ -14,11 +14,11 @@ export function PlatformRail() {
 
   return (
     <section className="border-b border-navy/10 bg-paper-deep" aria-label="Platform rail">
-      <div className="mx-auto max-w-6xl px-6 pt-16">
+      <div className="mx-auto max-w-6xl px-6 pt-12">
         <div className="flex items-end justify-between gap-6">
           <div>
             <p className="font-mono text-[11px] uppercase text-signal-deep">Platforms</p>
-            <h2 className="mt-3 font-display text-4xl tracking-tight md:text-5xl">Pick a channel. Open the product.</h2>
+            <h2 className="mt-2 font-display text-3xl tracking-tight md:text-4xl">Six platforms.</h2>
           </div>
           <Link href="/products" className="draw-link shrink-0 text-sm font-semibold text-signal-deep">
             See all →

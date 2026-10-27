@@ -32,7 +32,7 @@ export function ServiceSlideshow() {
           <div>
             <p className="font-mono text-[11px] uppercase text-signal-deep">Services</p>
             <h2 className="mt-4 max-w-lg text-4xl md:text-5xl">
-              Platforms to start. <span className="text-gradient">People to stay live.</span>
+              Platforms. <span className="text-gradient">People after go-live.</span>
             </h2>
           </div>
           <div className="flex items-center gap-3">

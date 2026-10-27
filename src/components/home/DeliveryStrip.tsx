@@ -5,17 +5,17 @@ export function DeliveryStrip() {
   return (
     <section className="panel-gradient-rich relative overflow-hidden text-white">
       <div className="aurora pointer-events-none absolute right-0 top-0 size-80 rounded-full blur-3xl opacity-40" aria-hidden="true" />
-      <div className="relative mx-auto max-w-6xl px-6 py-20">
+      <div className="relative mx-auto max-w-6xl px-6 py-16">
         <Reveal>
           <p className="font-mono text-[11px] uppercase text-teal">How we deliver</p>
-          <h2 className="mt-4 max-w-2xl font-display text-4xl tracking-tight md:text-5xl">
-            Fast ramp. Clear UAT. Live channel.
+          <h2 className="mt-3 max-w-2xl font-display text-4xl tracking-tight md:text-5xl">
+            Faster delivery. Clear time.
           </h2>
-          <p className="mt-4 max-w-xl text-white/75">
-            People who already know the domain, a journey that counts as done, and cover after go-live.
+          <p className="mt-3 max-w-xl text-white/75">
+            Domain-ready people. UAT as the clock. Cover after go-live.
           </p>
         </Reveal>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {delivery.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.05}>
               <article className="glass-panel h-full rounded-[1.5rem] p-6">

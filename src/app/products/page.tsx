@@ -13,10 +13,10 @@ export default function ProductsPage() {
     <main className="mx-auto max-w-6xl px-6 pb-24 pt-36">
       <p className="font-mono text-[11px] uppercase text-signal-deep">Platforms</p>
       <h1 className="mt-4 max-w-3xl font-display text-5xl tracking-tight md:text-7xl">
-        Six platforms. Brand one, or run several together.
+        Six platforms. Brand one.
       </h1>
       <p className="mt-6 max-w-xl text-lg leading-8 text-mist">
-        Each one is software you can skin, connect to your core, and hand to operations.
+        Skin it, connect your core, hand it to operations.
       </p>
       <div className="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {products.map((product, index) => {

@@ -32,7 +32,7 @@ export function InsightsShelf() {
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-24 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <p className="font-mono text-[11px] uppercase text-signal-deep">Insights</p>
-          <h2 className="mt-4 font-display text-5xl tracking-tight">Notes from the work.</h2>
+          <h2 className="mt-4 font-display text-5xl tracking-tight">Insights.</h2>
           <div className="mt-8 flex flex-col gap-2">
             {insights.map((item, itemIndex) => (
               <button
@@ -66,9 +66,8 @@ export function InsightsShelf() {
                 <p className="font-mono text-[11px] uppercase text-teal">{insight.eyebrow}</p>
                 <h3 className="mt-4 font-display text-4xl">{insight.title}</h3>
                 <p className="mt-4 text-lg leading-8 text-white/85">{insight.summary}</p>
-                <p className="mt-4 leading-7 text-white/75">{insight.paragraphs[0]}</p>
                 <Link href={`/insights/${insight.slug}`} className="draw-link mt-8 inline-flex text-sm font-semibold text-white">
-                  Read the note
+                  Read the note →
                 </Link>
               </div>
             </motion.article>

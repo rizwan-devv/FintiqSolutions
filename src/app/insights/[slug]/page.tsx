@@ -19,36 +19,22 @@ export default async function InsightPage({ params }: Props) {
   const insight = getInsight((await params).slug);
   if (!insight) notFound();
 
-  const others = insights.filter((item) => item.slug !== insight.slug);
-
   return (
-    <main className="mx-auto max-w-3xl px-6 pb-24 pt-36">
+    <main className="mx-auto max-w-3xl px-6 pb-20 pt-36">
       <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-signal-deep">{insight.eyebrow}</p>
-      <h1 className="mt-4 font-display text-5xl tracking-tight">{insight.title}</h1>
-      <p className="mt-6 text-lg leading-8 text-ink/75">{insight.summary}</p>
-      <div className="mt-10 space-y-6">
-        {insight.paragraphs.map((paragraph) => (
+      <h1 className="mt-3 font-display text-4xl tracking-tight md:text-5xl">{insight.title}</h1>
+      <p className="mt-5 text-lg leading-8 text-ink/75">{insight.summary}</p>
+      <div className="mt-8 space-y-5">
+        {insight.paragraphs.slice(0, 2).map((paragraph) => (
           <p key={paragraph.slice(0, 24)} className="leading-8 text-ink/85">
             {paragraph}
           </p>
         ))}
       </div>
-      <div className="mt-16 border-t border-navy/10 pt-10">
-        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-mist">More notes</p>
-        <ul className="mt-4 space-y-3">
-          {others.map((item) => (
-            <li key={item.slug}>
-              <Link href={`/insights/${item.slug}`} className="text-navy hover:text-signal-deep">
-                {item.title}
-              </Link>
-            </li>
-          ))}
-          <li>
-            <Link href="/insights" className="text-sm font-semibold text-signal-deep">
-              All insights
-            </Link>
-          </li>
-        </ul>
+      <div className="mt-12 border-t border-navy/10 pt-8">
+        <Link href="/work" className="text-sm font-semibold text-signal-deep">
+          ← Back to work
+        </Link>
       </div>
     </main>
   );

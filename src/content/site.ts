@@ -64,12 +64,9 @@ export const products: Product[] = [
     name: "PayBridge",
     eyebrow: "Merchant collections",
     promise: "Collect, invoice, disburse, and settle.",
-    summary:
-      "A branded merchant payment platform for invoices, hosted checkout, local rails, settlement, and disbursement. Merchant configuration chooses the processor.",
-    audience:
-      "Payment companies, banks that want their own internet payment gateway, and institutions that collect fees at scale.",
-    outcome:
-      "A merchant self-service stack with an admin console, an open collection API, and a checkout path that stays separate from the back office.",
+    summary: "Invoices, hosted checkout, local rails, MDR, settlement, and disbursement — processor chosen per merchant.",
+    audience: "Payment companies, banks with their own IPG, and institutions that collect fees.",
+    outcome: "Merchant portal, admin console, and a two-call collection API, separate from the back office.",
     capabilities: [
       {
         title: "Merchant and admin portals",
@@ -117,12 +114,9 @@ export const products: Product[] = [
     name: "Corporate Onboarding",
     eyebrow: "Entity accounts",
     promise: "Open entity accounts without a branch visit.",
-    summary:
-      "A web portal for the business and a mobile app for every person who must complete KYC themselves. Operations reviews the case, then approval provisions the account.",
-    audience:
-      "Banks, branchless-banking providers, and EMIs opening accounts for sole proprietors, small businesses, partnerships, and LLPs.",
-    outcome:
-      "Branchless entity onboarding that an operations desk can approve, with each partner completing their own KYC and a tracking ID the applicant can follow.",
+    summary: "Firm portal plus partner app for KYC. Ops reviews; approval provisions the account.",
+    audience: "Banks, wallets, and EMIs opening entity accounts without a branch visit.",
+    outcome: "Branchless entity onboarding with partner KYC and a tracking ID ops can approve.",
     capabilities: [
       {
         title: "Entity types already modeled",
@@ -170,12 +164,9 @@ export const products: Product[] = [
     name: "Card Management",
     eyebrow: "Issuance and servicing",
     promise: "Issue and service cards under one control plane.",
-    summary:
-      "The card desk and the cardholder app share one system: request, approval, generation, limits, PIN, status, and an audit of who changed what.",
-    audience:
-      "Banks and wallet companies that issue cards and need the legacy card rules preserved in a system their own teams can run.",
-    outcome:
-      "One control plane for issuance and servicing, with card data protected at rest and a separate API for the cardholder app.",
+    summary: "One control plane for request, approval, generation, limits, PIN, and status.",
+    audience: "Banks and wallets that issue cards and need the desk and app on one system.",
+    outcome: "Issuance and servicing with PAN protected at rest and a separate app API.",
     capabilities: [
       {
         title: "Request through to a live card",
@@ -223,12 +214,9 @@ export const products: Product[] = [
     name: "Agent Banking",
     eyebrow: "Agent channel",
     promise: "Give agents a wallet, payments, and cash movement.",
-    summary:
-      "One API surface for the agent app: device binding, balance, limits, QR, transfers, bills, and cash in or out. Money movement continues to the core. The app talks only to Fintiq.",
-    audience:
-      "Institutions whose agents or corporate users cash in, cash out, transfer, and pay bills from an Android app.",
-    outcome:
-      "A stable app backend the institution owns, with the existing transaction platform still the system of record for the payment.",
+    summary: "One API for the agent app: device, balance, QR, transfers, bills, cash in/out.",
+    audience: "Institutions whose agents cash in, transfer, and pay bills from Android.",
+    outcome: "App talks only to Fintiq. Core stays the system of record for funds.",
     capabilities: [
       {
         title: "Login and the device",
@@ -272,12 +260,9 @@ export const products: Product[] = [
     name: "Core Switch",
     eyebrow: "Channel integration",
     promise: "Put a stable API between the app and the core.",
-    summary:
-      "A channel layer in front of the core banking system. The mobile team integrates once. Core screens and core changes stay behind the switch.",
-    audience:
-      "Banks fitting a new mobile channel onto a core that was not designed for that app.",
-    outcome:
-      "The app team builds against a documented sandbox, then the same contract turns toward the real core.",
+    summary: "Channel API in front of the core. Mobile team integrates once.",
+    audience: "Banks putting a new mobile channel on a core built for branch screens.",
+    outcome: "Sandbox first, then the same contract toward the live core.",
     capabilities: [
       {
         title: "A channel API",
@@ -321,12 +306,9 @@ export const products: Product[] = [
     name: "Operations Back Office",
     eyebrow: "Control room",
     promise: "Run customers, KYC, money movement, and audit from one console.",
-    summary:
-      "The console for the team that runs a live wallet or payments product: customers, the KYC queue, wallets, transactions, callbacks, roles, and an audit log.",
-    audience:
-      "Operations, finance, and compliance teams who currently share spreadsheets and direct database access.",
-    outcome:
-      "One console, with personal data masked for staff who should not see the full record, and a trail of who did what.",
+    summary: "Customers, KYC queue, wallets, transactions, callbacks, roles, and audit — one console.",
+    audience: "Ops, finance, and compliance running a live wallet or payments product.",
+    outcome: "One console with PII masking and a clear audit trail.",
     capabilities: [
       {
         title: "Customers and KYC",
@@ -624,8 +606,8 @@ export const buyers: Buyer[] = [
     ],
   },
   {
-    title: "Wallets and branchless banking",
-    body: "Agent cash movement, partner KYC on a phone, and one operations console after launch.",
+    title: "Wallets",
+    body: "Agent cash, partner KYC on phone, one ops console after launch.",
     platforms: [
       { slug: "agent-banking", label: "Agent Banking" },
       { slug: "corporate-onboarding", label: "Corporate Onboarding" },
@@ -633,17 +615,12 @@ export const buyers: Buyer[] = [
     ],
   },
   {
-    title: "Payment companies",
-    body: "Your own merchant gateway: invoices, checkout, settlement, and disbursement.",
+    title: "Payments & collections",
+    body: "Merchant gateway: invoices, checkout, settlement, and disbursement on local rails.",
     platforms: [
       { slug: "paybridge", label: "PayBridge" },
       { slug: "operations-back-office", label: "Operations Back Office" },
     ],
-  },
-  {
-    title: "Institutions that collect fees",
-    body: "Invoices and reconciliation the finance desk can see, on local rails.",
-    platforms: [{ slug: "paybridge", label: "PayBridge" }],
   },
 ]
 
@@ -669,19 +646,19 @@ export const reasons: Block[] = [
 export const delivery: Block[] = [
   {
     title: "Domain-ready from week one",
-    body: "Engineers who already ship payments, KYC, cards, and agent channels. Ramp time stays short.",
+    body: "Payments, KYC, cards, agent channels — already shipped. Short ramp.",
   },
   {
     title: "UAT sets the clock",
-    body: "A real payment, account, card, or transfer is the acceptance case. Delivery is measured against that journey.",
+    body: "Done means a live payment, account, card, or transfer. That journey is the plan.",
   },
   {
     title: "One contract for the app",
-    body: "Mobile and portal teams build against Fintiq. Core and rails stay behind the platform.",
+    body: "App and portal build on Fintiq. Core and rails stay behind.",
   },
   {
     title: "Support after go-live",
-    body: "Production cover, a squad that stays, or a specialist on your backlog.",
+    body: "Production cover, a staying squad, or a specialist on your backlog.",
   },
 ]
 
@@ -717,33 +694,21 @@ export const roles = [
 export const work: CaseStudy[] = [
   {
     title: "Institutional collections",
-    problem: "Merchants needed to invoice and collect on local rails without three tools at month end.",
-    shipped: "Portals, JazzCash / Easypaisa / PayFast checkout, MDR, settlement, and a two-call API.",
-    result: "The institution runs the merchant book. The platform runs the payment path.",
+    problem: "Invoice and collect on local rails without three tools at month end.",
+    shipped: "Portals, JazzCash / Easypaisa / PayFast, MDR, settlement, two-call API.",
+    result: "Institution runs the merchant book. Platform runs the payment path.",
   },
   {
     title: "Corporate onboarding for a bank",
-    problem: "Entity accounts still meant a branch visit and paper files for each partner.",
-    shipped: "Firm portal, partner app with CNIC, selfie, NADRA check, then operator review and provisioning.",
-    result: "Tracking ID for the applicant. The bank keeps the decision.",
+    problem: "Entity accounts still meant a branch visit and paper per partner.",
+    shipped: "Firm portal, partner app (CNIC, selfie, NADRA), ops review, provisioning.",
+    result: "Tracking ID for the applicant. Bank keeps the decision.",
   },
   {
-    title: "The same onboarding, a second brand",
-    problem: "A wallet needed the same entity journey under its own name and account target.",
-    shipped: "Same platform, skinned and pointed at the wallet’s account system.",
-    result: "One product. Two institutions. Separate identities.",
-  },
-  {
-    title: "Cards for a wallet app",
-    problem: "Card request, limits, and PIN lived apart from the cardholder app.",
-    shipped: "Desk portal plus app API. PAN encrypted at rest. Bureau file never served by API.",
-    result: "One control plane for the desk and the app.",
-  },
-  {
-    title: "A channel in front of the core",
-    problem: "A new mobile channel had to sit on a core built for branch screens.",
-    shipped: "Channel API, sandbox, Postman collection, then the same contract toward the core.",
-    result: "App team integrated once. Core kept balances and postings.",
+    title: "Channel in front of the core",
+    problem: "New mobile channel on a core built for branch screens.",
+    shipped: "Channel API, sandbox, Postman — then the same contract to the core.",
+    result: "App integrated once. Core kept balances and postings.",
   },
 ]
 
@@ -776,9 +741,8 @@ export const insights: Insight[] = [
   {
     slug: "entity-onboarding-framework",
     eyebrow: "Onboarding",
-    title: "Corporate account opening under the SBP framework",
-    summary:
-      "Entity type, partner KYC, a review queue, and a decision the institution still makes.",
+    title: "Entity opening under the SBP framework",
+    summary: "Entity type, partner KYC, review queue — institution keeps the decision.",
     paragraphs: [
       "The SBP consolidated customer-onboarding framework describes how an entity account is opened: who the customer is, which documents belong to that entity type, how risk is rated, and how a decision is recorded. A form that only asks for a trade name does not meet that bar.",
       "Corporate Onboarding models four entity types: sole proprietorship, small business, partnership, and LLP. The lead files the entity in a web portal. Each partner is invited into a mobile app, confirms with a one-time PIN, and completes CNIC, a selfie, and a NADRA fingerprint check. The check is the record. The fingerprint image is not stored.",
@@ -789,9 +753,8 @@ export const insights: Insight[] = [
   {
     slug: "merchant-collections-on-local-rails",
     eyebrow: "Collections",
-    title: "Merchant collections on JazzCash, Easypaisa, and PayFast",
-    summary:
-      "The processor is a merchant setting. Checkout, callback, settlement, and disbursement stay in one platform.",
+    title: "Collections on JazzCash, Easypaisa, PayFast",
+    summary: "Processor per merchant. Checkout, settlement, and disbursement in one book.",
     paragraphs: [
       "A merchant collection platform fails when the storefront, the gateway, and the settlement file are three products. PayBridge keeps the invoice, the hosted checkout, the merchant’s allowed processors, and what the merchant is owed in one book.",
       "JazzCash, Easypaisa, and PayFast are already in the product. Merchant configuration chooses the processor. The storefront does not hard-code a rail, and a second merchant can clear on a different one.",
@@ -802,9 +765,8 @@ export const insights: Insight[] = [
   {
     slug: "agent-app-one-host",
     eyebrow: "Agent banking",
-    title: "An agent app that talks to one host",
-    summary:
-      "Device, balance, transfer, and cash movement hit Fintiq. Money movement continues to the core.",
+    title: "Agent app, one host",
+    summary: "Device, balance, transfer, cash — via Fintiq. Core keeps the funds.",
     paragraphs: [
       "An agent app becomes expensive when every screen knows a different core address. Agent Banking gives the Android team one base URL. Login, device OTP, registration, balance, limits, QR, IBFT, wallet-to-wallet, bills, and cash-in or cash-out are accepted there.",
       "The API keeps device and session logic. Payment calls are forwarded to the institution’s transaction platform. The app does not become a second ledger, and the core stays the system of record for the movement of funds.",
@@ -839,18 +801,7 @@ export const navigation: NavItem[] = [
       note: service.eyebrow,
     })),
   },
-  { href: "/services/resource-augmentation", label: "Augmentation" },
-  {
-    href: "/industries",
-    label: "Industries",
-    children: buyers.map((buyer) => ({
-      href: `/industries#${buyer.title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}`,
-      label: buyer.title,
-      note: buyer.platforms.map((platform) => platform.label).join(" · "),
-    })),
-  },
   { href: "/work", label: "Work" },
-  { href: "/insights", label: "Insights" },
   { href: "/about", label: "About" },
 ]
 

@@ -9,7 +9,7 @@ export function WhyFintiq() {
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-teal">Why Fintiq</p>
           <h2 className="mt-4 max-w-2xl font-display text-5xl tracking-tight">
-            What an institution can <span className="text-gradient-light">rely on.</span>
+            Why <span className="text-gradient-light">Fintiq.</span>
           </h2>
         </Reveal>
         <div className="mt-14 grid gap-5 md:grid-cols-2">

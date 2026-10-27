@@ -8,7 +8,7 @@ export function IntegrateStrip() {
       <div className="mx-auto max-w-6xl px-6 py-24">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-signal-deep">How you integrate</p>
-          <h2 className="mt-4 max-w-2xl font-display text-5xl tracking-tight">A contract the other team can run.</h2>
+          <h2 className="mt-4 max-w-2xl font-display text-5xl tracking-tight">Integrate once.</h2>
         </Reveal>
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
           {integrations.map((item, index) => (

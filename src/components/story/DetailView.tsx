@@ -11,7 +11,6 @@ export function DetailView({
   audience,
   outcome,
   blocks,
-  steps,
   links,
   themeSlug,
   architecture,
@@ -25,7 +24,6 @@ export function DetailView({
   audience: string;
   outcome: string;
   blocks: Block[];
-  steps: Block[];
   links: { href: string; label: string }[];
   themeSlug?: string;
   architecture?: Block[];
@@ -39,7 +37,6 @@ export function DetailView({
   children?: React.ReactNode;
 }) {
   const highlights = blocks.slice(0, 3);
-  const path = steps.slice(0, 3);
   const theme = themeSlug ? getProductTheme(themeSlug) : null;
   const accent = theme?.accent ?? "#087f78";
   const headerBg =
@@ -149,25 +146,6 @@ export function DetailView({
             </ol>
           </section>
         ) : null}
-
-        <section className="mt-14 border-t border-ink/10 pt-12">
-          <Reveal>
-            <h2 className="font-display text-3xl">How it lands</h2>
-          </Reveal>
-          <ol className="mt-8 grid gap-5 md:grid-cols-3">
-            {path.map((step, index) => (
-              <Reveal key={step.title} delay={index * 0.05}>
-                <li className="rounded-[1.3rem] bg-paper-deep/60 p-5">
-                  <p className="font-mono text-sm" style={{ color: accent }}>
-                    {String(index + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="mt-2 font-display text-xl">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-ink/75">{step.body}</p>
-                </li>
-              </Reveal>
-            ))}
-          </ol>
-        </section>
 
         {uat ? (
           <Reveal>

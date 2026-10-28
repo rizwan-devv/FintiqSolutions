@@ -36,11 +36,11 @@ export default async function ProductPage({ params }: Props) {
 
   const theme = getProductTheme(product.slug);
   const proof =
-    product.slug === "card-payment-system"
+    product.slug === "card-management-system"
       ? {
-          eyebrow: "Proof · Desk access",
-          title: "Card Management System login",
-          body: "Operators reach issuance and servicing through an encrypted CMS session — branded for the institution, locked to authorized personnel.",
+          eyebrow: "Proof · CMS desk",
+          title: "Card Management System — Sign in",
+          body: "This is the CMS login operators use: encrypted session, Login ID, password, and authorized personnel only — then issuance and servicing on the same desk.",
           node: <CmsLoginMock accent={theme.accent} size="proof" />,
         }
       : undefined;
@@ -53,7 +53,6 @@ export default async function ProductPage({ params }: Props) {
       audience={product.audience}
       outcome={product.outcome}
       blocks={product.capabilities}
-      steps={product.journey}
       links={links}
       themeSlug={product.slug}
       architecture={product.architecture}

@@ -24,7 +24,7 @@ import { ProductStage } from "@/components/product/ProductStage";
 import { buttonGhostLight, buttonPrimary } from "@/components/ui/styles";
 
 const labels: Record<string, string> = {
-  "card-payment-system": "Cards",
+  "card-management-system": "CMS",
   "corporate-banking": "Corporate",
   "payment-gateway": "Gateway",
   "cash-management-system": "Cash",

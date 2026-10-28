@@ -240,7 +240,7 @@ function LmsMock({ accent = "#C4B5FD" }: MockProps) {
 }
 
 const mocks: Record<string, (props: MockProps) => ReactElement> = {
-  "card-payment-system": CardPaymentMock,
+  "card-management-system": CardPaymentMock,
   "corporate-banking": CorporateMock,
   "payment-gateway": GatewayMock,
   "cash-management-system": CashMock,

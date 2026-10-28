@@ -14,9 +14,9 @@ export type ProductTheme = {
 }
 
 export const productThemes: Record<string, ProductTheme> = {
-  "card-payment-system": {
-    slug: "card-payment-system",
-    label: "Cards",
+  "card-management-system": {
+    slug: "card-management-system",
+    label: "CMS",
     mode: "dark",
     accent: "#C9A227",
     accentSoft: "#E8D48A",

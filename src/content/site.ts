@@ -84,45 +84,41 @@ const commonServices = [
 
 export const products: Product[] = [
   {
-    slug: "card-payment-system",
-    name: "Card Payment System",
-    eyebrow: "Cards",
-    promise: "Issue, authorize, and service cards under one control plane.",
+    slug: "card-management-system",
+    name: "Card Management System",
+    eyebrow: "CMS",
+    promise: "Issue, authorize, and service cards from one secure operations desk.",
     summary:
-      "A complete card stack for issuance, authorization paths, limits, PIN, and servicing — built for banks and wallet issuers that need a desk and an app on one system.",
+      "Card Management System (CMS) for banks and wallet issuers — encrypted desk login, issuance, authorization paths, limits, PIN, and servicing on one control plane.",
     audience: "Banks, wallets, and payment companies issuing debit, prepaid, or virtual cards.",
-    outcome: "One control plane for request through to live card, with card data protected and a clear audit trail.",
+    outcome: "Authorized operators sign in to CMS and run the card book with a clear audit trail.",
     capabilities: [
+      {
+        title: "Secure CMS desk access",
+        body: "Encrypted Sign-in for authorized personnel — Login ID, password session, and Remember Login ID for the ops desk.",
+      },
       {
         title: "Issuance and servicing",
         body: "Request, approval, generation, limits, PIN, status, and who changed what — in one desk workflow.",
       },
       {
-        title: "Secure CMS desk access",
-        body: "Encrypted Card Management System login for authorized operators — Login ID, session control, and audit-ready entry.",
-      },
-      {
         title: "Cardholder channel",
         body: "A separate API for the cardholder app so servicing does not expose bureau files or sensitive production artifacts.",
       },
-      {
-        title: "Controls and audit",
-        body: "Roles, product rules, and a trail operators and compliance can defend.",
-      },
     ],
     journey: [
-      { title: "Map card products", body: "Products, limits, and servicing rules for the institution." },
-      { title: "Stand up desk and APIs", body: "CMS portal for the desk. Contract for the cardholder app." },
+      { title: "Brand the CMS desk", body: "Institution access and card products for the operations team." },
+      { title: "Stand up login and APIs", body: "Encrypted CMS portal for the desk. Contract for the cardholder app." },
       { title: "Prove a live card", body: "Sign in, issue, authorize, and service a real journey in UAT." },
     ],
     architecture: [
-      { title: "Cardholder & desk channels", body: "App APIs for the cardholder; encrypted CMS portal for issuance and servicing." },
+      { title: "CMS desk & cardholder channels", body: "Encrypted portal for issuance and servicing; app APIs for the cardholder." },
       { title: "Card control plane", body: "Products, limits, PIN, status, and audit on one stack." },
       { title: "Institution & network edge", body: "Core postings and network paths stay under the licensed institution." },
     ],
     uat: {
       title: "Sign in → issue → authorize → service",
-      body: "UAT starts at the CMS login, then a live card journey: request, approval, authorization, and a servicing action signed by the desk.",
+      body: "UAT starts at the CMS login screen, then a live card journey signed by the desk.",
     },
     services: commonServices,
   },
@@ -368,21 +364,21 @@ export const channels: Channel[] = [
     name: "Agent Banking",
     eyebrow: "Channel",
     promise: "Agent wallets, cash-in/out, and transfers on a stable app backend.",
-    related: ["payment-gateway", "remittance-system", "card-payment-system"],
+    related: ["payment-gateway", "remittance-system", "card-management-system"],
   },
   {
     slug: "consumer-banking",
     name: "Consumer Banking",
     eyebrow: "Channel",
     promise: "Retail journeys for accounts, payments, and self-service.",
-    related: ["card-payment-system", "payment-gateway", "loan-origination-system"],
+    related: ["card-management-system", "payment-gateway", "loan-origination-system"],
   },
   {
     slug: "wallet-banking",
     name: "Wallet Banking",
     eyebrow: "Channel",
     promise: "Digital wallet experiences for balance, P2P, bills, and top-up.",
-    related: ["payment-gateway", "card-payment-system", "cash-management-system"],
+    related: ["payment-gateway", "card-management-system", "cash-management-system"],
   },
   {
     slug: "merchant-portal",
@@ -506,7 +502,7 @@ export const buyers: Buyer[] = [
     body: "Corporate banking, cards, remittance, and lending platforms connected to your core.",
     platforms: [
       { slug: "corporate-banking", label: "Corporate Banking" },
-      { slug: "card-payment-system", label: "Card Payment System" },
+      { slug: "card-management-system", label: "Card Management System" },
       { slug: "loan-origination-system", label: "LOS" },
     ],
   },

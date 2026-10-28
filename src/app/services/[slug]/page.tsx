@@ -32,7 +32,6 @@ export default async function ServicePage({ params }: Props) {
       audience={service.audience}
       outcome={service.outcome}
       blocks={service.capabilities}
-      steps={service.journey}
       links={links}
     />
   );

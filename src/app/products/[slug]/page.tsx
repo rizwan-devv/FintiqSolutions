@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DetailView } from "@/components/story/DetailView";
+import { CmsLoginMock } from "@/components/product/CmsLoginMock";
 import { ProductStage } from "@/components/product/ProductStage";
 import { getProduct, getService, products } from "@/content/site";
+import { getProductTheme } from "@/content/themes";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -32,6 +34,17 @@ export default async function ProductPage({ params }: Props) {
     return service ? [{ href: `/services/${service.slug}`, label: service.name }] : [];
   });
 
+  const theme = getProductTheme(product.slug);
+  const proof =
+    product.slug === "card-payment-system"
+      ? {
+          eyebrow: "Proof · Desk access",
+          title: "Card Management System login",
+          body: "Operators reach issuance and servicing through an encrypted CMS session — branded for the institution, locked to authorized personnel.",
+          node: <CmsLoginMock accent={theme.accent} size="proof" />,
+        }
+      : undefined;
+
   return (
     <DetailView
       eyebrow={product.eyebrow}
@@ -45,6 +58,7 @@ export default async function ProductPage({ params }: Props) {
       themeSlug={product.slug}
       architecture={product.architecture}
       uat={product.uat}
+      proof={proof}
     >
       <ProductStage slug={product.slug} />
     </DetailView>

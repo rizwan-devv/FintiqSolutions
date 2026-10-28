@@ -12,11 +12,13 @@ type Child = NonNullable<NavItem["children"]>[number];
 export function MegaMenu({
   item,
   open,
+  active = false,
   onOpen,
   onClose,
 }: {
   item: NavItem & { children: Child[] };
   open: boolean;
+  active?: boolean;
   onOpen: () => void;
   onClose: () => void;
 }) {
@@ -35,7 +37,7 @@ export function MegaMenu({
       <button
         type="button"
         className={`inline-flex items-center gap-1.5 text-sm transition duration-150 ${
-          open ? "text-signal-deep" : "text-navy/75 hover:text-signal-deep"
+          open || active ? "text-navy" : "text-navy/75 hover:text-signal-deep"
         }`}
         aria-expanded={open}
         aria-haspopup="true"

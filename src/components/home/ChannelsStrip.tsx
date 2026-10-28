@@ -6,7 +6,7 @@ export function ChannelsStrip() {
   return (
     <section className="section-wash border-y border-navy/10">
       <div className="mx-auto max-w-6xl px-6 py-16">
-        <Reveal>
+        <Reveal variant="blur">
           <p className="font-mono text-[11px] uppercase text-signal-deep">Channels & portals</p>
           <h2 className="mt-3 max-w-2xl font-display text-4xl tracking-tight md:text-5xl">
             How customers and businesses meet the platform.
@@ -19,7 +19,7 @@ export function ChannelsStrip() {
           {channels.map((channel, index) => {
             const first = getProduct(channel.related[0]);
             return (
-              <Reveal key={channel.slug} delay={index * 0.04}>
+              <Reveal key={channel.slug} delay={index * 0.05} variant="scale">
                 <Link
                   href={first ? `/products/${first.slug}` : "/products"}
                   className="hover-lift surface-card group flex h-full flex-col rounded-[1.4rem] p-5"

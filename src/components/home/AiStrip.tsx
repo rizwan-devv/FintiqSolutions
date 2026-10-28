@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { motion, useReducedMotion } from "motion/react";
+import { Reveal } from "@/components/ui/Reveal";
 import { buttonGhostLight, buttonPrimary } from "@/components/ui/styles";
 
 const pillars = [
@@ -16,16 +20,41 @@ const pillars = [
   },
 ];
 
+const floats = [
+  { label: "UAT-led", className: "top-10 right-[8%] bg-teal text-ink" },
+  { label: "Agentic AI", className: "top-28 right-[18%] bg-[#E8B86D] text-ink" },
+  { label: "Secure rails", className: "bottom-24 right-[6%] bg-white/15 text-white backdrop-blur-sm" },
+];
+
 export function AiStrip() {
+  const reduce = useReducedMotion();
+
   return (
     <section className="relative overflow-hidden bg-ink-raised text-white">
       <div className="pointer-events-none absolute inset-0 opacity-50" aria-hidden="true">
         <div className="aurora absolute -left-20 top-0 size-72 rounded-full blur-3xl" />
         <div className="aurora-soft absolute -right-16 bottom-0 size-80 rounded-full blur-3xl" />
       </div>
+
+      {!reduce
+        ? floats.map((item, index) => (
+            <motion.span
+              key={item.label}
+              className={`float-tag pointer-events-none absolute z-[1] hidden rounded-full px-3 py-1.5 text-[11px] font-semibold shadow-lg md:inline-flex ${item.className}`}
+              style={{ animationDelay: `${index * 0.6}s` }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 + index * 0.1, duration: 0.6 }}
+            >
+              {item.label}
+            </motion.span>
+          ))
+        : null}
+
       <div className="relative mx-auto max-w-6xl px-6 py-16">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
+          <Reveal variant="blur" className="lg:col-span-7">
             <p className="font-mono text-[11px] uppercase text-teal">AI solutions</p>
             <h2 className="mt-3 font-display text-4xl tracking-tight md:text-5xl">
               AI that strengthens systems — not replaces governance.
@@ -35,25 +64,24 @@ export function AiStrip() {
               practical automation inside cards, payments, cash, remittance, and lending platforms.
               Licensed institutions keep the decision.
             </p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
+          </Reveal>
+          <Reveal delay={0.1} className="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
             <Link href="/contact" className={buttonPrimary}>
               Discuss AI solutions
             </Link>
             <Link href="/products" className={buttonGhostLight}>
               See platforms
             </Link>
-          </div>
+          </Reveal>
         </div>
         <div className="mt-12 grid gap-4 md:grid-cols-3">
-          {pillars.map((pillar) => (
-            <article
-              key={pillar.title}
-              className="rounded-[1.4rem] border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm"
-            >
-              <h3 className="font-display text-xl">{pillar.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-white/70">{pillar.body}</p>
-            </article>
+          {pillars.map((pillar, index) => (
+            <Reveal key={pillar.title} delay={index * 0.08} variant="scale">
+              <article className="h-full rounded-[1.4rem] border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-teal/40 hover:bg-white/[0.09]">
+                <h3 className="font-display text-xl">{pillar.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-white/70">{pillar.body}</p>
+              </article>
+            </Reveal>
           ))}
         </div>
       </div>

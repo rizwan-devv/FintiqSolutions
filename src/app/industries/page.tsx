@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Reveal } from "@/components/ui/Reveal";
 import { buyers } from "@/content/site";
 import { buttonPrimary } from "@/components/ui/styles";
 
@@ -23,16 +24,18 @@ export default function IndustriesPage() {
   return (
     <main>
       <header className="mx-auto max-w-6xl px-6 pb-16 pt-36">
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-signal-deep">Industries</p>
-        <h1 className="mt-4 max-w-3xl font-display text-5xl tracking-tight md:text-7xl">
-          Built for the institutions that move the money.
-        </h1>
+        <Reveal>
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-signal-deep">Industries</p>
+          <h1 className="mt-4 max-w-3xl font-display text-5xl tracking-tight md:text-7xl">
+            Built for the institutions that move the money.
+          </h1>
+        </Reveal>
       </header>
       <section className="bg-paper-deep">
         <div className="mx-auto grid max-w-6xl gap-6 px-6 py-20 md:grid-cols-2">
           {buyers.map((buyer, index) => (
+            <Reveal key={buyer.title} delay={Math.min(index * 0.05, 0.15)}>
             <article
-              key={buyer.title}
               id={buyerId(buyer.title)}
               className="group relative flex min-h-72 scroll-mt-32 flex-col overflow-hidden rounded-[1.8rem] p-8 text-white shadow-[0_20px_50px_rgb(16_36_88/0.18)]"
               style={{ backgroundImage: tones[index % tones.length] }}
@@ -60,15 +63,16 @@ export default function IndustriesPage() {
                 ))}
               </div>
             </article>
+            </Reveal>
           ))}
         </div>
       </section>
-      <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-6 py-16 sm:flex-row sm:items-center sm:justify-between">
+      <Reveal className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-6 py-16 sm:flex-row sm:items-center sm:justify-between">
         <p className="font-display text-3xl">See which platform fits the desk.</p>
         <Link href="/products" className={buttonPrimary}>
           Platforms
         </Link>
-      </div>
+      </Reveal>
     </main>
   );
 }

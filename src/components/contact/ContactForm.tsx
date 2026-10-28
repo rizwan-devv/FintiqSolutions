@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { products } from "@/content/site";
 
 type Status =
@@ -13,6 +14,7 @@ const field =
   "mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-ink outline-none focus:border-signal-deep";
 
 export function ContactForm() {
+  const reduce = useReducedMotion();
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [interest, setInterest] = useState("platform");
   const showStaff = interest === "resource-augmentation" || interest === "both";
@@ -55,8 +57,22 @@ export function ContactForm() {
 
   if (status.kind === "done") {
     return (
-      <div className="rounded-3xl bg-navy p-8 text-white">
-        <p className="font-mono text-[11px] uppercase text-teal">Received</p>
+      <motion.div
+        className="rounded-3xl bg-navy p-8 text-white"
+        initial={reduce ? false : { opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <motion.span
+          className="inline-flex size-10 items-center justify-center rounded-full bg-teal text-lg font-bold text-navy"
+          initial={reduce ? false : { scale: 0.7, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.05 }}
+          aria-hidden="true"
+        >
+          ✓
+        </motion.span>
+        <p className="mt-4 font-mono text-[11px] uppercase text-teal">Received</p>
         <p className="mt-3 font-display text-4xl">Thank you.</p>
         <p className="mt-4 leading-7 text-white/75">{status.message}</p>
         {status.mailto ? (
@@ -74,7 +90,7 @@ export function ContactForm() {
         >
           Send another note
         </button>
-      </div>
+      </motion.div>
     );
   }
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactEmails } from "@/components/brand/ContactEmails";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { Reveal } from "@/components/ui/Reveal";
 import { company, products, services } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -28,43 +29,47 @@ export default function ContactPage() {
 
       <section className="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-12">
         <div className="space-y-8 lg:col-span-5">
-          <div className="surface-card rounded-[1.6rem] p-6">
-            <p className="font-mono text-[11px] uppercase text-signal-deep">Office</p>
-            <h2 className="mt-3 font-display text-2xl text-navy">{company.legalName}</h2>
-            <p className="mt-3 leading-7 text-mist">
-              {company.lines[0]}
-              <br />
-              {company.lines[1]}
-            </p>
-            <div className="mt-5">
-              <ContactEmails />
+          <Reveal>
+            <div className="surface-card rounded-[1.6rem] p-6">
+              <p className="font-mono text-[11px] uppercase text-signal-deep">Office</p>
+              <h2 className="mt-3 font-display text-2xl text-navy">{company.legalName}</h2>
+              <p className="mt-3 leading-7 text-mist">
+                {company.lines[0]}
+                <br />
+                {company.lines[1]}
+              </p>
+              <div className="mt-5">
+                <ContactEmails />
+              </div>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="surface-card rounded-[1.6rem] p-6">
-            <p className="font-mono text-[11px] uppercase text-signal-deep">Start with</p>
-            <ul className="mt-4 space-y-3">
-              {products.slice(0, 3).map((product) => (
-                <li key={product.slug}>
-                  <Link href={`/products/${product.slug}`} className="draw-link text-sm font-semibold text-navy hover:text-signal-deep">
-                    {product.name}
-                  </Link>
-                  <p className="text-sm text-mist">{product.promise}</p>
-                </li>
-              ))}
-              {services.slice(0, 2).map((service) => (
-                <li key={service.slug}>
-                  <Link href={`/services/${service.slug}`} className="draw-link text-sm font-semibold text-navy hover:text-signal-deep">
-                    {service.name}
-                  </Link>
-                  <p className="text-sm text-mist">{service.summary}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Reveal delay={0.06}>
+            <div className="surface-card rounded-[1.6rem] p-6">
+              <p className="font-mono text-[11px] uppercase text-signal-deep">Start with</p>
+              <ul className="mt-4 space-y-3">
+                {products.slice(0, 3).map((product) => (
+                  <li key={product.slug}>
+                    <Link href={`/products/${product.slug}`} className="draw-link text-sm font-semibold text-navy hover:text-signal-deep">
+                      {product.name}
+                    </Link>
+                    <p className="text-sm text-mist">{product.promise}</p>
+                  </li>
+                ))}
+                {services.slice(0, 2).map((service) => (
+                  <li key={service.slug}>
+                    <Link href={`/services/${service.slug}`} className="draw-link text-sm font-semibold text-navy hover:text-signal-deep">
+                      {service.name}
+                    </Link>
+                    <p className="text-sm text-mist">{service.summary}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
         </div>
 
-        <div className="lg:col-span-7">
+        <Reveal delay={0.08} className="lg:col-span-7">
           <div className="surface-card rounded-[1.8rem] p-6 md:p-8">
             <p className="font-mono text-[11px] uppercase text-signal-deep">Send a note</p>
             <h2 className="mt-2 font-display text-3xl">We will route it to the right desk.</h2>
@@ -72,7 +77,7 @@ export default function ContactPage() {
               <ContactForm />
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );

@@ -3,10 +3,16 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { motion } from "motion/react";
 import { Logo } from "@/components/brand/Logo";
 import { MegaMenu } from "@/components/layout/MegaMenu";
 import { navigation } from "@/content/site";
 import { buttonPrimary } from "@/components/ui/styles";
+
+function pathMatches(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function Header() {
   const pathname = usePathname();
@@ -46,28 +52,52 @@ export function Header() {
       >
         <div className="flex h-20 w-full items-center gap-5 pl-3 pr-3 sm:gap-6 sm:pl-4 sm:pr-5 lg:pl-5 lg:pr-6">
           <Logo />
-          <nav className="ml-auto hidden items-center gap-5 xl:flex" aria-label="Primary">
-            {navigation.map((item) =>
-              item.children && item.children.length > 0 ? (
-                <MegaMenu
-                  key={item.href}
-                  item={{ ...item, children: item.children }}
-                  open={open === item.href}
-                  onOpen={() => setMenu((current) => ({ ...current, open: item.href }))}
-                  onClose={() => setMenu((current) => ({ ...current, open: null }))}
-                />
-              ) : (
+          <nav className="ml-auto hidden items-center gap-1 xl:flex" aria-label="Primary">
+            {navigation.map((item) => {
+              const active =
+                pathMatches(pathname, item.href) ||
+                Boolean(item.children?.some((child) => pathMatches(pathname, child.href)));
+
+              if (item.children && item.children.length > 0) {
+                return (
+                  <div key={item.href} className="relative px-3 py-2">
+                    <MegaMenu
+                      item={{ ...item, children: item.children }}
+                      open={open === item.href}
+                      active={active}
+                      onOpen={() => setMenu((current) => ({ ...current, open: item.href }))}
+                      onClose={() => setMenu((current) => ({ ...current, open: null }))}
+                    />
+                    {active ? (
+                      <motion.span
+                        layoutId="nav-active"
+                        className="absolute inset-x-3 -bottom-0.5 h-[2px] rounded-full bg-[linear-gradient(90deg,#102458,#00b0a4)]"
+                        transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                      />
+                    ) : null}
+                  </div>
+                );
+              }
+
+              return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`text-sm transition duration-150 hover:text-signal-deep ${
-                    pathname === item.href ? "text-navy" : "text-navy/75"
+                  className={`relative px-3 py-2 text-sm transition duration-150 hover:text-signal-deep ${
+                    active ? "text-navy" : "text-navy/75"
                   }`}
                 >
                   {item.label}
+                  {active ? (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="absolute inset-x-3 -bottom-0.5 h-[2px] rounded-full bg-[linear-gradient(90deg,#102458,#00b0a4)]"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                    />
+                  ) : null}
                 </Link>
-              ),
-            )}
+              );
+            })}
           </nav>
           <div className="ml-auto flex items-center gap-3 xl:ml-0">
             <Link
@@ -96,22 +126,36 @@ export function Header() {
             className="h-[calc(100svh-6rem)] overflow-y-auto border-t border-navy/10 bg-white px-6 py-6 xl:hidden"
             aria-label="Mobile"
           >
-            {navigation.map((item) => (
-              <div key={item.href} className="border-b border-navy/10 py-4">
-                <Link href={item.href} className="font-display text-3xl text-navy">
-                  {item.label}
-                </Link>
-                {item.children ? (
-                  <div className="mt-3 flex flex-col gap-2">
-                    {item.children.map((child) => (
-                      <Link key={child.href} href={child.href} className="text-sm text-mist">
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            ))}
+            {navigation.map((item) => {
+              const active =
+                pathMatches(pathname, item.href) ||
+                Boolean(item.children?.some((child) => pathMatches(pathname, child.href)));
+              return (
+                <div key={item.href} className="border-b border-navy/10 py-4">
+                  <Link
+                    href={item.href}
+                    className={`font-display text-3xl ${active ? "text-signal-deep" : "text-navy"}`}
+                  >
+                    {item.label}
+                  </Link>
+                  {item.children ? (
+                    <div className="mt-3 flex flex-col gap-2">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className={`text-sm ${
+                            pathMatches(pathname, child.href) ? "font-semibold text-navy" : "text-mist"
+                          }`}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
             <Link href="/contact" className={`${buttonPrimary} mt-6 w-full`}>
               Contact Us
             </Link>

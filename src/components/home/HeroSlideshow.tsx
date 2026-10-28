@@ -147,8 +147,8 @@ export function HeroSlideshow() {
           </div>
         </div>
 
-        <div className="relative hidden lg:block">
-          <div className="float-card overflow-hidden rounded-[1.8rem] border border-white/15 shadow-[0_30px_80px_rgb(0_0_0/0.4)]">
+        <div className="relative mx-auto hidden w-full max-w-[26rem] lg:block xl:max-w-[28rem]">
+          <div className="float-card flex w-full flex-col overflow-hidden rounded-[1.8rem] border border-white/15 shadow-[0_30px_80px_rgb(0_0_0/0.4)]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={product.slug}
@@ -157,23 +157,24 @@ export function HeroSlideshow() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={reduce ? undefined : { opacity: 0, x: direction * -44 }}
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="flex w-full flex-col"
               >
-                <ProductStage slug={product.slug} />
-                <div className="border-t border-navy/10 bg-gradient-to-b from-white to-[#f3f6fb] px-5 py-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
+                <ProductStage slug={product.slug} className="w-full rounded-none" />
+                <div className="flex min-h-[9.5rem] w-full flex-col justify-between border-t border-navy/10 bg-gradient-to-b from-white to-[#f3f6fb] px-5 py-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
                       <p className="font-mono text-[11px] font-semibold uppercase" style={{ color: theme.accent }}>
                         {product.eyebrow}
                       </p>
-                      <h2 className="product-title mt-1 font-display text-2xl">{product.name}</h2>
+                      <h2 className="product-title mt-1 font-display text-2xl leading-tight">{product.name}</h2>
                       <span
                         className="product-title-accent"
                         style={{ backgroundImage: theme.titleGrad }}
                         aria-hidden="true"
                       />
-                      <p className="mt-2 text-sm leading-6 text-navy/80">{product.promise}</p>
+                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-navy/80">{product.promise}</p>
                     </div>
-                    <p className="font-mono text-[11px] font-semibold text-navy/45">
+                    <p className="shrink-0 font-mono text-[11px] font-semibold text-navy/45">
                       {String(index + 1).padStart(2, "0")} / {String(products.length).padStart(2, "0")}
                     </p>
                   </div>

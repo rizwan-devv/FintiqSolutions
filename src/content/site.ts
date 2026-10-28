@@ -98,6 +98,10 @@ export const products: Product[] = [
         body: "Request, approval, generation, limits, PIN, status, and who changed what — in one desk workflow.",
       },
       {
+        title: "Secure CMS desk access",
+        body: "Encrypted Card Management System login for authorized operators — Login ID, session control, and audit-ready entry.",
+      },
+      {
         title: "Cardholder channel",
         body: "A separate API for the cardholder app so servicing does not expose bureau files or sensitive production artifacts.",
       },
@@ -108,17 +112,17 @@ export const products: Product[] = [
     ],
     journey: [
       { title: "Map card products", body: "Products, limits, and servicing rules for the institution." },
-      { title: "Stand up desk and APIs", body: "Portal for the desk. Contract for the cardholder app." },
-      { title: "Prove a live card", body: "Issue, authorize, and service a real journey in UAT." },
+      { title: "Stand up desk and APIs", body: "CMS portal for the desk. Contract for the cardholder app." },
+      { title: "Prove a live card", body: "Sign in, issue, authorize, and service a real journey in UAT." },
     ],
     architecture: [
-      { title: "Cardholder & desk channels", body: "App APIs for the cardholder; portal for issuance and servicing." },
+      { title: "Cardholder & desk channels", body: "App APIs for the cardholder; encrypted CMS portal for issuance and servicing." },
       { title: "Card control plane", body: "Products, limits, PIN, status, and audit on one stack." },
       { title: "Institution & network edge", body: "Core postings and network paths stay under the licensed institution." },
     ],
     uat: {
-      title: "Issue → authorize → service",
-      body: "UAT is a live card journey: request, approval, authorization, and a servicing action signed by the desk.",
+      title: "Sign in → issue → authorize → service",
+      body: "UAT starts at the CMS login, then a live card journey: request, approval, authorization, and a servicing action signed by the desk.",
     },
     services: commonServices,
   },

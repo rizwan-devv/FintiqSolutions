@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ContactEmails } from "@/components/brand/ContactEmails";
+import { Reveal } from "@/components/ui/Reveal";
 import { company, delivery, reasons } from "@/content/site";
 import { buttonGhost, buttonGhostLight, buttonPrimary } from "@/components/ui/styles";
 
@@ -38,37 +39,43 @@ export default function AboutPage() {
       </header>
 
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-6 lg:grid-cols-2">
-          <article className="rounded-[1.6rem] bg-navy p-8 text-white">
-            <p className="font-mono text-[11px] uppercase text-teal">Mission</p>
-            <p className="mt-4 text-lg leading-8 text-white/85">
-              Support financial institutions and fintech organisations with secure, modern, and scalable
-              digital platforms that strengthen operational workflows and enable responsible financial
-              innovation — aligned with real-world processes and long-term objectives.
-            </p>
-          </article>
-          <article className="rounded-[1.6rem] border border-navy/10 bg-white p-8">
-            <p className="font-mono text-[11px] uppercase text-signal-deep">Vision</p>
-            <p className="mt-4 text-lg leading-8 text-mist">
-              Be a trusted fintech technology partner for organisations navigating digital financial
-              transformation — delivering adaptable, integration-ready platforms that evolve with
-              regulation, transaction growth, and market change.
-            </p>
-          </article>
-        </div>
-        <p className="mt-8 max-w-3xl text-sm leading-7 text-mist">{company.disclaimer}</p>
+        <Reveal>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <article className="rounded-[1.6rem] bg-navy p-8 text-white">
+              <p className="font-mono text-[11px] uppercase text-teal">Mission</p>
+              <p className="mt-4 text-lg leading-8 text-white/85">
+                Support financial institutions and fintech organisations with secure, modern, and scalable
+                digital platforms that strengthen operational workflows and enable responsible financial
+                innovation — aligned with real-world processes and long-term objectives.
+              </p>
+            </article>
+            <article className="rounded-[1.6rem] border border-navy/10 bg-white p-8">
+              <p className="font-mono text-[11px] uppercase text-signal-deep">Vision</p>
+              <p className="mt-4 text-lg leading-8 text-mist">
+                Be a trusted fintech technology partner for organisations navigating digital financial
+                transformation — delivering adaptable, integration-ready platforms that evolve with
+                regulation, transaction growth, and market change.
+              </p>
+            </article>
+          </div>
+          <p className="mt-8 max-w-3xl text-sm leading-7 text-mist">{company.disclaimer}</p>
+        </Reveal>
       </section>
 
       <section className="bg-paper-deep">
         <div className="mx-auto max-w-6xl px-6 py-16">
-          <p className="font-mono text-[11px] uppercase text-signal-deep">Why FintiQ</p>
-          <h2 className="mt-3 font-display text-4xl tracking-tight">Built for regulated environments.</h2>
+          <Reveal>
+            <p className="font-mono text-[11px] uppercase text-signal-deep">Why FintiQ</p>
+            <h2 className="mt-3 font-display text-4xl tracking-tight">Built for regulated environments.</h2>
+          </Reveal>
           <div className="mt-10 grid gap-4 md:grid-cols-2">
-            {reasons.map((reason) => (
-              <article key={reason.title} className="surface-card rounded-[1.4rem] p-6">
-                <h3 className="font-display text-2xl">{reason.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-mist">{reason.body}</p>
-              </article>
+            {reasons.map((reason, index) => (
+              <Reveal key={reason.title} delay={index * 0.05}>
+                <article className="surface-card rounded-[1.4rem] p-6">
+                  <h3 className="font-display text-2xl">{reason.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-mist">{reason.body}</p>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -76,17 +83,21 @@ export default function AboutPage() {
 
       <section className="panel-gradient-rich text-white">
         <div className="mx-auto max-w-6xl px-6 py-16">
-          <p className="font-mono text-[11px] uppercase text-teal">How we deliver</p>
-          <h2 className="mt-3 max-w-xl font-display text-4xl tracking-tight">
-            Domain expertise. Agentic AI. Clear UAT.
-          </h2>
+          <Reveal>
+            <p className="font-mono text-[11px] uppercase text-teal">How we deliver</p>
+            <h2 className="mt-3 max-w-xl font-display text-4xl tracking-tight">
+              Domain expertise. Agentic AI. Clear UAT.
+            </h2>
+          </Reveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {delivery.map((item, index) => (
-              <article key={item.title} className="glass-panel rounded-[1.4rem] p-5">
-                <p className="font-mono text-sm text-teal">{String(index + 1).padStart(2, "0")}</p>
-                <h3 className="mt-3 font-display text-xl">{item.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-white/75">{item.body}</p>
-              </article>
+              <Reveal key={item.title} delay={index * 0.04}>
+                <article className="glass-panel rounded-[1.4rem] p-5">
+                  <p className="font-mono text-sm text-teal">{String(index + 1).padStart(2, "0")}</p>
+                  <h3 className="mt-3 font-display text-xl">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-white/75">{item.body}</p>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -94,14 +105,16 @@ export default function AboutPage() {
 
       <section className="bg-white">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2">
-          <Image
-            src="/brand/letterhead.png"
-            alt="FintiQ Solutions letterhead"
-            width={790}
-            height={294}
-            className="w-full rounded-2xl border border-navy/10 bg-white"
-          />
-          <div>
+          <Reveal>
+            <Image
+              src="/brand/letterhead.png"
+              alt="FintiQ Solutions letterhead"
+              width={790}
+              height={294}
+              className="w-full rounded-2xl border border-navy/10 bg-white"
+            />
+          </Reveal>
+          <Reveal delay={0.06}>
             <p className="font-mono text-[11px] uppercase text-signal-deep">Registered office</p>
             <h2 className="mt-3 font-display text-3xl text-navy">{company.legalName}</h2>
             <p className="mt-3 leading-7 text-mist">
@@ -120,7 +133,7 @@ export default function AboutPage() {
                 See work
               </Link>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </main>

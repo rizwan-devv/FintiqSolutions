@@ -1,41 +1,16 @@
+import type { ReactElement } from "react";
+import { CmsLoginMock } from "@/components/product/CmsLoginMock";
+
 type MockProps = {
   tone?: "light" | "theme";
   accent?: string;
 };
 
-/** Physical card — no white panel */
-function CardPaymentMock({ accent = "#E8B86D" }: MockProps) {
+/** CMS desk login — Card Management System */
+function CardPaymentMock({ accent = "#C9A227" }: MockProps) {
   return (
-    <div className="relative mx-auto w-full max-w-[240px]">
-      <div
-        className="relative aspect-[1.68/1] overflow-hidden rounded-2xl p-4 text-white shadow-[0_24px_50px_rgb(0_0_0/0.45)]"
-        style={{
-          backgroundImage: `linear-gradient(135deg, #0b1528 0%, #1a2a4a 45%, ${accent}88 140%)`,
-        }}
-      >
-        <div className="flex items-start justify-between">
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: accent }}>
-            Debit
-          </span>
-          <span className="size-8 rounded-lg" style={{ background: `${accent}cc` }} />
-        </div>
-        <div className="mt-5 h-7 w-10 rounded-md bg-gradient-to-br from-[#d4af37] to-[#8a6a18] opacity-90" />
-        <p className="mt-5 font-mono text-base tracking-[0.22em]">•••• 4412</p>
-        <div className="mt-3 flex items-end justify-between text-[10px] uppercase tracking-wider text-white/70">
-          <span>Valid thru 09/28</span>
-          <span>FintiQ</span>
-        </div>
-      </div>
-      <div className="mt-3 flex justify-center gap-2">
-        {["Issue", "Limit", "PIN"].map((item) => (
-          <span
-            key={item}
-            className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold text-white/90 backdrop-blur-sm"
-          >
-            {item}
-          </span>
-        ))}
-      </div>
+    <div className="mx-auto w-full max-w-[340px]">
+      <CmsLoginMock accent={accent} size="compact" />
     </div>
   );
 }
@@ -264,7 +239,7 @@ function LmsMock({ accent = "#C4B5FD" }: MockProps) {
   );
 }
 
-const mocks: Record<string, (props: MockProps) => React.ReactElement> = {
+const mocks: Record<string, (props: MockProps) => ReactElement> = {
   "card-payment-system": CardPaymentMock,
   "corporate-banking": CorporateMock,
   "payment-gateway": GatewayMock,

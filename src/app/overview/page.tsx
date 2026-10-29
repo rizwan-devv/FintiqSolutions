@@ -86,7 +86,7 @@ export default function OverviewPage() {
         </section>
 
         <p className="mt-8 text-xs text-mist print:mt-6">
-          © {new Date().getFullYear()} {company.legalName}. Confidential — for institutional evaluation.
+          © 2026 {company.legalName}. Confidential — for institutional evaluation.
         </p>
       </div>
     </main>

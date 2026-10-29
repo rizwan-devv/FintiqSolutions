@@ -74,6 +74,16 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/careers" className="draw-link hover:text-signal-deep">
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link href="/overview" className="draw-link hover:text-signal-deep">
+                  Platforms overview
+                </Link>
+              </li>
+              <li>
                 <Link href="/contact" className="draw-link hover:text-signal-deep">
                   Contact Us
                 </Link>

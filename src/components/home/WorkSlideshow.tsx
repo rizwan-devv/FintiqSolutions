@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { work } from "@/content/site";
+import { ScrollScene } from "@/components/motion/ScrollScene";
 
 const SLIDE_MS = 7200;
+const easeOut = [0.22, 1, 0.36, 1] as const;
 
 export function WorkSlideshow() {
   const reduce = useReducedMotion();
@@ -33,33 +35,48 @@ export function WorkSlideshow() {
 
   return (
     <section
-      className=""
       aria-roledescription="carousel"
       aria-label="Selected work"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="mx-auto max-w-6xl px-6 py-16">
+      <ScrollScene scrub={0.65} className="mx-auto max-w-6xl px-6 py-16">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <div>
+          <div data-motion="wipe">
             <p className="font-mono text-[11px] uppercase text-signal-deep">Work</p>
             <h2 className="mt-3 max-w-2xl font-display text-4xl tracking-tight md:text-5xl">Selected work.</h2>
           </div>
-          <Link href="/work" className="draw-link text-sm font-semibold text-signal-deep">
+          <Link
+            href="/work"
+            data-motion="slide-right"
+            className="draw-link text-sm font-semibold text-signal-deep"
+          >
             All work →
           </Link>
         </div>
 
-        <div className="panel-gradient-rich relative mt-12 overflow-hidden rounded-[1.8rem] text-white">
+        <div
+          data-motion="blur-up"
+          data-motion-delay={0.06}
+          className="panel-gradient-rich relative mt-12 overflow-hidden rounded-[1.8rem] text-white"
+        >
           <div className="aurora pointer-events-none absolute -right-16 top-0 size-64 rounded-full blur-3xl opacity-45" aria-hidden="true" />
           <AnimatePresence mode="wait" custom={direction}>
             <motion.article
               key={item.title}
               custom={direction}
-              initial={reduce ? false : { opacity: 0, x: direction * 48 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={reduce ? undefined : { opacity: 0, x: direction * -48 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              initial={
+                reduce
+                  ? false
+                  : { opacity: 0, x: direction * 48, filter: "blur(8px)", scale: 0.985 }
+              }
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)", scale: 1 }}
+              exit={
+                reduce
+                  ? undefined
+                  : { opacity: 0, x: direction * -40, filter: "blur(6px)", scale: 0.99 }
+              }
+              transition={{ duration: 0.5, ease: easeOut }}
               className="relative grid gap-8 p-7 md:grid-cols-12 md:p-10"
             >
               <div className="md:col-span-4">
@@ -67,6 +84,9 @@ export function WorkSlideshow() {
                   {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
                 </p>
                 <h3 className="mt-3 font-display text-3xl md:text-4xl">{item.title}</h3>
+                <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-white/45">
+                  {item.sector}
+                </p>
               </div>
               <dl className="grid gap-4 md:col-span-8">
                 <div>
@@ -130,7 +150,7 @@ export function WorkSlideshow() {
             {paused ? "Play" : "Pause"}
           </button>
         </div>
-      </div>
+      </ScrollScene>
     </section>
   );
 }

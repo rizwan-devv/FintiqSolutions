@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export function Logo() {
+type LogoProps = {
+  compact?: boolean;
+  /** Light wordmark for dark / transparent headers. */
+  light?: boolean;
+};
+
+export function Logo({ compact = false, light = false }: LogoProps) {
   return (
     <Link
       href="/"
@@ -14,12 +20,18 @@ export function Logo() {
         width={88}
         height={40}
         priority
-        className="h-9 w-auto transition duration-200 group-hover:brightness-110 sm:h-11"
+        className={`w-auto transition-[height,filter] duration-300 group-hover:brightness-110 ${
+          compact ? "h-7 sm:h-8" : "h-9 sm:h-11"
+        } ${light ? "brightness-0 invert" : ""}`}
       />
-      <span className="font-brand text-[1.2rem] font-bold leading-none tracking-[-0.035em] sm:text-[1.45rem]">
-        <span className="brand-wordmark">Finti</span>
-        <span className="brand-q">Q</span>
-        <span className="brand-wordmark"> Solutions</span>
+      <span
+        className={`font-brand font-bold leading-none tracking-[-0.035em] transition-[font-size,color] duration-300 ${
+          compact ? "text-[1.05rem] sm:text-[1.2rem]" : "text-[1.2rem] sm:text-[1.45rem]"
+        } ${light ? "text-white" : ""}`}
+      >
+        <span className={light ? "text-white" : "brand-wordmark"}>Finti</span>
+        <span className={light ? "text-teal" : "brand-q"}>Q</span>
+        <span className={light ? "text-white/90" : "brand-wordmark"}> Solutions</span>
       </span>
     </Link>
   );

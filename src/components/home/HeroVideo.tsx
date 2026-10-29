@@ -1,10 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { FintechBubbles } from "@/components/home/FintechBubbles";
 
-export function HeroVideo() {
+type HeroVideoProps = {
+  /** Soft accent wash that follows the active product theme. */
+  accent?: string;
+};
+
+export function HeroVideo({ accent = "#00b0a4" }: HeroVideoProps) {
   const reduce = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -45,20 +50,34 @@ export function HeroVideo() {
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
       <div className="hero-video-fallback absolute inset-0" />
       {!reduce ? (
-        <video
+        <motion.video
           ref={videoRef}
-          className="absolute inset-0 z-0 h-full w-full object-cover opacity-100"
+          className="absolute inset-0 z-0 h-full w-full origin-center object-cover"
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
-          src="/media/hero-bg.mp4?v=2"
+          src="/media/hero-bg.mp4?v=9"
+          initial={{ scale: 1.08 }}
+          animate={{ scale: [1.08, 1.16, 1.08] }}
+          transition={{ duration: 28, ease: "easeInOut", repeat: Infinity }}
         />
       ) : null}
-      <div className="absolute inset-0 z-[1] hidden sm:block">
+
+      <div className="absolute inset-0 z-[1] hidden opacity-70 lg:block">
         <FintechBubbles />
       </div>
+
+      {/* Product-tinted wash — shifts as carousel advances */}
+      <motion.div
+        className="absolute inset-0 z-[2]"
+        animate={{
+          background: `radial-gradient(ellipse 70% 55% at 78% 42%, ${accent}33 0%, transparent 62%)`,
+        }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      />
+
       <div className="absolute inset-0 z-[2] bg-gradient-to-r from-ink-raised/80 via-ink-raised/45 to-ink-raised/25 sm:from-ink-raised/70 sm:via-ink-raised/30 sm:to-transparent" />
       <div className="absolute inset-x-0 bottom-0 z-[2] h-36 bg-gradient-to-t from-ink-raised/80 to-transparent" />
     </div>

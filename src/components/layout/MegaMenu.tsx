@@ -13,12 +13,14 @@ export function MegaMenu({
   item,
   open,
   active = false,
+  tone = "dark",
   onOpen,
   onClose,
 }: {
   item: NavItem & { children: Child[] };
   open: boolean;
   active?: boolean;
+  tone?: "light" | "dark";
   onOpen: () => void;
   onClose: () => void;
 }) {
@@ -37,7 +39,13 @@ export function MegaMenu({
       <button
         type="button"
         className={`inline-flex items-center gap-1.5 text-sm transition duration-150 ${
-          open || active ? "text-navy" : "text-navy/75 hover:text-signal-deep"
+          tone === "light"
+            ? open || active
+              ? "text-white"
+              : "text-white/75 hover:text-white"
+            : open || active
+              ? "text-navy"
+              : "text-navy/75 hover:text-signal-deep"
         }`}
         aria-expanded={open}
         aria-haspopup="true"

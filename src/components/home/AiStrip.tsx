@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { Reveal } from "@/components/ui/Reveal";
+import { ScrollScene } from "@/components/motion/ScrollScene";
+import { Magnetic } from "@/components/motion/Magnetic";
 import { buttonGhostLight, buttonPrimary } from "@/components/ui/styles";
 
 const pillars = [
@@ -52,9 +53,9 @@ export function AiStrip() {
           ))
         : null}
 
-      <div className="relative mx-auto max-w-6xl px-6 py-16">
+      <ScrollScene scrub={0.7} className="relative mx-auto max-w-6xl px-6 py-16">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <Reveal variant="blur" className="lg:col-span-7">
+          <div data-motion="wipe" className="lg:col-span-7">
             <p className="font-mono text-[11px] uppercase text-teal">AI solutions</p>
             <h2 className="mt-3 font-display text-4xl tracking-tight md:text-5xl">
               AI that strengthens systems — not replaces governance.
@@ -64,27 +65,32 @@ export function AiStrip() {
               practical automation inside cards, payments, cash, remittance, and lending platforms.
               Licensed institutions keep the decision.
             </p>
-          </Reveal>
-          <Reveal delay={0.1} className="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
+          </div>
+          <div data-motion="slide-right" data-motion-delay={0.08} className="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
             <Link href="/contact" className={buttonPrimary}>
               Discuss AI solutions
             </Link>
             <Link href="/products" className={buttonGhostLight}>
               See platforms
             </Link>
-          </Reveal>
+          </div>
         </div>
+
         <div className="mt-12 grid gap-4 md:grid-cols-3">
           {pillars.map((pillar, index) => (
-            <Reveal key={pillar.title} delay={index * 0.08} variant="scale">
-              <article className="h-full rounded-[1.4rem] border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-teal/40 hover:bg-white/[0.09]">
+            <Magnetic key={pillar.title} strength={9}>
+              <article
+                data-motion="scale"
+                data-motion-delay={0.05 + index * 0.08}
+                className="h-full rounded-[1.4rem] border border-white/12 bg-white/[0.06] p-6 backdrop-blur-sm transition duration-300 hover:border-teal/40 hover:bg-white/[0.09]"
+              >
                 <h3 className="font-display text-xl">{pillar.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-white/70">{pillar.body}</p>
               </article>
-            </Reveal>
+            </Magnetic>
           ))}
         </div>
-      </div>
+      </ScrollScene>
     </section>
   );
 }

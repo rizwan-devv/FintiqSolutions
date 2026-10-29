@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
-type RevealVariant = "up" | "fade" | "scale" | "blur";
+type RevealVariant = "up" | "fade" | "scale" | "blur" | "diagonal";
 
 const variants: Record<
   RevealVariant,
@@ -14,6 +14,22 @@ const variants: Record<
   blur: {
     initial: { opacity: 0, y: 12, filter: "blur(4px)" },
     animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+  },
+  diagonal: {
+    initial: {
+      opacity: 0,
+      y: 28,
+      rotate: -0.4,
+      clipPath: "polygon(0 18%, 100% 0%, 100% 100%, 0% 100%)",
+      filter: "blur(6px)",
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      rotate: 0,
+      clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)",
+      filter: "blur(0px)",
+    },
   },
 };
 
@@ -37,7 +53,11 @@ export function Reveal({
       initial={reduce ? false : motionVariant.initial}
       whileInView={motionVariant.animate}
       viewport={{ once: true, margin: "-60px", amount: 0.2 }}
-      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{
+        duration: variant === "diagonal" ? 0.75 : 0.55,
+        delay,
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
       {children}
     </motion.div>

@@ -6,32 +6,48 @@ import { useReducedMotion } from "motion/react";
 import { products } from "@/content/site";
 import { getProductTheme } from "@/content/themes";
 import { ProductStage } from "@/components/product/ProductStage";
+import { ScrollScene } from "@/components/motion/ScrollScene";
 
 const loop = [...products, ...products];
+
+const floats = [
+  { label: "Cards", className: "left-[6%] top-8" },
+  { label: "Gateway", className: "right-[10%] top-14" },
+  { label: "Lending", className: "left-[18%] bottom-10" },
+  { label: "Cash", className: "right-[16%] bottom-16" },
+];
 
 export function PlatformRail() {
   const reduce = useReducedMotion();
   const trackRef = useRef<HTMLDivElement>(null);
   const offsetRef = useRef(0);
-  const speedRef = useRef(0.38);
+  const speedRef = useRef(0.5);
   const frameRef = useRef(0);
 
   useEffect(() => {
-    if (reduce) return;
     const track = trackRef.current;
     if (!track) return;
 
+    if (reduce) {
+      track.style.transform = "translate3d(0, 0, 0)";
+      return;
+    }
+
+    let running = true;
     const tick = () => {
+      if (!running) return;
       offsetRef.current += speedRef.current;
       const half = track.scrollWidth / 2;
       if (half > 0 && offsetRef.current >= half) offsetRef.current -= half;
-      if (half > 0 && offsetRef.current < 0) offsetRef.current += half;
       track.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
       frameRef.current = window.requestAnimationFrame(tick);
     };
 
     frameRef.current = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frameRef.current);
+    return () => {
+      running = false;
+      window.cancelAnimationFrame(frameRef.current);
+    };
   }, [reduce]);
 
   function nudge(direction: -1 | 1) {
@@ -48,17 +64,34 @@ export function PlatformRail() {
   }
 
   return (
-    <section className="border-b border-navy/10 bg-[#eef2f8]" aria-label="Platform rail">
-      <div className="mx-auto max-w-6xl px-6 pt-12">
+    <section
+      className="relative overflow-hidden border-b border-navy/10 bg-[#eef2f8]"
+      aria-label="Platform rail"
+    >
+      <div className="section-bg-drift pointer-events-none absolute inset-0 opacity-80" aria-hidden="true" />
+
+      {!reduce
+        ? floats.map((item, index) => (
+            <span
+              key={item.label}
+              className={`prod-float-pill pointer-events-none absolute z-[1] hidden rounded-full border border-navy/10 bg-white/80 px-3 py-1.5 text-[11px] font-semibold text-navy shadow-md backdrop-blur-sm md:inline-flex ${item.className}`}
+              style={{ animationDelay: `${index * 0.55}s` }}
+            >
+              {item.label}
+            </span>
+          ))
+        : null}
+
+      <ScrollScene scrub={0.6} className="relative mx-auto max-w-6xl px-6 pt-12">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div>
+          <div data-motion="wipe">
             <p className="font-mono text-[11px] uppercase text-signal-deep">Solutions</p>
             <h2 className="mt-2 font-display text-3xl tracking-tight text-navy md:text-4xl">
               Seven platforms.{" "}
               <span className="text-gradient">One operating model.</span>
             </h2>
           </div>
-          <div className="flex items-center gap-3">
+          <div data-motion="slide-right" className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -82,9 +115,9 @@ export function PlatformRail() {
             </Link>
           </div>
         </div>
-      </div>
+      </ScrollScene>
 
-      <div className="mt-10 overflow-hidden pb-14">
+      <div className="relative mt-10 overflow-hidden pb-14">
         <div ref={trackRef} className="flex w-max gap-5 px-6 will-change-transform">
           {loop.map((product, index) => {
             const theme = getProductTheme(product.slug);
@@ -92,7 +125,7 @@ export function PlatformRail() {
               <Link
                 key={`${product.slug}-${index}`}
                 href={`/products/${product.slug}`}
-                className="hover-lift group flex w-[min(82vw,20.5rem)] shrink-0 flex-col overflow-hidden rounded-[1.6rem] border border-navy/12 bg-white shadow-[0_16px_40px_rgb(16_36_88/0.1)]"
+                className="hover-lift group flex w-[min(82vw,20.5rem)] shrink-0 flex-col overflow-hidden rounded-[1.6rem] border border-navy/12 bg-white shadow-[0_16px_40px_rgb(16_36_88/0.1)] transition duration-300 hover:shadow-[0_22px_50px_rgb(16_36_88/0.16)]"
               >
                 <ProductStage slug={product.slug} compact className="w-full rounded-none" />
                 <div className="flex min-h-[10.25rem] w-full flex-col border-t border-navy/8 bg-gradient-to-b from-white to-[#f5f8fc] p-5">

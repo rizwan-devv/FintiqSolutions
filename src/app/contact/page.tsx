@@ -7,10 +7,16 @@ import { company, products, services } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Talk to FintiQ Solutions about a platform, a squad, or both.",
+  description: "Talk to FintiQ Solutions about a platform, a squad, or both. Typical reply within one business day.",
 };
 
 export default function ContactPage() {
+  const whatsappHref = company.whatsapp
+    ? `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(
+        "Hello FintiQ — I would like to discuss a fintech platform engagement.",
+      )}`
+    : null;
+
   return (
     <main>
       <header className="relative overflow-hidden bg-ink-raised text-white">
@@ -22,13 +28,14 @@ export default function ContactPage() {
             Tell us the channel you need live.
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-8 text-white/75">
-            A platform, people, or both. We reply with the product fit and a delivery shape.
+            A platform, people, or both. We reply with the product fit and a delivery shape —
+            typically {company.responseSla.toLowerCase()}.
           </p>
         </div>
       </header>
 
       <section className="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-12">
-        <div className="space-y-8 lg:col-span-5">
+        <div className="space-y-6 lg:col-span-5">
           <Reveal>
             <div className="surface-card rounded-[1.6rem] p-6">
               <p className="font-mono text-[11px] uppercase text-signal-deep">Office</p>
@@ -41,6 +48,47 @@ export default function ContactPage() {
               <div className="mt-5">
                 <ContactEmails />
               </div>
+              <dl className="mt-6 grid gap-3 border-t border-navy/10 pt-5 text-sm">
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="text-mist">First reply</dt>
+                  <dd className="font-semibold text-navy">{company.responseSla}</dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="text-mist">Engagements</dt>
+                  <dd className="font-semibold text-navy">Platform · people · both</dd>
+                </div>
+              </dl>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <a
+                  href={`mailto:${company.emails[0].address}`}
+                  className="inline-flex h-10 items-center rounded-full bg-navy px-4 text-sm font-semibold text-white transition hover:bg-teal hover:text-navy"
+                >
+                  Email info
+                </a>
+                {whatsappHref ? (
+                  <a
+                    href={whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-10 items-center rounded-full border border-navy/15 px-4 text-sm font-semibold text-navy transition hover:border-teal hover:text-signal-deep"
+                  >
+                    WhatsApp
+                  </a>
+                ) : (
+                  <Link
+                    href="#enquiry"
+                    className="inline-flex h-10 items-center rounded-full border border-navy/15 px-4 text-sm font-semibold text-navy transition hover:border-teal hover:text-signal-deep"
+                  >
+                    Request a call
+                  </Link>
+                )}
+                <Link
+                  href="/overview"
+                  className="inline-flex h-10 items-center rounded-full border border-navy/15 px-4 text-sm font-semibold text-navy transition hover:border-teal hover:text-signal-deep"
+                >
+                  Platforms overview
+                </Link>
+              </div>
             </div>
           </Reveal>
 
@@ -50,7 +98,10 @@ export default function ContactPage() {
               <ul className="mt-4 space-y-3">
                 {products.slice(0, 3).map((product) => (
                   <li key={product.slug}>
-                    <Link href={`/products/${product.slug}`} className="draw-link text-sm font-semibold text-navy hover:text-signal-deep">
+                    <Link
+                      href={`/products/${product.slug}`}
+                      className="draw-link text-sm font-semibold text-navy hover:text-signal-deep"
+                    >
                       {product.name}
                     </Link>
                     <p className="text-sm text-mist">{product.promise}</p>
@@ -58,7 +109,10 @@ export default function ContactPage() {
                 ))}
                 {services.slice(0, 2).map((service) => (
                   <li key={service.slug}>
-                    <Link href={`/services/${service.slug}`} className="draw-link text-sm font-semibold text-navy hover:text-signal-deep">
+                    <Link
+                      href={`/services/${service.slug}`}
+                      className="draw-link text-sm font-semibold text-navy hover:text-signal-deep"
+                    >
                       {service.name}
                     </Link>
                     <p className="text-sm text-mist">{service.summary}</p>
@@ -69,15 +123,17 @@ export default function ContactPage() {
           </Reveal>
         </div>
 
-        <Reveal delay={0.08} className="lg:col-span-7">
-          <div className="surface-card rounded-[1.8rem] p-6 md:p-8">
-            <p className="font-mono text-[11px] uppercase text-signal-deep">Send a note</p>
-            <h2 className="mt-2 font-display text-3xl">We will route it to the right desk.</h2>
-            <div className="mt-6">
-              <ContactForm />
+        <div id="enquiry" className="lg:col-span-7">
+          <Reveal delay={0.08}>
+            <div className="surface-card rounded-[1.8rem] p-6 md:p-8">
+              <p className="font-mono text-[11px] uppercase text-signal-deep">Enquiry</p>
+              <h2 className="mt-2 font-display text-3xl">We will route it to the right desk.</h2>
+              <div className="mt-6">
+                <ContactForm />
+              </div>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
     </main>
   );

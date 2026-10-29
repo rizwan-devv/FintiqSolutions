@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { products } from "@/content/site";
+import { company, products } from "@/content/site";
 
 type Status =
   | { kind: "idle" }
@@ -11,7 +11,7 @@ type Status =
   | { kind: "error"; message: string; mailto?: string };
 
 const field =
-  "mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-ink outline-none focus:border-signal-deep";
+  "mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-ink outline-none transition focus:border-signal-deep";
 
 export function ContactForm() {
   const reduce = useReducedMotion();
@@ -75,6 +75,9 @@ export function ContactForm() {
         <p className="mt-4 font-mono text-[11px] uppercase text-teal">Received</p>
         <p className="mt-3 font-display text-4xl">Thank you.</p>
         <p className="mt-4 leading-7 text-white/75">{status.message}</p>
+        <p className="mt-3 text-sm text-white/55">
+          Typical first reply: {company.responseSla.toLowerCase()}.
+        </p>
         {status.mailto ? (
           <a
             href={`mailto:${status.mailto}`}
@@ -95,8 +98,13 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-3xl border border-navy/10 bg-white p-6 text-navy shadow-sm md:p-8">
-      <div className="grid gap-5 md:grid-cols-2">
+    <form onSubmit={onSubmit} className="text-navy">
+      <p className="rounded-xl border border-teal/25 bg-teal/5 px-4 py-3 text-sm leading-6 text-navy/80">
+        Typical first reply <span className="font-semibold text-signal-deep">{company.responseSla}</span>
+        . Licensed institutions remain the system of record for funds and regulated decisions.
+      </p>
+
+      <div className="mt-6 grid gap-5 md:grid-cols-2">
         <label className="block text-sm">
           Name
           <input name="name" required autoComplete="name" className={field} />
@@ -113,7 +121,7 @@ export function ContactForm() {
           Phone
           <input name="phone" required autoComplete="tel" className={field} />
         </label>
-        <label className="block text-sm">
+        <label className="block text-sm md:col-span-2">
           Interest
           <select
             name="interest"
@@ -124,10 +132,11 @@ export function ContactForm() {
             <option value="platform">A platform</option>
             <option value="resource-augmentation">Resource augmentation</option>
             <option value="both">A platform and people</option>
+            <option value="callback">Request a call back</option>
           </select>
         </label>
-        <label className="block text-sm">
-          Platform
+        <label className="block text-sm md:col-span-2">
+          Platform <span className="text-mist">(optional)</span>
           <select name="platform" className={field} defaultValue="">
             <option value="">Choose if you know</option>
             {products.map((product) => (
@@ -162,7 +171,13 @@ export function ContactForm() {
 
       <label className="mt-5 block text-sm">
         Message
-        <textarea name="message" required rows={5} className={field} />
+        <textarea
+          name="message"
+          required
+          rows={4}
+          className={field}
+          placeholder="Channel, timeline, and any rails or core constraints we should know."
+        />
       </label>
       <input name="company_site" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
@@ -182,7 +197,7 @@ export function ContactForm() {
         disabled={status.kind === "sending"}
         className="mt-6 inline-flex h-12 items-center rounded-full bg-navy px-6 text-sm font-medium text-white transition hover:bg-teal hover:text-navy disabled:opacity-60"
       >
-        {status.kind === "sending" ? "Sending" : "Send"}
+        {status.kind === "sending" ? "Sending…" : "Send enquiry"}
       </button>
     </form>
   );

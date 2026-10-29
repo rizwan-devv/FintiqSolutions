@@ -1,4 +1,6 @@
 import { HeroSlideshow } from "@/components/home/HeroSlideshow";
+import { TrustMetrics } from "@/components/home/TrustMetrics";
+import { MotionPulse } from "@/components/home/MotionPulse";
 import { AiStrip } from "@/components/home/AiStrip";
 import { PlatformRail } from "@/components/home/PlatformRail";
 import { DeliveryStrip } from "@/components/home/DeliveryStrip";
@@ -10,6 +12,8 @@ export function HomeView() {
   return (
     <main>
       <HeroSlideshow />
+      <TrustMetrics />
+      <MotionPulse />
       <AiStrip />
       <PlatformRail />
       <DeliveryStrip />

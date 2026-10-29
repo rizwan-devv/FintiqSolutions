@@ -9,6 +9,13 @@ export const company = {
     { label: "For Info", address: "info@fintiqsolutions.com" },
     { label: "For Support", address: "support@fintiqsolutions.com" },
   ],
+  /** Typical first reply for new enquiries. */
+  responseSla: "Within 1 business day",
+  /**
+   * WhatsApp business number in international format without + (e.g. 923001234567).
+   * Leave empty to hide the WhatsApp CTA.
+   */
+  whatsapp: "" as string,
   /** Set when the company LinkedIn page is live. */
   linkedin: "" as string,
   disclaimer:
@@ -28,6 +35,8 @@ export type Buyer = {
 
 export type CaseStudy = {
   title: string
+  sector: string
+  platforms: string[]
   problem: string
   shipped: string
   result: string
@@ -596,21 +605,36 @@ export const roles = [
 export const work: CaseStudy[] = [
   {
     title: "Institutional payment gateway",
-    problem: "Collections, settlement, and merchant ops lived in separate tools.",
-    shipped: "Payment gateway with merchant portal, checkout, and settlement desk.",
-    result: "Institution runs the merchant book. Platform runs the payment path.",
+    sector: "Payments · licensed institution",
+    platforms: ["Payment Gateway", "Merchant Portal"],
+    problem: "Collections, settlement, and merchant ops lived in separate tools with weak status handoff.",
+    shipped:
+      "Payment gateway with merchant portal, checkout, and a settlement desk on one operating model — wired to the institution’s rails.",
+    result: "Institution runs the merchant book. Platform runs the payment path. UAT signed on a live collection journey.",
   },
   {
     title: "Corporate banking portal",
-    problem: "Business clients needed approvals and bulk payments without branch friction.",
-    shipped: "Corporate portal with maker-checker flows wired to the core.",
-    result: "Corporate ops signed a live payment journey in UAT.",
+    sector: "Corporate banking",
+    platforms: ["Corporate Banking"],
+    problem: "Business clients needed approvals and bulk payments without branch friction or spreadsheet bridges.",
+    shipped: "Branded corporate portal with maker-checker matrices, bulk payments, and a clean handoff to core banking.",
+    result: "Corporate ops signed a live payment journey in UAT with audit-ready approvals.",
   },
   {
     title: "Lending stack",
+    sector: "Retail & SME lending",
+    platforms: ["LOS", "LMS"],
     problem: "Origination and servicing were split across spreadsheets and legacy screens.",
-    shipped: "LOS into LMS with a shared operating model for the lending desk.",
-    result: "Application through repayment tracked in one governed pipeline.",
+    shipped: "LOS into LMS with a shared operating model — application, decision, schedule, and repayment on one pipeline.",
+    result: "Application through repayment tracked in one governed desk; UAT covered a full credit journey.",
+  },
+  {
+    title: "Card operations desk",
+    sector: "Cards · issuance",
+    platforms: ["Card Management System"],
+    problem: "Issuance, limits, PIN, and servicing were fragmented across ops tools with unclear audit trails.",
+    shipped: "CMS desk with encrypted Sign-in, issuance, authorization paths, and servicing on one control plane.",
+    result: "Authorized operators run the card book from CMS; UAT started at Sign-in and closed on a live card journey.",
   },
 ]
 
@@ -703,8 +727,37 @@ export const navigation: NavItem[] = [
   { href: "/delivery", label: "Delivery" },
   { href: "/work", label: "Work" },
   { href: "/about", label: "About Us" },
+  { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact Us" },
 ]
+
+export const careers = {
+  intro:
+    "We hire people who ship regulated fintech platforms — cards, payments, cash, remittance, and lending — with clear UAT and clean handovers.",
+  openRoles: [
+    {
+      title: "Senior Java / Spring Boot engineer",
+      focus: "Payment and core integration, CMS and gateway services",
+      type: "Full-time · Islamabad / hybrid",
+    },
+    {
+      title: "React engineer — banking portals",
+      focus: "Corporate, merchant, and ops desks with audit-ready UX",
+      type: "Full-time · Islamabad / hybrid",
+    },
+    {
+      title: "QA engineer — UAT & journeys",
+      focus: "Payment, card, and lending journeys with institution sign-off",
+      type: "Full-time · Islamabad / hybrid",
+    },
+    {
+      title: "Banking business analyst",
+      focus: "Domain mapping, UAT scripts, and delivery with product owners",
+      type: "Full-time · Islamabad / hybrid",
+    },
+  ],
+  howToApply: "Send your CV and a short note on a journey you helped take live to info@fintiqsolutions.com.",
+}
 
 export function getProduct(slug: string) {
   return products.find((product) => product.slug === slug)

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DetailView } from "@/components/story/DetailView";
 import { CmsLoginMock } from "@/components/product/CmsLoginMock";
+import { CmsProofSuite } from "@/components/product/CmsDeskGallery";
 import { ProductStage } from "@/components/product/ProductStage";
 import { getProduct, getService, products } from "@/content/site";
 import { getProductTheme } from "@/content/themes";
@@ -39,9 +40,14 @@ export default async function ProductPage({ params }: Props) {
     product.slug === "card-management-system"
       ? {
           eyebrow: "Proof · CMS desk",
-          title: "Card Management System — Sign in",
-          body: "This is the CMS login operators use: encrypted session, Login ID, password, and authorized personnel only — then issuance and servicing on the same desk.",
-          node: <CmsLoginMock accent={theme.accent} size="proof" />,
+          title: "Sign in → issue → authorize → service",
+          body: "Operators start at an encrypted CMS Sign-in, then run issuance and servicing on the same control plane — with audit-ready status and a separate path for the cardholder app.",
+          node: (
+            <CmsProofSuite
+              accent={theme.accent}
+              login={<CmsLoginMock accent={theme.accent} size="proof" />}
+            />
+          ),
         }
       : undefined;
 

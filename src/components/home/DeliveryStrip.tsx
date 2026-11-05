@@ -15,12 +15,13 @@ export function DeliveryStrip() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div data-motion="wipe" className="max-w-2xl">
             <p className="font-mono text-[11px] uppercase text-teal">How we deliver</p>
-            <h2 className="mt-3 font-display text-4xl tracking-tight md:text-5xl">
-              Faster delivery. Clear time.
+            <h2 className="mt-3 font-display text-4xl tracking-tight md:text-6xl md:leading-[1.02]">
+              Faster delivery.
+              <span className="mt-1 block text-teal">Clear time. Cover after go-live.</span>
             </h2>
             <p className="mt-3 text-white/75">
-              Domain-ready people. UAT as the clock. Cover after go-live. Connected to the rails your
-              institution already runs.
+              Domain-ready people. UAT sets the clock. Connected to the rails your institution already
+              runs.
             </p>
           </div>
           <div data-motion="slide-right" className="flex flex-wrap gap-3">

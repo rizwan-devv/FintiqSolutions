@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ProfileDownload } from "@/components/brand/ProfileDownload";
 import { PrintOverviewButton } from "@/components/overview/PrintOverview";
 import { company, products, services } from "@/content/site";
 
@@ -27,9 +28,10 @@ export default function OverviewPage() {
               lending — delivered as a technology partner to licensed institutions.
             </p>
           </div>
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col items-end gap-2 print:hidden">
             <PrintOverviewButton />
-            <Link href="/contact" className="text-sm font-semibold text-signal-deep print:hidden">
+            <ProfileDownload variant="text" label="Full company profile PDF →" />
+            <Link href="/contact" className="text-sm font-semibold text-signal-deep">
               Contact →
             </Link>
           </div>

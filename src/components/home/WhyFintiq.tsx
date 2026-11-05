@@ -11,6 +11,9 @@ export function WhyFintiq() {
           <h2 className="mt-4 max-w-2xl font-display text-5xl tracking-tight">
             Why <span className="text-gradient-light">FintiQ.</span>
           </h2>
+          <p className="mt-5 max-w-xl border-l-4 border-teal pl-4 font-display text-xl leading-8 text-white/90 md:text-2xl">
+            Technology partner. Not a licensee claim.
+          </p>
         </Reveal>
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {reasons.map((reason, index) => (

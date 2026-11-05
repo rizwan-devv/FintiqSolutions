@@ -1,6 +1,7 @@
 "use client";
 
 import { ContactEmails } from "@/components/brand/ContactEmails";
+import { ProfileDownload } from "@/components/brand/ProfileDownload";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ScrollScene } from "@/components/motion/ScrollScene";
 
@@ -14,9 +15,14 @@ export function HomeContact() {
           <h2 className="mt-3 font-display text-4xl tracking-tight md:text-5xl">
             Tell us the channel you need live.
           </h2>
-          <p className="mt-3 leading-7 text-white/75">A platform, people, or both.</p>
+          <p className="mt-3 leading-7 text-white/75">
+            A platform, people, or both. Technology partner — not a licensee claim.
+          </p>
           <div className="mt-6">
             <ContactEmails tone="dark" />
+          </div>
+          <div className="mt-6">
+            <ProfileDownload variant="ghostLight" label="Download company profile" />
           </div>
         </div>
         <div data-motion="slide-right" data-motion-delay={0.08} className="lg:col-span-7">

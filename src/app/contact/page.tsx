@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactEmails } from "@/components/brand/ContactEmails";
+import { ProfileDownload } from "@/components/brand/ProfileDownload";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Reveal } from "@/components/ui/Reveal";
 import { company, products, services } from "@/content/site";
@@ -88,6 +89,7 @@ export default function ContactPage() {
                 >
                   Platforms overview
                 </Link>
+                <ProfileDownload variant="chip" label="Company profile PDF" />
               </div>
             </div>
           </Reveal>

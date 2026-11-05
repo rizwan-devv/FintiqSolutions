@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ContactEmails } from "@/components/brand/ContactEmails";
+import { ProfileDownload } from "@/components/brand/ProfileDownload";
 import { Reveal } from "@/components/ui/Reveal";
 import { company, delivery, reasons } from "@/content/site";
 import { buttonGhost, buttonGhostLight, buttonPrimary } from "@/components/ui/styles";
@@ -31,6 +32,7 @@ export default function AboutPage() {
             <Link href="/contact" className={buttonPrimary}>
               Contact Us
             </Link>
+            <ProfileDownload variant="ghostLight" />
             <Link href="/products" className={buttonGhostLight}>
               Solutions
             </Link>
@@ -129,6 +131,7 @@ export default function AboutPage() {
               <Link href="/contact" className={buttonPrimary}>
                 Contact Us
               </Link>
+              <ProfileDownload variant="ghost" />
               <Link href="/work" className={buttonGhost}>
                 See work
               </Link>

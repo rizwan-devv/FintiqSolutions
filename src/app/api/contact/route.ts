@@ -75,10 +75,20 @@ export async function POST(request: Request) {
   const message = text(body.message, 2000);
   const interest = text(body.interest, 40);
   const platform = text(body.platform, 80);
+  const service = text(body.service, 80);
   const role = text(body.role, 80);
   const seniority = text(body.seniority, 80);
   const count = text(body.count, 20);
   const start = text(body.start, 80);
+
+  const allowedInterest = [
+    "platform",
+    "resource-augmentation",
+    "both",
+    "compliance",
+    "production-support",
+    "callback",
+  ];
 
   if (name.length < 2) {
     return NextResponse.json({ message: "Add your name." }, { status: 400 });
@@ -89,7 +99,7 @@ export async function POST(request: Request) {
   if (organization.length < 2 || phone.length < 6 || message.length < 8) {
     return NextResponse.json({ message: "Add your organization, phone, and a short note." }, { status: 400 });
   }
-  if (!["platform", "resource-augmentation", "both"].includes(interest)) {
+  if (!allowedInterest.includes(interest)) {
     return NextResponse.json({ message: "Choose what you want to talk about." }, { status: 400 });
   }
 
@@ -101,6 +111,7 @@ export async function POST(request: Request) {
     message,
     interest,
     platform,
+    service,
     role,
     seniority,
     count,

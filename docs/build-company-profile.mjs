@@ -1,0 +1,1102 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(__dirname, "..");
+const mark = fs.readFileSync(path.join(root, "public/brand/mark.png")).toString("base64");
+const markSrc = `data:image/png;base64,${mark}`;
+
+const TOTAL = 11;
+const pad = (n) => String(n).padStart(2, "0");
+const footer = (n, section) => {
+  const pct = Math.round((n / TOTAL) * 100);
+  return `
+    <div class="footer">
+      <div class="foot-addr">FintiQ Solutions (Private) Limited · House # 5, Street 7, Block C, Naval Anchorage, Islamabad</div>
+      <div class="center">CONFIDENTIAL</div>
+      <div class="right"><span class="pg">${pad(n)} / ${pad(TOTAL)}</span> · ${section}</div>
+    </div>
+    <div class="progress" aria-hidden="true"><span style="width:${pct}%"></span></div>`;
+};
+
+const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>FintiQ Solutions — Company Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0a1c33;
+    --deep: #050f1c;
+    --steel: #152a45;
+    --accent: #1e4d6b;
+    --accent-soft: #8fa9bc;
+    --gold: #b8954a;
+    --gold-soft: #d4b56a;
+    --ink: #121c2b;
+    --mist: #5a6878;
+    --line: #d9e0e8;
+    --paper: #f5f7fa;
+    --white: #ffffff;
+    --panel: #0c223c;
+    --grad: linear-gradient(145deg, #050f1c 0%, #0a1c33 48%, #132a46 100%);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "DM Sans", "Segoe UI", sans-serif;
+    background: #1a2332;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .toolbar {
+    position: sticky; top: 0; z-index: 30;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 16px; background: var(--deep); color: #fff; font-size: 13px;
+  }
+  .toolbar button {
+    border: 0; border-radius: 2px; padding: 8px 16px; font-weight: 700;
+    background: var(--gold); color: var(--deep); cursor: pointer;
+  }
+  .slide {
+    width: 297mm;
+    height: 210mm;
+    margin: 8mm auto;
+    background: var(--paper);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(6,21,37,.28);
+    page-break-after: always;
+  }
+  .slide:last-of-type { page-break-after: auto; }
+  .slide.dark { background: var(--deep); color: #fff; }
+  .slide.dark .footer {
+    border-top-color: rgba(255,255,255,.12);
+    color: rgba(255,255,255,.5);
+  }
+  .slide.dark .footer .center { color: rgba(255,255,255,.65); }
+  .slide.dark .footer .right { color: var(--gold-soft); }
+  .slide.dark .footer .pg { color: #fff; }
+  .slide.band .band-head {
+    margin: -13mm -17mm 4.5mm -19mm;
+    padding: 8mm 17mm 5.5mm 19mm;
+    background: var(--panel); color: #fff;
+  }
+  .slide.band .band-head .kicker { color: var(--gold-soft); margin-bottom: 2mm; }
+  .slide.band .band-head .title { color: #fff; margin-bottom: 0; }
+  .slide.band .band-head .title .accent { color: var(--gold-soft); }
+  .slide.band .band-head .lead { color: rgba(255,255,255,.68); margin: 2.5mm 0 0; }
+
+  .atm { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .atm .rule {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3mm;
+    background: var(--navy);
+  }
+  .atm .rule::after {
+    content: ""; position: absolute; left: 3mm; top: 0; width: 1.1mm; height: 100%;
+    background: var(--gold);
+  }
+  .atm .hair {
+    position: absolute; right: 14mm; top: 12mm; width: 42mm; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(184,149,74,.35), transparent);
+  }
+
+  .content {
+    position: relative; z-index: 2;
+    height: 100%;
+    padding: 13mm 17mm 10mm 19mm;
+    display: flex; flex-direction: column;
+  }
+  .footer {
+    margin-top: auto;
+    display: grid; grid-template-columns: 1.65fr .5fr .85fr; gap: 6px;
+    align-items: end;
+    padding-top: 2.5mm;
+    border-top: 1px solid var(--line);
+    font-size: 6.5pt; color: var(--mist); font-weight: 500;
+  }
+  .footer .center {
+    text-align: center; color: var(--navy); font-weight: 700;
+    letter-spacing: .14em; font-size: 6.5pt;
+  }
+  .footer .right { text-align: right; color: var(--navy); font-weight: 600; }
+  .footer .pg {
+    font-family: "IBM Plex Sans", sans-serif; font-weight: 700; letter-spacing: .04em;
+    color: var(--navy);
+  }
+  .progress {
+    position: absolute; left: 19mm; right: 17mm; bottom: 5.5mm; z-index: 3;
+    height: 1.2px; background: rgba(11,31,58,.1);
+  }
+  .progress span {
+    display: block; height: 100%; background: var(--gold);
+  }
+  .slide.dark .progress { background: rgba(255,255,255,.12); left: 22mm; right: 20mm; bottom: 7mm; }
+
+  .kicker {
+    display: inline-flex; align-items: center; gap: 2.5mm;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 7pt; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 2mm;
+  }
+  .kicker::before {
+    content: ""; width: 7mm; height: 1.4px; background: var(--gold);
+  }
+  .slide.dark .kicker { color: var(--gold-soft); }
+
+  h1.title {
+    margin: 0 0 2.5mm;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 25pt; letter-spacing: -.025em; color: var(--navy); font-weight: 700;
+    line-height: 1.08;
+  }
+  h1.title .accent { color: var(--gold); }
+  .slide.dark h1.title { color: #fff; }
+  .lead {
+    margin: 0 0 3.5mm; max-width: 240mm;
+    font-size: 10pt; line-height: 1.5; color: var(--mist); font-weight: 500;
+  }
+  .slide.dark .lead { color: rgba(255,255,255,.7); }
+  p { margin: 0 0 3mm; line-height: 1.55; color: var(--ink); font-size: 10.5pt; }
+  .subhead {
+    margin: 0 0 3mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 12pt; font-weight: 700; color: var(--navy);
+  }
+  ul.plain { margin: 2mm 0 0; padding-left: 5mm; }
+  ul.plain li { margin: 0 0 2.2mm; font-size: 10.5pt; line-height: 1.45; color: var(--ink); }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 2mm; margin-top: 3mm; }
+  .chip {
+    display: inline-flex; align-items: center;
+    padding: 1.3mm 2.8mm; border-radius: 2px;
+    font-size: 7.5pt; font-weight: 600;
+    background: rgba(184,149,74,.1); color: var(--navy);
+    border: 1px solid rgba(184,149,74,.28);
+  }
+
+  .panel {
+    border-radius: 2px;
+    padding: 5mm 5.5mm;
+    background: var(--white);
+    border: 1px solid var(--line);
+  }
+  .panel.navy {
+    background: var(--panel); border: 0; color: #fff;
+  }
+  .panel.navy p, .panel.navy li { color: rgba(255,255,255,.88); }
+
+  .two-col { display: grid; grid-template-columns: 1.2fr .8fr; gap: 7mm; flex: 1; min-height: 0; }
+  .two-col.eq { grid-template-columns: 1fr 1fr; }
+
+  .services { margin: 0; padding: 0; list-style: none; }
+  .services li {
+    list-style: none; margin: 0 0 3.2mm; padding: 0;
+    display: grid; grid-template-columns: 8mm 1fr; gap: 3mm; align-items: start;
+  }
+  .services .ico {
+    width: 6.5mm; height: 6.5mm; border-radius: 2px;
+    background: var(--navy); color: var(--gold-soft);
+    display: grid; place-items: center;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 8pt; font-weight: 700; margin-top: .4mm;
+  }
+  .services strong {
+    display: block; color: var(--navy); font-size: 10.5pt; margin-bottom: .6mm;
+    font-family: "IBM Plex Sans", sans-serif; font-weight: 700;
+  }
+  .services span { display: block; color: var(--mist); font-size: 8.8pt; line-height: 1.42; }
+
+  .feature-box h3 {
+    margin: 0 0 2.5mm; color: var(--navy);
+    font-family: "IBM Plex Sans", sans-serif; font-size: 13pt; font-weight: 700;
+  }
+  .feature-box .panel.navy { min-height: 105mm; }
+  .feature-box ul { margin: 0; padding-left: 5mm; }
+  .feature-box li { margin: 0 0 2.8mm; font-size: 9.5pt; line-height: 1.4; }
+
+  /* Cover */
+  .cover-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: var(--grad);
+  }
+  .cover-bg::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4mm;
+    background: var(--gold);
+  }
+  .cover-bg::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 40% 35% at 88% 18%, rgba(184,149,74,.12), transparent 55%),
+      linear-gradient(180deg, transparent 55%, rgba(0,0,0,.22) 100%);
+  }
+  .cover-content {
+    position: relative; z-index: 2; height: 100%;
+    padding: 16mm 20mm 14mm 22mm;
+    display: flex; flex-direction: column; color: #fff;
+  }
+  .cover-top {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .brand-lockup { display: flex; align-items: center; gap: 4mm; }
+  .brand-lockup img { height: 13mm; width: auto; }
+  .brand-lockup .name {
+    font-family: "IBM Plex Sans", sans-serif; font-weight: 700; font-size: 15pt;
+    letter-spacing: -.01em; line-height: 1;
+  }
+  .brand-lockup .name .q { color: var(--gold-soft); }
+  .brand-lockup .sub {
+    margin-top: 1.2mm; font-size: 7pt; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(255,255,255,.5); font-weight: 600;
+  }
+  .cover-pill {
+    padding: 2mm 4mm; border-radius: 2px;
+    border: 1px solid rgba(184,149,74,.4);
+    background: rgba(184,149,74,.08);
+    font-size: 7.5pt; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+  .cover-hero {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    max-width: 215mm; padding-top: 2mm;
+  }
+  .cover-hero h1 {
+    margin: 0 0 4mm;
+    font-family: "IBM Plex Sans", sans-serif; font-weight: 700;
+    font-size: 38pt; line-height: 1.02; letter-spacing: -.03em; color: #fff;
+  }
+  .cover-hero h1 span { display: block; }
+  .cover-hero h1 .line2 { color: var(--gold-soft); }
+  .cover-hero .tag {
+    margin: 0; max-width: 175mm;
+    font-size: 12pt; font-weight: 500; line-height: 1.45;
+    color: rgba(255,255,255,.75);
+  }
+  .cover-hero .tag em {
+    font-style: normal; color: #fff; font-weight: 600;
+  }
+  .cover-strip {
+    display: flex; flex-wrap: wrap; gap: 2mm; margin-top: 7mm;
+  }
+  .cover-strip span {
+    padding: 1.6mm 3.2mm; border-radius: 2px;
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(255,255,255,.05);
+    font-size: 7.5pt; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: rgba(255,255,255,.82);
+  }
+  .cover-meta {
+    display: flex; gap: 10mm; align-items: center;
+    padding-top: 4mm; border-top: 1px solid rgba(255,255,255,.12);
+    font-size: 8.5pt; color: rgba(255,255,255,.5); font-weight: 500;
+  }
+  .cover-meta strong { color: var(--gold-soft); font-weight: 700; }
+
+  /* About */
+  .split-about {
+    display: grid; grid-template-columns: 1.25fr .75fr; gap: 7mm; flex: 1; align-items: stretch;
+  }
+  .mission {
+    margin-top: 5mm; padding: 5mm 5.5mm; border-radius: 2px;
+    background: var(--panel); color: #fff;
+  }
+  .mission .label {
+    font-family: "IBM Plex Sans", sans-serif; font-size: 10pt; font-weight: 700;
+    color: var(--gold); margin-bottom: 2mm; letter-spacing: .06em; text-transform: uppercase;
+  }
+  .mission p { margin: 0; color: rgba(255,255,255,.9); font-size: 10pt; }
+  .focus-box {
+    margin-top: 4mm; padding: 4mm 5mm; border-radius: 2px;
+    background: var(--white); border: 1px solid var(--line);
+    border-left: 3.5px solid var(--gold);
+  }
+  .focus-box p { margin: 0 0 1mm; font-size: 9.5pt; color: var(--mist); }
+  .focus-box strong { color: var(--navy); }
+  .vision {
+    border-radius: 2px; padding: 6mm 5.5mm;
+    background: var(--navy); color: #fff;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 100%;
+  }
+  .vision h3 {
+    margin: 0 0 3mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 13pt; font-weight: 700; color: var(--gold);
+  }
+  .vision p { margin: 0; color: rgba(255,255,255,.88); font-size: 10pt; line-height: 1.55; }
+  .vision .mark { margin-top: auto; padding-top: 8mm; opacity: .9; }
+  .vision .mark img { height: 10mm; width: auto; }
+
+  /* Platform groups */
+  .plat-groups {
+    display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 4mm; flex: 1; min-height: 0;
+  }
+  .plat-group {
+    display: flex; flex-direction: column; gap: 2.5mm; min-height: 0;
+  }
+  .plat-group .g-label {
+    font-family: "IBM Plex Sans", sans-serif; font-size: 7.5pt; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--gold);
+    padding-bottom: 1.5mm; border-bottom: 1.5px solid rgba(184,149,74,.35);
+  }
+  .plat-card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 2px;
+    padding: 3.2mm 3.5mm; flex: 1;
+  }
+  .plat-card.featured {
+    background: var(--panel); border: 0; color: #fff;
+  }
+  .plat-card .code {
+    font-family: "IBM Plex Sans", sans-serif; font-weight: 700; font-size: 7.5pt;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 1mm;
+  }
+  .plat-card.featured .code { color: var(--gold-soft); }
+  .plat-card h3 {
+    margin: 0 0 1.2mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 10pt; font-weight: 700; color: var(--navy);
+  }
+  .plat-card.featured h3 { color: #fff; }
+  .plat-card p { margin: 0; font-size: 8pt; line-height: 1.35; color: var(--mist); }
+  .plat-card.featured p { color: rgba(255,255,255,.78); }
+  .plat-card ul { margin: 1.2mm 0 0; padding-left: 3.5mm; }
+  .plat-card li { margin: 0 0 .8mm; font-size: 7.5pt; line-height: 1.3; color: var(--mist); }
+  .plat-card.featured li { color: rgba(255,255,255,.78); }
+
+  .app-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; margin-top: 2.5mm;
+  }
+  .app-tile {
+    border-radius: 2px; padding: 3mm 3.2mm; background: var(--white); border: 1px solid var(--line);
+    border-top: 2.5px solid var(--navy);
+  }
+  .app-tile .ico-line {
+    display: flex; align-items: center; gap: 2mm; margin-bottom: 1.5mm;
+  }
+  .app-tile .glyph {
+    width: 6mm; height: 6mm; border-radius: 2px;
+    background: rgba(10,28,51,.06); color: var(--navy);
+    display: grid; place-items: center;
+    font-family: "IBM Plex Sans", sans-serif; font-size: 7pt; font-weight: 700;
+  }
+  .app-tile h3 {
+    margin: 0; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 9.5pt; font-weight: 700; color: var(--navy);
+  }
+  .app-tile p { margin: 0; font-size: 7.6pt; color: var(--mist); line-height: 1.32; }
+  .app-tile .os {
+    margin-top: 1.4mm; font-size: 6.5pt; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--gold);
+  }
+
+  /* Tech */
+  .tech-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; flex: 1;
+  }
+  .tech-col {
+    border-radius: 2px; padding: 5mm 4.5mm;
+    background: var(--white); border: 1px solid var(--line);
+  }
+  .tech-col.dark {
+    background: var(--panel); border: 0; color: #fff;
+  }
+  .tech-col h3 {
+    margin: 0 0 3mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 11pt; font-weight: 700; color: var(--navy);
+    padding-bottom: 2mm; border-bottom: 2px solid var(--gold);
+  }
+  .tech-col.dark h3 { color: #fff; border-bottom-color: var(--gold-soft); }
+  .tech-col ul { margin: 0; padding: 0; list-style: none; }
+  .tech-col li {
+    margin: 0 0 2.2mm; font-size: 9.5pt; color: var(--ink); font-weight: 500;
+    padding-left: 3.5mm; position: relative;
+  }
+  .tech-col li::before {
+    content: ""; position: absolute; left: 0; top: 2.2mm;
+    width: 1.6mm; height: 1.6mm; border-radius: 50%; background: var(--gold);
+  }
+  .tech-col.dark li { color: rgba(255,255,255,.88); }
+  .tech-col.dark li::before { background: var(--gold-soft); }
+  .tech-note {
+    margin-top: 4mm; padding: 3.5mm 4.5mm; border-radius: 2px;
+    background: rgba(184,149,74,.08); border-left: 3px solid var(--gold);
+    font-size: 9.5pt; color: var(--navy); line-height: 1.45;
+  }
+
+  .check-list { margin: 3mm 0 0; padding: 0; list-style: none; }
+  .check-list li {
+    display: grid; grid-template-columns: 6.5mm 1fr; gap: 2.5mm; align-items: start;
+    margin: 0 0 3mm; font-size: 11pt; font-weight: 600; color: var(--navy);
+  }
+  .check-list .tick {
+    width: 5.5mm; height: 5.5mm; border-radius: 2px;
+    background: var(--navy); color: var(--gold-soft);
+    display: grid; place-items: center; font-size: 7pt; font-weight: 700;
+    margin-top: .8mm;
+  }
+
+  .build-grid {
+    display: grid; grid-template-columns: 1.1fr .9fr; gap: 6mm; flex: 1; min-height: 0;
+  }
+
+  .proof-metrics {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.5mm; margin: 1mm 0 4mm;
+  }
+  .metric {
+    border-radius: 2px; padding: 4mm 3.5mm;
+    background: var(--white); border: 1px solid var(--line);
+  }
+  .metric.hot { background: var(--panel); border: 0; color: #fff; }
+  .metric .num {
+    font-family: "IBM Plex Sans", sans-serif; font-weight: 700; font-size: 24pt;
+    letter-spacing: -.03em; color: var(--navy); line-height: 1;
+  }
+  .metric.hot .num { color: var(--gold-soft); }
+  .metric h3 {
+    margin: 2mm 0 1mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 10pt; font-weight: 700; color: var(--navy);
+  }
+  .metric.hot h3 { color: #fff; }
+  .metric p { margin: 0; font-size: 8pt; color: var(--mist); }
+  .metric.hot p { color: rgba(255,255,255,.7); }
+  .proof-outcomes {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; flex: 1;
+  }
+  .outcome {
+    border-radius: 2px; padding: 4mm;
+    background: var(--white); border: 1px solid var(--line);
+    border-top: 3px solid var(--gold);
+  }
+  .outcome h3 {
+    margin: 0 0 1.5mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 11pt; font-weight: 700; color: var(--navy);
+  }
+  .outcome p { margin: 0; font-size: 8.5pt; color: var(--mist); line-height: 1.4; }
+
+  .timeline {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    position: relative; margin: 1mm 0 5mm;
+  }
+  .timeline::before {
+    content: ""; position: absolute; left: 8%; right: 8%; top: 6.5mm;
+    height: 2px; background: linear-gradient(90deg, var(--navy), var(--gold));
+    z-index: 0;
+  }
+  .t-step { position: relative; z-index: 1; padding: 0 3mm; text-align: center; }
+  .t-step .dot {
+    width: 13mm; height: 13mm; margin: 0 auto 3mm;
+    border-radius: 50%;
+    background: var(--navy); color: var(--gold-soft);
+    display: grid; place-items: center;
+    font-family: "IBM Plex Sans", sans-serif; font-weight: 700; font-size: 11pt;
+    box-shadow: 0 0 0 3px var(--paper);
+  }
+  .t-step strong {
+    display: block; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 10pt; font-weight: 700; color: var(--navy); margin-bottom: 1.2mm;
+  }
+  .t-step span {
+    display: block; font-size: 8pt; line-height: 1.35; color: var(--mist); font-weight: 500;
+  }
+  .engage-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+  .engage {
+    border-radius: 2px; padding: 3.5mm 3mm;
+    background: var(--panel); color: #fff; min-height: 26mm;
+  }
+  .engage .label {
+    font-size: 7pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5mm;
+  }
+  .engage p { margin: 0; font-size: 9pt; font-weight: 600; color: rgba(255,255,255,.9); line-height: 1.35; }
+
+  .quote-bar {
+    margin: 0 0 3.5mm; padding: 3.5mm 4.5mm; border-radius: 2px;
+    background: rgba(184,149,74,.08); border-left: 3.5px solid var(--gold);
+    font-family: "IBM Plex Sans", sans-serif; font-size: 12.5pt; font-weight: 700;
+    color: var(--navy);
+  }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1.1fr .9fr; gap: 5mm; margin-top: 2mm; flex: 1;
+  }
+  .contact-card {
+    border-radius: 2px; padding: 5.5mm;
+    background: var(--white); border: 1px solid var(--line);
+  }
+  .contact-card.navy { background: var(--panel); border: 0; color: #fff; }
+  .contact-card h3 {
+    margin: 0 0 2.5mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 11pt; font-weight: 700; color: var(--gold);
+  }
+  .contact-card.navy h3 { color: var(--gold); }
+  .contact-card p { margin: 0 0 1.5mm; font-size: 10.5pt; color: var(--mist); }
+  .contact-card.navy p { color: rgba(255,255,255,.8); }
+  .contact-card strong { color: var(--ink); font-weight: 700; }
+  .contact-card.navy strong { color: #fff; }
+  .big-mail {
+    margin-top: 3mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 14pt; font-weight: 700; color: var(--navy);
+  }
+  .contact-card.navy .big-mail { color: var(--gold-soft); }
+
+  .thanks-wrap {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center; gap: 5mm;
+  }
+  .thanks-wrap h1 {
+    margin: 0; font-family: "IBM Plex Sans", sans-serif; font-weight: 700;
+    font-size: 48pt; letter-spacing: -.03em; line-height: .95; color: #fff;
+  }
+  .thanks-wrap h1 span { color: var(--gold-soft); }
+  .thanks-wrap p {
+    margin: 0; font-size: 12pt; color: rgba(255,255,255,.68); font-weight: 500;
+    max-width: 160mm;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .toolbar { display: none !important; }
+    .slide { margin: 0; box-shadow: none; page-break-after: always; }
+    .slide:last-of-type { page-break-after: auto; }
+  }
+  @page { size: A4 landscape; margin: 0; }
+</style>
+</head>
+<body>
+<div class="toolbar no-print">
+  <div><strong>FintiQ Solutions</strong> — Company Profile</div>
+  <button type="button" onclick="window.print()">Print / Save PDF</button>
+</div>
+
+<!-- 1 COVER -->
+<section class="slide dark">
+  <div class="cover-bg"></div>
+  <div class="cover-content">
+    <div class="cover-top">
+      <div class="brand-lockup">
+        <img src="${markSrc}" alt="FintiQ" />
+        <div>
+          <div class="name">Finti<span class="q">Q</span> Solutions</div>
+          <div class="sub">Fintech Technology Partner</div>
+        </div>
+      </div>
+      <div class="cover-pill">Company Profile 2026</div>
+    </div>
+    <div class="cover-hero">
+      <h1><span>Enterprise fintech</span><span class="line2">platforms for banks.</span></h1>
+      <p class="tag">Secure, integration-ready systems for cards, payments, wallets, lending, corporate banking, and digital channels — delivered as a <em>technology partner</em> to licensed institutions.</p>
+      <div class="cover-strip">
+        <span>Mobile</span><span>Internet</span><span>ATM</span><span>Cards</span>
+        <span>Cash</span><span>Wallet</span><span>Gateway</span><span>LOS / LMS</span><span>KYC</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div><strong>Role</strong> · Technology partner</div>
+      <div><strong>Focus</strong> · Regulated institutions</div>
+      <div><strong>01 / ${pad(TOTAL)}</strong> · Cover</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 ABOUT -->
+<section class="slide">
+  <div class="atm"><div class="rule"></div><div class="hair"></div></div>
+  <div class="content">
+    <div class="kicker">Who we are</div>
+    <h1 class="title">About <span class="accent">FintiQ</span></h1>
+    <div class="split-about">
+      <div>
+        <p class="lead" style="margin-bottom:0">
+          FintiQ Solutions designs and delivers secure, scalable digital financial platforms for banks
+          and licensed financial institutions. We combine structured architecture, open API layers,
+          and governance-aware delivery so your teams can run live journeys with clear audit trails.
+        </p>
+        <div class="mission">
+          <div class="label">Our Mission</div>
+          <p>
+            Equip regulated institutions with modern platforms — corporate banking, cards, wallets,
+            payments, lending, and digital channels — that strengthen operations and support responsible
+            financial innovation without confusing technology delivery with licensed authority.
+          </p>
+        </div>
+        <div class="focus-box">
+          <p><strong>Engagement focus</strong></p>
+          <p>Platform implementation · Core &amp; rail integrations · Compliance engineering · Squads · Production support</p>
+          <p>info@fintiqsolutions.com · support@fintiqsolutions.com</p>
+        </div>
+      </div>
+      <aside class="vision">
+        <div>
+          <h3>Our Vision</h3>
+          <p>
+            To be the trusted fintech technology partner for institutions modernising payments, cards,
+            corporate banking, and consumer digital channels — with platforms that scale alongside
+            regulation, transaction growth, and market change.
+          </p>
+        </div>
+        <div class="mark"><img src="${markSrc}" alt="" /></div>
+      </aside>
+    </div>
+    ${footer(2, "About")}
+  </div>
+</section>
+
+<!-- 3 CORE SERVICES -->
+<section class="slide band">
+  <div class="atm"><div class="rule"></div></div>
+  <div class="content">
+    <div class="band-head">
+      <div class="kicker">What we deliver</div>
+      <h1 class="title">Core <span class="accent">Services</span></h1>
+      <p class="lead">
+        End-to-end technology services for regulated institutions — from platform rollout and banking
+        integrations to KYC/compliance engineering, specialised squads, and production run support.
+      </p>
+    </div>
+    <div class="two-col">
+      <div>
+        <ul class="services">
+          <li>
+            <span class="ico">1</span>
+            <div>
+              <strong>Platform Implementation</strong>
+              <span>Brand and deploy FintiQ platforms for cards, payments, wallets, cash, corporate banking, or lending. Connect core and rails, configure ops desks, and pass UAT on a live journey.</span>
+            </div>
+          </li>
+          <li>
+            <span class="ico">2</span>
+            <div>
+              <strong>Payments &amp; Core Integration</strong>
+              <span>Wire payment rails and core banking behind open, documented APIs so application teams integrate once — with test and production parity.</span>
+            </div>
+          </li>
+          <li>
+            <span class="ico">3</span>
+            <div>
+              <strong>Compliance &amp; KYC Engineering</strong>
+              <span>Onboarding, KYC queues, OCR/liveness/biometric paths, maker-checker, and audit trails that compliance and operations can defend.</span>
+            </div>
+          </li>
+          <li>
+            <span class="ico">4</span>
+            <div>
+              <strong>Resource Augmentation</strong>
+              <span>Domain-ready engineers for payments, cards, wallets, and lending — one specialist, a full squad, build-then-stay, or retainer cover.</span>
+            </div>
+          </li>
+          <li>
+            <span class="ico">5</span>
+            <div>
+              <strong>Production Support</strong>
+              <span>Controlled releases, environment parity, monitoring, and a named contact after go-live when the channel is live.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="feature-box">
+        <h3>Engagement standards</h3>
+        <div class="panel navy">
+          <ul>
+            <li>UAT-led delivery on live financial journeys</li>
+            <li>Open API and core banking integrations</li>
+            <li>Scalable architecture for growing volumes</li>
+            <li>Audit-ready workflows and maker-checker</li>
+            <li>Channel apps for consumer, agent, merchant, POS</li>
+            <li>AI-assisted build with human release control</li>
+            <li>High-availability operations mindset</li>
+            <li>Clear milestones and handover documentation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    ${footer(3, "Services")}
+  </div>
+</section>
+
+<!-- 4 PLATFORMS -->
+<section class="slide">
+  <div class="atm"><div class="rule"></div><div class="hair"></div></div>
+  <div class="content">
+    <div class="kicker">Product catalogue</div>
+    <h1 class="title">Core <span class="accent">platforms</span></h1>
+    <p class="lead" style="margin-bottom:2.5mm; font-size:9.5pt">
+      Enterprise platforms for banks and licensed institutions — grouped for board review under one operating model.
+    </p>
+    <div class="plat-groups">
+      <div class="plat-group">
+        <div class="g-label">Corporate · Cash · Cards</div>
+        <div class="plat-card featured">
+          <div class="code">Corporate · Cash</div>
+          <h3>Corporate Portal &amp; Cash Management</h3>
+          <p>Corporate &amp; bulk account onboarding, single/bulk transactions, COC, maker-checker, cash &amp; treasury desks.</p>
+        </div>
+        <div class="plat-card">
+          <div class="code">Cards</div>
+          <h3>Card Management System</h3>
+          <p>Issuance, authorization, limits, PIN, and servicing on one institutional control plane.</p>
+        </div>
+        <div class="plat-card">
+          <div class="code">Instant Debit</div>
+          <h3>Instant Debit Card Module</h3>
+          <p>Near-real-time debit issuance wired into CMS and branch or digital channels.</p>
+        </div>
+      </div>
+      <div class="plat-group">
+        <div class="g-label">Payments · Wallet · APIs</div>
+        <div class="plat-card">
+          <div class="code">Wallet</div>
+          <h3>Wallet System &amp; Controller</h3>
+          <p>Ledger, top-up, P2P, merchant pay, plus controller for limits and programme ops.</p>
+        </div>
+        <div class="plat-card">
+          <div class="code">Payments</div>
+          <h3>Payment Gateway</h3>
+          <p>Collections, checkout, status APIs, and settlement desk on one model.</p>
+        </div>
+        <div class="plat-card featured">
+          <div class="code">Open Banking</div>
+          <h3>Digital Banking — Open APIs</h3>
+          <p>Documented APIs for accounts, payments, and channels with test/live parity.</p>
+        </div>
+      </div>
+      <div class="plat-group">
+        <div class="g-label">Lending · Identity</div>
+        <div class="plat-card">
+          <div class="code">Lending</div>
+          <h3>LOS / LMS</h3>
+          <p>Origination through book servicing — application, decision, schedule, repayment.</p>
+        </div>
+        <div class="plat-card featured">
+          <div class="code">Identity</div>
+          <h3>KYC Module / SDK</h3>
+          <p>OCR, facial liveness, fingerprint, and selfie comparison for onboarding apps.</p>
+        </div>
+      </div>
+    </div>
+    ${footer(4, "Platforms")}
+  </div>
+</section>
+
+<!-- 5 CHANNELS & APPS -->
+<section class="slide">
+  <div class="atm"><div class="rule"></div><div class="hair"></div></div>
+  <div class="content">
+    <div class="kicker">Channels &amp; applications</div>
+    <h1 class="title">Digital <span class="accent">channels</span></h1>
+    <p class="lead" style="margin-bottom:2mm; font-size:9.5pt">
+      Bank channels for core banking and digital programmes — on shared platforms so books, rails, and controls stay consistent.
+    </p>
+    <div class="app-row">
+      <div class="app-tile">
+        <div class="ico-line"><span class="glyph">MB</span><h3>Mobile Banking</h3></div>
+        <p>Retail mobile banking for banks — accounts, transfers, cards, self-service on core.</p>
+        <div class="os">iOS · Android</div>
+      </div>
+      <div class="app-tile">
+        <div class="ico-line"><span class="glyph">IB</span><h3>Internet Banking</h3></div>
+        <p>Web banking for retail and corporate self-service — statements, payments, approvals.</p>
+        <div class="os">Web · Core-integrated</div>
+      </div>
+      <div class="app-tile">
+        <div class="ico-line"><span class="glyph">ATM</span><h3>ATM Controller</h3></div>
+        <p>ATM driving and authorization for the estate — cards, core, and switch paths.</p>
+        <div class="os">ATM · Switch control</div>
+      </div>
+    </div>
+    <div class="app-row">
+      <div class="app-tile">
+        <div class="ico-line"><span class="glyph">AG</span><h3>Agent Application</h3></div>
+        <p>Cash-in/out, registrations, assisted journeys with governed limits and audit trails.</p>
+        <div class="os">Mobile · Field ops</div>
+      </div>
+      <div class="app-tile">
+        <div class="ico-line"><span class="glyph">MR</span><h3>Merchant Application</h3></div>
+        <p>Onboarding, collections visibility, and settlement views on the payment gateway.</p>
+        <div class="os">App · Portal</div>
+      </div>
+      <div class="app-tile">
+        <div class="ico-line"><span class="glyph">POS</span><h3>POS Application</h3></div>
+        <p>Card and wallet presentment with settlement handoff to the gateway.</p>
+        <div class="os">POS · Soft POS ready</div>
+      </div>
+    </div>
+    <div class="app-row">
+      <div class="app-tile">
+        <div class="ico-line"><span class="glyph">CP</span><h3>Corporate Portal</h3></div>
+        <p>Corporate onboarding, bulk ops, approvals, and cash management desks.</p>
+        <div class="os">Web · Maker-checker</div>
+      </div>
+      <div class="app-tile">
+        <div class="ico-line"><span class="glyph">WC</span><h3>Wallet Controller</h3></div>
+        <p>Programme control for wallet limits, ops desks, and channel rules.</p>
+        <div class="os">Ops · Programme control</div>
+      </div>
+      <div class="app-tile">
+        <div class="ico-line"><span class="glyph">ID</span><h3>KYC SDK</h3></div>
+        <p>OCR, facial liveness, fingerprint, and selfie comparison for onboarding.</p>
+        <div class="os">SDK · Mobile &amp; web</div>
+      </div>
+    </div>
+    ${footer(5, "Channels")}
+  </div>
+</section>
+
+<!-- 6 TECH STACK -->
+<section class="slide band">
+  <div class="atm"><div class="rule"></div></div>
+  <div class="content">
+    <div class="band-head">
+      <div class="kicker">Engineering</div>
+      <h1 class="title">Technology <span class="accent">stack</span></h1>
+      <p class="lead">
+        Production-oriented stack for regulated financial systems — durable backends, event-driven
+        integration, and modern client applications for web and mobile.
+      </p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-col dark">
+        <h3>Backend &amp; services</h3>
+        <ul>
+          <li>Java (Spring Boot) microservices</li>
+          <li>Kotlin for JVM services &amp; Android</li>
+          <li>RESTful Open APIs</li>
+          <li>Secure session &amp; token models</li>
+          <li>Core banking &amp; rail adapters</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h3>Data &amp; events</h3>
+        <ul>
+          <li>Apache Kafka event streaming</li>
+          <li>Transactional data stores</li>
+          <li>Audit and ops event trails</li>
+          <li>Async settlement &amp; notification paths</li>
+          <li>Environment parity (test / live)</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h3>Frontend &amp; mobile</h3>
+        <ul>
+          <li>Modern React / TypeScript web</li>
+          <li>Next.js for portals &amp; desks</li>
+          <li>Native Android (Kotlin)</li>
+          <li>Native iOS consumer apps</li>
+          <li>KYC SDK for mobile &amp; web</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tech-note">
+      Architecture emphasises clear service boundaries, documented contracts, and human-controlled releases —
+      with agentic AI used only to accelerate analysis, testing, and documentation where appropriate.
+    </div>
+    ${footer(6, "Technology")}
+  </div>
+</section>
+
+<!-- 7 HOW WE BUILD -->
+<section class="slide">
+  <div class="atm"><div class="rule"></div><div class="hair"></div></div>
+  <div class="content">
+    <div class="kicker">How we build</div>
+    <h1 class="title">Fintech platform <span class="accent">development</span></h1>
+    <p class="lead" style="margin-bottom:3mm; font-size:10pt">
+      Secure, scalable platforms for regulated environments. Technology partner only — we do not provide
+      licensed financial services.
+    </p>
+    <div class="build-grid">
+      <div>
+        <ul class="check-list" style="margin-top:0">
+          <li><span class="tick">✓</span><span>Structured fintech platform architecture</span></li>
+          <li><span class="tick">✓</span><span>Open APIs and banking/rail integrations</span></li>
+          <li><span class="tick">✓</span><span>Governance-aware development practices</span></li>
+          <li><span class="tick">✓</span><span>Scalable infrastructure for growing volumes</span></li>
+          <li><span class="tick">✓</span><span>Clear milestones and UAT delivery phases</span></li>
+        </ul>
+        <div class="chip-row">
+          <span class="chip">Corporate / Cash</span>
+          <span class="chip">Cards</span>
+          <span class="chip">Wallet</span>
+          <span class="chip">Gateway</span>
+          <span class="chip">LOS / LMS</span>
+          <span class="chip">KYC</span>
+          <span class="chip">Channels</span>
+        </div>
+      </div>
+      <div class="panel navy">
+        <p class="subhead" style="color:var(--gold); margin-bottom:3mm">Capability coverage</p>
+        <ul style="margin:0; padding-left:5mm">
+          <li style="margin:0 0 2.5mm; font-size:9.5pt">Corporate onboarding, bulk ops, COC, cash desks</li>
+          <li style="margin:0 0 2.5mm; font-size:9.5pt">CMS + instant debit card issuance</li>
+          <li style="margin:0 0 2.5mm; font-size:9.5pt">Wallet programmes and digital banking APIs</li>
+          <li style="margin:0 0 2.5mm; font-size:9.5pt">Payment gateway, POS, agent &amp; merchant apps</li>
+          <li style="margin:0 0 2.5mm; font-size:9.5pt">LOS / LMS credit journeys</li>
+          <li style="margin:0; font-size:9.5pt">KYC SDK: OCR, liveness, fingerprint, selfie match</li>
+        </ul>
+      </div>
+    </div>
+    ${footer(7, "Build")}
+  </div>
+</section>
+
+<!-- 8 PROOF -->
+<section class="slide">
+  <div class="atm"><div class="rule"></div><div class="hair"></div></div>
+  <div class="content">
+    <div class="kicker">Proof points</div>
+    <h1 class="title">What goes <span class="accent">live</span></h1>
+    <p class="lead" style="margin-bottom:3mm; font-size:10pt">
+      Platforms that ship — with governance still in the room. Built for institutions that need clear
+      outcomes, not slideware alone.
+    </p>
+    <div class="proof-metrics">
+      <div class="metric hot">
+        <div class="num">10+</div>
+        <h3>Platform modules</h3>
+        <p>Corporate to KYC</p>
+      </div>
+      <div class="metric">
+        <div class="num">iOS+</div>
+        <h3>Consumer apps</h3>
+        <p>Android &amp; iOS</p>
+      </div>
+      <div class="metric">
+        <div class="num">1</div>
+        <h3>Operating model</h3>
+        <p>UAT as the clock</p>
+      </div>
+      <div class="metric hot">
+        <div class="num">24h</div>
+        <h3>First response</h3>
+        <p>Business-day SLA</p>
+      </div>
+    </div>
+    <div class="proof-outcomes">
+      <div class="outcome">
+        <h3>Live operator journeys</h3>
+        <p>Done means a payment, transfer, card, corporate bulk, or loan path signed in UAT — not a demo left behind.</p>
+      </div>
+      <div class="outcome">
+        <h3>Banking-grade integrations</h3>
+        <p>Core, rails, open APIs, and channel layers behind documented contracts with test/production parity.</p>
+      </div>
+      <div class="outcome">
+        <h3>Cover after go-live</h3>
+        <p>Named contact, controlled releases, and optional squad or retainer when the channel is live.</p>
+      </div>
+    </div>
+    ${footer(8, "Proof")}
+  </div>
+</section>
+
+<!-- 9 DELIVERY -->
+<section class="slide">
+  <div class="atm"><div class="rule"></div><div class="hair"></div></div>
+  <div class="content">
+    <div class="kicker">Delivery model</div>
+    <h1 class="title">How we <span class="accent">deliver</span></h1>
+    <p class="lead" style="margin-bottom:3.5mm">Faster delivery. Clear time. Cover after go-live.</p>
+    <div class="timeline">
+      <div class="t-step">
+        <div class="dot">1</div>
+        <strong>Domain-ready week one</strong>
+        <span>Payments, cards, wallets, corporate, lending — already shipped. Short ramp.</span>
+      </div>
+      <div class="t-step">
+        <div class="dot">2</div>
+        <strong>Agentic AI in the build</strong>
+        <span>AI speeds analysis, testing, docs — humans stay accountable for release.</span>
+      </div>
+      <div class="t-step">
+        <div class="dot">3</div>
+        <strong>UAT sets the clock</strong>
+        <span>Done = a live journey signed by your operators on real financial flows.</span>
+      </div>
+      <div class="t-step">
+        <div class="dot">4</div>
+        <strong>Support after go-live</strong>
+        <span>Production cover, a staying squad, or a specialist on your backlog.</span>
+      </div>
+    </div>
+    <div class="engage-row">
+      <div class="engage"><div class="label">Embed</div><p>One specialist in your stand-up</p></div>
+      <div class="engage"><div class="label">Squad</div><p>Full delivery on one backlog</p></div>
+      <div class="engage"><div class="label">Build + stay</div><p>Ship the platform, keep the roadmap</p></div>
+      <div class="engage"><div class="label">Retainer</div><p>Production fixes and changes</p></div>
+    </div>
+    ${footer(9, "Delivery")}
+  </div>
+</section>
+
+<!-- 10 WHY -->
+<section class="slide">
+  <div class="atm"><div class="rule"></div><div class="hair"></div></div>
+  <div class="content">
+    <div class="kicker">Differentiation</div>
+    <h1 class="title">Why <span class="accent">FintiQ</span></h1>
+    <div class="quote-bar">Technology partner. Not a licensee claim.</div>
+    <p class="lead" style="margin-bottom:3.5mm; font-size:10pt">
+      Built for regulated institutions that need platforms without confusing technology delivery with
+      licensed financial authority.
+    </p>
+    <div class="two-col">
+      <ul class="plain" style="font-size:10.5pt; margin:0">
+        <li><strong>You keep the license and the ledger</strong> — we deliver the platform and channel layer.</li>
+        <li><strong>Full stack coverage</strong> — corporate/cash, cards, wallet, gateway, LOS/LMS, KYC, apps.</li>
+        <li><strong>Open API digital banking</strong> — documented contracts for partners and internal channels.</li>
+        <li><strong>Governance-aware delivery</strong> — UAT journeys, milestones, and audit trails.</li>
+      </ul>
+      <div class="panel navy">
+        <p class="subhead" style="color:var(--gold)">Regulatory position</p>
+        <p style="margin:0; font-size:9.5pt; line-height:1.5">
+          We operate as a technology development partner. Licensed institutions remain the system of
+          record for customer funds and for regulated decisions such as account opening and credit
+          approval. This profile does not claim EMI, PSO, PSP, or banking licenses.
+        </p>
+      </div>
+    </div>
+    ${footer(10, "Why FintiQ")}
+  </div>
+</section>
+
+<!-- 11 CONTACT / CLOSE -->
+<section class="slide dark">
+  <div class="cover-bg"></div>
+  <div class="cover-content">
+    <div class="cover-top">
+      <div class="brand-lockup">
+        <img src="${markSrc}" alt="FintiQ" />
+        <div>
+          <div class="name">Finti<span class="q">Q</span> Solutions</div>
+          <div class="sub">Fintech Technology Partner</div>
+        </div>
+      </div>
+      <div class="cover-pill">${pad(TOTAL)} / ${pad(TOTAL)}</div>
+    </div>
+    <div class="thanks-wrap">
+      <h1>Let's talk.</h1>
+      <p>Tell us the platform or channel you need live — mobile/internet banking, ATM, corporate, cards, wallet, gateway, lending, or KYC. A platform, people, or both.</p>
+      <div style="margin-top:2mm">
+        <p style="margin:0 0 1.5mm; font-size:14pt; font-weight:700; color:#fff">info@fintiqsolutions.com</p>
+        <p style="margin:0; font-size:11pt; color:rgba(255,255,255,.65)">support@fintiqsolutions.com · fintiqsolutions.com</p>
+        <p style="margin:3.5mm 0 0; font-size:10.5pt; color:rgba(255,255,255,.78); font-weight:600">FintiQ Solutions (Private) Limited</p>
+        <p style="margin:1mm 0 0; font-size:10pt; color:rgba(255,255,255,.55)">House # 5, Street 7, Block C, Naval Anchorage, Islamabad, Pakistan</p>
+        <p style="margin:1.5mm 0 0; font-size:9.5pt; color:rgba(255,255,255,.45)">Reply within 1 business day</p>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <div><strong>CONFIDENTIAL</strong></div>
+      <div>Technology partner only</div>
+      <div>© 2026 FintiQ Solutions</div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
+`;
+
+const outHtml = path.join(__dirname, "FintiQ-Solutions-Company-Profile.html");
+fs.writeFileSync(outHtml, html, "utf8");
+console.log("Wrote", outHtml);

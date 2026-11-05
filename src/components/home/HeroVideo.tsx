@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { FintechBubbles } from "@/components/home/FintechBubbles";
+import { HeroNodeGraphLazy } from "@/components/three/HeroNodeGraphLazy";
 
 type HeroVideoProps = {
   /** Soft accent wash that follows the active product theme. */
@@ -12,6 +12,15 @@ type HeroVideoProps = {
 export function HeroVideo({ accent = "#00b0a4" }: HeroVideoProps) {
   const reduce = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [desktop, setDesktop] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const sync = () => setDesktop(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -52,7 +61,7 @@ export function HeroVideo({ accent = "#00b0a4" }: HeroVideoProps) {
       {!reduce ? (
         <motion.video
           ref={videoRef}
-          className="absolute inset-0 z-0 h-full w-full origin-center object-cover"
+          className="absolute inset-0 z-0 h-full w-full origin-center object-cover opacity-40 lg:opacity-30"
           autoPlay
           muted
           loop
@@ -65,21 +74,23 @@ export function HeroVideo({ accent = "#00b0a4" }: HeroVideoProps) {
         />
       ) : null}
 
-      <div className="absolute inset-0 z-[1] hidden opacity-70 lg:block">
-        <FintechBubbles />
-      </div>
+      {!reduce && desktop ? (
+        <div className="absolute inset-0 z-[1] opacity-100">
+          <HeroNodeGraphLazy />
+        </div>
+      ) : null}
 
-      {/* Product-tinted wash — shifts as carousel advances */}
+      {/* Soft product tint — keep 3D readable on the right */}
       <motion.div
         className="absolute inset-0 z-[2]"
         animate={{
-          background: `radial-gradient(ellipse 70% 55% at 78% 42%, ${accent}33 0%, transparent 62%)`,
+          background: `radial-gradient(ellipse 55% 50% at 72% 40%, ${accent}28 0%, transparent 58%)`,
         }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       />
 
-      <div className="absolute inset-0 z-[2] bg-gradient-to-r from-ink-raised/80 via-ink-raised/45 to-ink-raised/25 sm:from-ink-raised/70 sm:via-ink-raised/30 sm:to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 z-[2] h-36 bg-gradient-to-t from-ink-raised/80 to-transparent" />
+      <div className="absolute inset-0 z-[2] bg-gradient-to-r from-ink-raised/80 via-ink-raised/35 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 z-[2] h-28 bg-gradient-to-t from-ink-raised/75 to-transparent" />
     </div>
   );
 }

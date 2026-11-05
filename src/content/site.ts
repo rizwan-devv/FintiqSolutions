@@ -536,20 +536,20 @@ export const buyers: Buyer[] = [
 
 export const reasons: Block[] = [
   {
-    title: "Technology partner, not a licensee claim",
-    body: "FintiQ builds platforms. Licensed institutions keep funds and regulated decisions.",
+    title: "Technology partner. Not a licensee claim.",
+    body: "You keep the license and the ledger. We deliver the platform layer — never EMI, PSO, PSP, or banking authority.",
   },
   {
     title: "Secure, scalable architecture",
-    body: "Structured systems for payments, wallets, lending, and financial operations.",
+    body: "Structured systems for payments, wallets, lending, and financial operations that grow with volume.",
   },
   {
     title: "Integration-ready",
-    body: "APIs and channel layers that sit cleanly in front of banking infrastructure.",
+    body: "APIs and channel layers that sit cleanly in front of banking infrastructure — integrate once.",
   },
   {
     title: "Governance-aware delivery",
-    body: "Clear milestones, UAT journeys, and audit trails operations can defend.",
+    body: "UAT journeys, milestones, and audit trails operations and compliance can defend.",
   },
 ]
 
@@ -726,6 +726,7 @@ export const navigation: NavItem[] = [
   },
   { href: "/delivery", label: "Delivery" },
   { href: "/work", label: "Work" },
+  { href: "/insights", label: "Insights" },
   { href: "/about", label: "About Us" },
   { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact Us" },

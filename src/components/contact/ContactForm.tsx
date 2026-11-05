@@ -2,13 +2,24 @@
 
 import { FormEvent, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { company, products } from "@/content/site";
+import { company, products, services } from "@/content/site";
 
 type Status =
   | { kind: "idle" }
   | { kind: "sending" }
   | { kind: "done"; message: string; mailto?: string }
   | { kind: "error"; message: string; mailto?: string };
+
+const INTERESTS = [
+  { value: "platform", label: "A platform" },
+  { value: "resource-augmentation", label: "Resource augmentation / squad" },
+  { value: "both", label: "A platform and people" },
+  { value: "compliance", label: "Compliance engineering" },
+  { value: "production-support", label: "Production support" },
+  { value: "callback", label: "Request a call back" },
+] as const;
+
+const STAFF_INTERESTS = new Set(["resource-augmentation", "both"]);
 
 const field =
   "mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-ink outline-none transition focus:border-signal-deep";
@@ -17,7 +28,7 @@ export function ContactForm() {
   const reduce = useReducedMotion();
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [interest, setInterest] = useState("platform");
-  const showStaff = interest === "resource-augmentation" || interest === "both";
+  const showStaff = STAFF_INTERESTS.has(interest);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -122,28 +133,44 @@ export function ContactForm() {
           <input name="phone" required autoComplete="tel" className={field} />
         </label>
         <label className="block text-sm md:col-span-2">
-          Interest
+          What do you need?
           <select
             name="interest"
             value={interest}
             onChange={(event) => setInterest(event.target.value)}
             className={field}
           >
-            <option value="platform">A platform</option>
-            <option value="resource-augmentation">Resource augmentation</option>
-            <option value="both">A platform and people</option>
-            <option value="callback">Request a call back</option>
-          </select>
-        </label>
-        <label className="block text-sm md:col-span-2">
-          Platform <span className="text-mist">(optional)</span>
-          <select name="platform" className={field} defaultValue="">
-            <option value="">Choose if you know</option>
-            {products.map((product) => (
-              <option key={product.slug} value={product.slug}>
-                {product.name}
+            {INTERESTS.map((item) => (
+              <option key={item.value} value={item.value}>
+                {item.label}
               </option>
             ))}
+          </select>
+        </label>
+        <label className="block text-sm">
+          Platform focus <span className="text-mist">(optional)</span>
+          <select name="platform" className={field} defaultValue="">
+            <option value="">Choose if you know</option>
+            <optgroup label="Platforms">
+              {products.map((product) => (
+                <option key={product.slug} value={product.slug}>
+                  {product.name}
+                </option>
+              ))}
+            </optgroup>
+          </select>
+        </label>
+        <label className="block text-sm">
+          Service focus <span className="text-mist">(optional)</span>
+          <select name="service" className={field} defaultValue="">
+            <option value="">Choose if you know</option>
+            <optgroup label="Services">
+              {services.map((service) => (
+                <option key={service.slug} value={service.slug}>
+                  {service.name}
+                </option>
+              ))}
+            </optgroup>
           </select>
         </label>
       </div>

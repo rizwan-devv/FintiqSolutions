@@ -69,6 +69,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/insights" className="draw-link hover:text-signal-deep">
+                  Insights
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="draw-link hover:text-signal-deep">
                   About Us
                 </Link>
@@ -82,6 +87,15 @@ export function Footer() {
                 <Link href="/overview" className="draw-link hover:text-signal-deep">
                   Platforms overview
                 </Link>
+              </li>
+              <li>
+                <a
+                  href="/FintiQ-Solutions-Company-Profile.pdf"
+                  download="FintiQ-Solutions-Company-Profile.pdf"
+                  className="draw-link hover:text-signal-deep"
+                >
+                  Company profile PDF
+                </a>
               </li>
               <li>
                 <Link href="/contact" className="draw-link hover:text-signal-deep">

@@ -1,18 +1,13 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
-import { BackToTop } from "@/components/motion/BackToTop";
-import { ScrollProgress } from "@/components/motion/ScrollProgress";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { Geist_Mono, IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 import { company } from "@/content/site";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const plex = IBM_Plex_Sans({
+  variable: "--font-plex",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const brand = Space_Grotesk({
@@ -70,22 +65,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${brand.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${plex.variable} ${brand.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-paper-deep text-navy">
         <a
           href="#content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-signal focus:px-4 focus:py-2 focus:text-ink"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-signal focus:px-4 focus:py-2 focus:text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2"
         >
           Skip to content
         </a>
-        <ScrollProgress />
-        <SmoothScroll>
-          <Header />
-          <div id="content">{children}</div>
-          <Footer />
-          <BackToTop />
-        </SmoothScroll>
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

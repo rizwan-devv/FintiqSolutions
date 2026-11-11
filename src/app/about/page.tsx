@@ -19,11 +19,11 @@ export default function AboutPage() {
         <div className="hero-video-fallback absolute inset-0 opacity-80" aria-hidden="true" />
         <div className="absolute inset-0 bg-gradient-to-r from-ink-raised/80 via-ink-raised/50 to-transparent" aria-hidden="true" />
         <div className="relative mx-auto max-w-6xl px-6 pb-16 pt-36">
-          <p className="font-mono text-[11px] uppercase text-teal">About Us</p>
-          <h1 className="mt-4 max-w-3xl font-display text-5xl tracking-tight md:text-6xl">
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-teal">About Us</p>
+          <h1 className="mt-4 max-w-3xl font-display text-5xl tracking-tight md:text-6xl md:leading-[1.02]">
             {company.tagline}
           </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-white/75">
+          <p className="mt-5 max-w-2xl border-l-2 border-teal/70 pl-4 text-lg leading-8 text-white/75">
             FintiQ works with financial institutions and fintech companies to build secure, scalable
             digital financial platforms — with structured architecture, secure integrations, and
             governance-aware delivery.
@@ -43,16 +43,16 @@ export default function AboutPage() {
       <section className="mx-auto max-w-6xl px-6 py-16">
         <Reveal>
           <div className="grid gap-6 lg:grid-cols-2">
-            <article className="rounded-[1.6rem] bg-navy p-8 text-white">
-              <p className="font-mono text-[11px] uppercase text-teal">Mission</p>
+            <article className="bg-navy p-8 text-white">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-teal">Mission</p>
               <p className="mt-4 text-lg leading-8 text-white/85">
                 Support financial institutions and fintech organisations with secure, modern, and scalable
                 digital platforms that strengthen operational workflows and enable responsible financial
                 innovation — aligned with real-world processes and long-term objectives.
               </p>
             </article>
-            <article className="rounded-[1.6rem] border border-navy/10 bg-white p-8">
-              <p className="font-mono text-[11px] uppercase text-signal-deep">Vision</p>
+            <article className="border border-navy/10 bg-white p-8">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-signal-deep">Vision</p>
               <p className="mt-4 text-lg leading-8 text-mist">
                 Be a trusted fintech technology partner for organisations navigating digital financial
                 transformation — delivering adaptable, integration-ready platforms that evolve with
@@ -67,15 +67,15 @@ export default function AboutPage() {
       <section className="bg-paper-deep">
         <div className="mx-auto max-w-6xl px-6 py-16">
           <Reveal>
-            <p className="font-mono text-[11px] uppercase text-signal-deep">Why FintiQ</p>
-            <h2 className="mt-3 font-display text-4xl tracking-tight">Built for regulated environments.</h2>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-signal-deep">Why FintiQ</p>
+            <h2 className="mt-4 font-display text-4xl tracking-tight">Built for regulated environments.</h2>
           </Reveal>
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
+          <div className="mt-12 grid gap-px overflow-hidden rounded-[1.25rem] border border-navy/10 bg-navy/10 md:grid-cols-2">
             {reasons.map((reason, index) => (
               <Reveal key={reason.title} delay={index * 0.05}>
-                <article className="surface-card rounded-[1.4rem] p-6">
-                  <h3 className="font-display text-2xl">{reason.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-mist">{reason.body}</p>
+                <article className="h-full bg-white p-7">
+                  <h3 className="font-display text-2xl tracking-tight text-navy">{reason.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-mist">{reason.body}</p>
                 </article>
               </Reveal>
             ))}

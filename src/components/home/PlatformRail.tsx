@@ -10,13 +10,6 @@ import { ScrollScene } from "@/components/motion/ScrollScene";
 
 const loop = [...products, ...products];
 
-const floats = [
-  { label: "Cards", className: "left-[6%] top-8" },
-  { label: "Gateway", className: "right-[10%] top-14" },
-  { label: "Lending", className: "left-[18%] bottom-10" },
-  { label: "Cash", className: "right-[16%] bottom-16" },
-];
-
 export function PlatformRail() {
   const reduce = useReducedMotion();
   const trackRef = useRef<HTMLDivElement>(null);
@@ -70,23 +63,11 @@ export function PlatformRail() {
     >
       <div className="section-bg-drift pointer-events-none absolute inset-0 opacity-80" aria-hidden="true" />
 
-      {!reduce
-        ? floats.map((item, index) => (
-            <span
-              key={item.label}
-              className={`prod-float-pill pointer-events-none absolute z-[1] hidden rounded-full border border-navy/10 bg-white/80 px-3 py-1.5 text-[11px] font-semibold text-navy shadow-md backdrop-blur-sm md:inline-flex ${item.className}`}
-              style={{ animationDelay: `${index * 0.55}s` }}
-            >
-              {item.label}
-            </span>
-          ))
-        : null}
-
-      <ScrollScene scrub={0.6} className="relative mx-auto max-w-6xl px-6 pt-12">
+      <ScrollScene scrub={0.6} className="relative mx-auto max-w-6xl px-6 pt-16 md:pt-20">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div data-motion="wipe">
-            <p className="font-mono text-[11px] uppercase text-signal-deep">Solutions</p>
-            <h2 className="mt-2 font-display text-3xl tracking-tight text-navy md:text-4xl">
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-signal-deep">Solutions</p>
+            <h2 className="mt-4 font-display text-3xl tracking-tight text-navy md:text-4xl">
               Seven platforms.{" "}
               <span className="text-gradient">One operating model.</span>
             </h2>

@@ -21,20 +21,22 @@ export function WhoWeServe() {
     <section className="relative overflow-hidden bg-paper-deep">
       <div className="section-bg-drift pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
 
-      <ScrollScene scrub={0.7} className="relative mx-auto max-w-6xl px-6 py-16">
+      <ScrollScene scrub={0.7} className="relative mx-auto max-w-6xl px-6 py-20 md:py-24">
         <div data-motion="wipe">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-signal-deep">Who we serve</p>
-          <h2 className="mt-3 max-w-2xl font-display text-4xl tracking-tight md:text-5xl">Built for.</h2>
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-signal-deep">Who we serve</p>
+          <h2 className="mt-4 max-w-2xl font-display text-4xl tracking-tight md:text-5xl">
+            Built for institutions that ship under scrutiny.
+          </h2>
         </div>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <div className="mt-12 grid gap-4 md:grid-cols-3">
           {buyers.map((buyer, index) => (
-            <Magnetic key={buyer.title} strength={11}>
+            <Magnetic key={buyer.title} strength={8}>
               <article
                 id={buyerId(buyer.title)}
                 data-motion={index % 2 === 0 ? "slide-left" : "slide-right"}
                 data-motion-delay={index * 0.08}
-                className="group relative flex min-h-56 scroll-mt-32 flex-col overflow-hidden rounded-[1.6rem] p-7 text-white shadow-[0_20px_50px_rgb(16_36_88/0.18)]"
+                className="group relative flex min-h-56 scroll-mt-32 flex-col overflow-hidden rounded-[1.25rem] p-7 text-white"
                 style={{ backgroundImage: tones[index % tones.length] }}
               >
                 <div

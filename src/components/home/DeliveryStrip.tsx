@@ -34,17 +34,17 @@ export function DeliveryStrip() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-px overflow-hidden rounded-[1.25rem] border border-white/12 bg-white/12 sm:grid-cols-2 lg:grid-cols-4">
           {delivery.map((item, index) => (
-            <Magnetic key={item.title} strength={8}>
+            <Magnetic key={item.title} strength={6}>
               <article
                 data-motion="blur-up"
                 data-motion-delay={index * 0.07}
-                className="glass-panel h-full rounded-[1.5rem] p-6"
+                className="h-full bg-ink-raised/85 p-6 transition hover:bg-ink-raised"
               >
                 <p className="font-mono text-sm text-teal">{String(index + 1).padStart(2, "0")}</p>
-                <h3 className="mt-4 font-display text-xl">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/75">{item.body}</p>
+                <h3 className="mt-4 font-display text-xl tracking-tight">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-white/70">{item.body}</p>
               </article>
             </Magnetic>
           ))}

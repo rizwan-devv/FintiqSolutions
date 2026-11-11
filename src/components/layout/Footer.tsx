@@ -8,11 +8,11 @@ export function Footer() {
     <footer>
       <div className="brand-bar relative h-3" />
       <div className="bg-white">
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:grid-cols-12">
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-12">
           <div className="md:col-span-4">
             <Logo />
-            <p className="mt-4 text-sm font-medium text-navy">{company.legalName}</p>
-            <p className="mt-2 text-sm leading-6 text-mist">
+            <p className="mt-5 text-sm font-semibold tracking-tight text-navy">{company.legalName}</p>
+            <p className="mt-2 max-w-sm text-sm leading-6 text-mist">
               {company.lines[0]}
               <br />
               {company.lines[1]}

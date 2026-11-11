@@ -4,15 +4,27 @@
   --ink: #102458;
   --ink-raised: #0b1c40;
   --paper: #ffffff;
-  --paper-deep: #e8eef6;
+  --paper-deep: #f3f6fb;
   --signal: #00b0a4;
   --signal-deep: #087f78;
   --mist: #5c6d86;
+  --gold: #b8954a;
   --line: rgb(16 36 88 / 0.12);
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
   --grad-brand: linear-gradient(110deg, #102458 0%, #0c6484 52%, #00b0a4 120%);
   --grad-brand-soft: linear-gradient(145deg, #102458 0%, #16366a 48%, #087f78 100%);
-  --grad-paper: linear-gradient(180deg, #f4f7fb 0%, #e8eef6 48%, #dde6f2 100%);
-  --grad-glow: radial-gradient(ellipse at 70% 10%, rgb(0 176 164 / 0.12), transparent 50%);
+  --grad-paper: linear-gradient(180deg, #f7f9fc 0%, #f0f4fa 48%, #e6edf6 100%);
+  --grad-glow: radial-gradient(ellipse at 70% 10%, rgb(0 176 164 / 0.1), transparent 52%);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 200ms;
 }
 
 @theme inline {
@@ -23,15 +35,16 @@
   --color-signal: var(--signal);
   --color-signal-deep: var(--signal-deep);
   --color-mist: var(--mist);
+  --color-gold: var(--gold);
   --color-navy: #102458;
   --color-teal: #00b0a4;
-  --font-sans: var(--font-jakarta), sans-serif;
-  --font-display: var(--font-jakarta), sans-serif;
+  --font-sans: var(--font-plex), "IBM Plex Sans", sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-plex), sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 .font-brand {
-  font-family: var(--font-space-grotesk), var(--font-jakarta), system-ui, sans-serif;
+  font-family: var(--font-space-grotesk), var(--font-plex), system-ui, sans-serif;
 }
 
 .brand-wordmark {
@@ -60,8 +73,35 @@ body {
   background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   line-height: 1.65;
+  letter-spacing: -0.011em;
+}
+
+a[href],
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+summary {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .font-mono.uppercase {

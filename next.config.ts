@@ -4,6 +4,11 @@ const nextConfig: NextConfig = {
   output: "standalone",
   cacheComponents: true,
   partialPrefetching: true,
+  async rewrites() {
+    return [
+      { source: "/:slug.vcf", destination: "/api/vcard/:slug" },
+    ];
+  },
   async redirects() {
     return [
       { source: "/industries", destination: "/", permanent: false },

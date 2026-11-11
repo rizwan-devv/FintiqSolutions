@@ -23,24 +23,24 @@ export default function ContactPage() {
       <header className="relative overflow-hidden bg-ink-raised text-white">
         <div className="hero-video-fallback absolute inset-0 opacity-80" aria-hidden="true" />
         <div className="hero-video-veil absolute inset-0" aria-hidden="true" />
-        <div className="relative mx-auto max-w-6xl px-6 pb-14 pt-36">
-          <p className="font-mono text-[11px] uppercase text-teal">Contact Us</p>
-          <h1 className="mt-4 max-w-2xl font-display text-5xl tracking-tight md:text-6xl">
+        <div className="relative mx-auto max-w-6xl px-6 pb-16 pt-36">
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-teal">Contact Us</p>
+          <h1 className="mt-4 max-w-2xl font-display text-5xl tracking-tight md:text-6xl md:leading-[1.02]">
             Tell us the channel you need live.
           </h1>
-          <p className="mt-5 max-w-xl text-lg leading-8 text-white/75">
+          <p className="mt-5 max-w-xl border-l-2 border-teal/70 pl-4 text-lg leading-8 text-white/75">
             A platform, people, or both. We reply with the product fit and a delivery shape —
             typically {company.responseSla.toLowerCase()}.
           </p>
         </div>
       </header>
 
-      <section className="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-12">
+      <section className="mx-auto grid max-w-6xl gap-12 px-6 py-16 lg:grid-cols-12">
         <div className="space-y-6 lg:col-span-5">
           <Reveal>
-            <div className="surface-card rounded-[1.6rem] p-6">
-              <p className="font-mono text-[11px] uppercase text-signal-deep">Office</p>
-              <h2 className="mt-3 font-display text-2xl text-navy">{company.legalName}</h2>
+            <div className="border border-navy/10 bg-white p-7">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-signal-deep">Office</p>
+              <h2 className="mt-3 font-display text-2xl tracking-tight text-navy">{company.legalName}</h2>
               <p className="mt-3 leading-7 text-mist">
                 {company.lines[0]}
                 <br />
@@ -95,8 +95,8 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <div className="surface-card rounded-[1.6rem] p-6">
-              <p className="font-mono text-[11px] uppercase text-signal-deep">Start with</p>
+            <div className="border border-navy/10 bg-white p-7">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-signal-deep">Start with</p>
               <ul className="mt-4 space-y-3">
                 {products.slice(0, 3).map((product) => (
                   <li key={product.slug}>
@@ -127,9 +127,9 @@ export default function ContactPage() {
 
         <div id="enquiry" className="lg:col-span-7">
           <Reveal delay={0.08}>
-            <div className="surface-card rounded-[1.8rem] p-6 md:p-8">
-              <p className="font-mono text-[11px] uppercase text-signal-deep">Enquiry</p>
-              <h2 className="mt-2 font-display text-3xl">We will route it to the right desk.</h2>
+            <div className="border border-navy/10 bg-white p-6 md:p-8">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-signal-deep">Enquiry</p>
+              <h2 className="mt-3 font-display text-3xl tracking-tight">We will route it to the right desk.</h2>
               <div className="mt-6">
                 <ContactForm />
               </div>

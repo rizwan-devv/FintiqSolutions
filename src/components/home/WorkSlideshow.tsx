@@ -40,11 +40,13 @@ export function WorkSlideshow() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <ScrollScene scrub={0.65} className="mx-auto max-w-6xl px-6 py-16">
+      <ScrollScene scrub={0.65} className="mx-auto max-w-6xl px-6 py-20 md:py-24">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div data-motion="wipe">
-            <p className="font-mono text-[11px] uppercase text-signal-deep">Work</p>
-            <h2 className="mt-3 max-w-2xl font-display text-4xl tracking-tight md:text-5xl">Selected work.</h2>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-signal-deep">Work</p>
+            <h2 className="mt-4 max-w-2xl font-display text-4xl tracking-tight md:text-5xl">
+              Selected work.
+            </h2>
           </div>
           <Link
             href="/work"

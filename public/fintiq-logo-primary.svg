@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" role="img" aria-label="FINTIQ Solutions">
+  <defs>
+    <linearGradient id="ftGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#102458"/>
+      <stop offset="55%" stop-color="#04A0AA"/>
+      <stop offset="100%" stop-color="#00B0A4"/>
+    </linearGradient>
+  </defs>
+  <!-- Simplified FT mark -->
+  <g fill="url(#ftGrad)">
+    <polygon points="4,8 28,8 28,14 16,14 16,22 26,22 26,28 16,28 16,40 10,40 10,14 4,14"/>
+    <polygon points="28,8 44,8 44,14 36,14 36,40 30,40 30,14 28,14"/>
+  </g>
+  <text x="56" y="32" font-family="Montserrat, Arial, sans-serif" font-size="22" font-weight="700" fill="#102458" letter-spacing="-0.5">Finti<tspan fill="#00B0A4">Q</tspan></text>
+  <text x="148" y="32" font-family="Montserrat, Arial, sans-serif" font-size="18" font-weight="600" fill="#102458" letter-spacing="-0.3">Solutions</text>
+</svg>

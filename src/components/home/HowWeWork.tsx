@@ -50,13 +50,13 @@ export function HowWeWork() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.6, delay: 0.15 + index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="glass-panel hover-lift relative rounded-[1.6rem] p-6"
+                className="relative border border-white/12 bg-white/[0.04] p-6 backdrop-blur-sm transition hover:bg-white/[0.07]"
               >
-                <span className="relative z-10 inline-flex size-7 items-center justify-center rounded-full bg-white font-mono text-xs text-signal-deep">
+                <span className="relative z-10 font-mono text-sm text-teal">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-4 font-display text-3xl">{step.title}</h3>
-                <p className="mt-3 leading-7 text-white/75">{step.body}</p>
+                <h3 className="mt-4 font-display text-2xl tracking-tight md:text-3xl">{step.title}</h3>
+                <p className="mt-3 leading-7 text-white/70">{step.body}</p>
               </motion.li>
             ))}
           </ol>

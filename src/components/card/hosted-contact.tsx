@@ -9,7 +9,7 @@ export function hostedContactMetadata(slug: string): Metadata {
 
   const title = `${member.fullName} | ${member.title} | FINTIQ Solutions`;
   const description = `${member.fullName}, ${member.title} at ${cardCompany.legalName}. ${cardCompany.tagline}`;
-  const ogImage = member.photo || "/fintiq-logo-primary.svg";
+  const ogImage = member.photo || "/brand/mark.png";
 
   return {
     title: { absolute: title },

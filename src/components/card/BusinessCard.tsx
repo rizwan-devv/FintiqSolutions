@@ -1,3 +1,4 @@
+import { Logo } from "@/components/brand/Logo";
 import { cardCompany, memberInitials, type TeamMember } from "@/content/team";
 
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cardCompany.mapsQuery)}`;
@@ -75,16 +76,7 @@ export function BusinessCard({ member }: { member: TeamMember }) {
     <div className="card-page min-h-dvh bg-[#F4F8FA] text-[#102458]">
       <main className="mx-auto flex w-full max-w-[480px] flex-col gap-5 px-4 py-8 sm:px-5 sm:py-10">
         <header className="flex justify-center">
-          <a href={cardCompany.website} className="inline-flex rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B0A4] focus-visible:ring-offset-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/fintiq-logo-primary.svg"
-              alt="FINTIQ Solutions"
-              width={220}
-              height={38}
-              className="h-9 w-auto sm:h-10"
-            />
-          </a>
+          <Logo />
         </header>
 
         <section className="rounded-[14px] border border-[#C9D6DF] bg-white p-6 text-center shadow-[0_8px_28px_rgb(16_36_88/0.07)] sm:p-7">

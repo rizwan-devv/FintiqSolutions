@@ -4,8 +4,8 @@ import { CountUp } from "@/components/ui/CountUp";
 import { ScrollScene } from "@/components/motion/ScrollScene";
 
 const metrics = [
-  { value: 7, suffix: "", label: "Core platforms", note: "Cards to lending" },
-  { value: 4, suffix: "+", label: "Delivery modes", note: "Squad to support" },
+  { value: 4, suffix: "", label: "Sectors", note: "Retail · Corporate · Agent · Merchant" },
+  { value: 3, suffix: "", label: "Mobile apps", note: "Consumer · Merchant · Agent · Android & iOS" },
   { value: 1, suffix: "", label: "Operating model", note: "UAT as the clock" },
   { value: 24, suffix: "h", label: "First response", note: "Business-day SLA" },
 ];
@@ -22,7 +22,7 @@ export function TrustMetrics() {
             Built for regulated institutions
           </p>
           <h2 className="mt-4 font-display text-3xl tracking-tight text-navy md:text-5xl md:leading-[1.05]">
-            What goes live — with governance still in the room.
+            Secure integrated systems — with governance still in the room.
           </h2>
         </div>
 

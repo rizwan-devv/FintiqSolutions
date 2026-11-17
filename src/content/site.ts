@@ -4,7 +4,7 @@ export const company = {
   shortName: "FintiQ",
   siteUrl: "https://fintiqsolutions.com",
   lines: ["House # 5, Street 7, Block C", "Naval Anchorage, Islamabad"],
-  tagline: "Accelerate digital financial growth with secure fintech platforms.",
+  tagline: "Secure integrated systems that earn trust.",
   emails: [
     { label: "For Info", address: "info@fintiqsolutions.com" },
     { label: "For Support", address: "support@fintiqsolutions.com" },
@@ -133,13 +133,13 @@ export const products: Product[] = [
   },
   {
     slug: "corporate-banking",
-    name: "Corporate Banking",
-    eyebrow: "Corporate",
-    promise: "Give businesses a portal for accounts, payments, and approvals.",
+    name: "Corporate Banking Suite",
+    eyebrow: "Corporate Suite",
+    promise: "One corporate suite for portal, approvals, bulk ops — cash transfer included as a module.",
     summary:
-      "Corporate banking workflows for companies and institutions: multi-user access, approval matrices, bulk payments, and visibility finance teams can run day to day.",
+      "Corporate Banking Suite for companies and institutions: multi-user access, approval matrices, bulk payments, and cash-transfer / treasury as a suite module — not a stand-alone product.",
     audience: "Banks and financial institutions serving SMEs, corporates, and enterprise clients.",
-    outcome: "A branded corporate portal with maker-checker flows and a clean handoff to core banking.",
+    outcome: "A branded Corporate Banking Suite with maker-checker flows, cash-transfer module, and a clean handoff to core banking.",
     capabilities: [
       {
         title: "Corporate portal",
@@ -148,6 +148,10 @@ export const products: Product[] = [
       {
         title: "Approvals that match the firm",
         body: "Maker-checker and multi-level approvals configured to the client’s operating model.",
+      },
+      {
+        title: "Cash transfer module",
+        body: "Positions, controlled fund movement, and liquidity views ship inside the suite — not sold as a separate cash system.",
       },
       {
         title: "Bulk and scheduled payments",
@@ -211,13 +215,13 @@ export const products: Product[] = [
   },
   {
     slug: "cash-management-system",
-    name: "Cash Management System",
-    eyebrow: "Treasury",
-    promise: "See cash positions, move funds, and control liquidity in one desk.",
+    name: "Cash Transfer Module",
+    eyebrow: "Corporate Suite module",
+    promise: "Cash positions and fund movement as a module of Corporate Banking Suite.",
     summary:
-      "Cash and liquidity workflows for institutions and corporates: positions, pooling views, payment factories, and controls that keep treasury operations structured.",
-    audience: "Banks and large corporates that need visibility and control over cash movement.",
-    outcome: "A cash desk with clear positions, controlled payments, and an audit trail finance can trust.",
+      "Cash transfer and liquidity workflows for institutions and corporates — positions, pooling views, payment factories, and controls — delivered as a module inside Corporate Banking Suite, not as a stand-alone sale.",
+    audience: "Banks and large corporates buying Corporate Banking Suite who need cash-transfer capability in the same operating model.",
+    outcome: "A cash desk with clear positions, controlled payments, and an audit trail — shipped under the Corporate Banking Suite.",
     capabilities: [
       {
         title: "Position and visibility",
@@ -372,15 +376,40 @@ export const channels: Channel[] = [
     slug: "agent-banking",
     name: "Agent Banking",
     eyebrow: "Channel",
-    promise: "Agent wallets, cash-in/out, and transfers on a stable app backend.",
+    promise:
+      "Onboarding, cash-in/out, float & limits, commissions, and audit-ready field journeys on Android and iOS.",
     related: ["payment-gateway", "remittance-system", "card-management-system"],
   },
   {
     slug: "consumer-banking",
     name: "Consumer Banking",
     eyebrow: "Channel",
-    promise: "Retail journeys for accounts, payments, and self-service.",
+    promise: "Retail mobile journeys for accounts, payments, cards, and self-service on core.",
     related: ["card-management-system", "payment-gateway", "loan-origination-system"],
+  },
+  {
+    slug: "internet-banking",
+    name: "Internet Banking",
+    eyebrow: "Channel",
+    promise:
+      "Full retail web self-service — accounts, transfers, statements, payments, and card controls, core-integrated.",
+    related: ["card-management-system", "payment-gateway", "corporate-banking"],
+  },
+  {
+    slug: "web-apps",
+    name: "Web Apps & Portals",
+    eyebrow: "Portal",
+    promise:
+      "Institutional web apps — CMS desk, agent/merchant portals, and documented Open APIs for channels.",
+    related: ["corporate-banking", "card-management-system", "payment-gateway"],
+  },
+  {
+    slug: "call-center",
+    name: "Call Center Solutions",
+    eyebrow: "Assisted",
+    promise:
+      "IVR, agent desktop, and CRM-aligned queues linked to core so the desk sees the same status as apps.",
+    related: ["corporate-banking", "card-management-system", "payment-gateway"],
   },
   {
     slug: "wallet-banking",
@@ -473,7 +502,10 @@ export const services: Service[] = [
     audience: "Product and technology leaders who need domain-ready capacity.",
     outcome: "Named people on your tools, shipping against your acceptance cases.",
     capabilities: [
-      { title: "Domain-ready engineers", body: "Java, React, Android, payments, QA, DevOps, banking analysis." },
+      {
+        title: "Domain-ready engineers",
+        body: "Java, .NET, Python, React, Android/iOS, payments, QA, DevOps, banking analysis — stack-flexible to the estate.",
+      },
       { title: "Squad or specialist", body: "One person in your stand-up, or a full delivery squad." },
       { title: "Stay after build", body: "Retain capacity on the roadmap after go-live." },
     ],
@@ -507,29 +539,30 @@ export const services: Service[] = [
 
 export const buyers: Buyer[] = [
   {
-    title: "Banks",
-    body: "Corporate banking, cards, remittance, and lending platforms connected to your core.",
+    title: "SBP-licensed banks",
+    body: "Conventional, Islamic, and digital banks — Corporate Banking Suite, cards, internet / web banking, call center, remittance, and lending connected to your core.",
     platforms: [
-      { slug: "corporate-banking", label: "Corporate Banking" },
+      { slug: "corporate-banking", label: "Corporate Banking Suite" },
       { slug: "card-management-system", label: "Card Management System" },
       { slug: "loan-origination-system", label: "LOS" },
     ],
   },
   {
-    title: "Wallets & branchless",
-    body: "Agent, consumer, and wallet channels with payment and cash controls behind them.",
+    title: "PSO / PSP & payments",
+    body: "Payment system operators and PSPs building collections, merchant, and agent channels.",
     platforms: [
       { slug: "payment-gateway", label: "Payment Gateway" },
-      { slug: "cash-management-system", label: "Cash Management" },
       { slug: "remittance-system", label: "Remittance" },
+      { slug: "corporate-banking", label: "Corporate Banking Suite" },
     ],
   },
   {
-    title: "Lending businesses",
-    body: "Originate and service the book with LOS and LMS that share one operating model.",
+    title: "Fintech & non-bank programmes",
+    body: "Financial and non-financial platforms — wallets, digital programmes, and lending books on one operating model.",
     platforms: [
       { slug: "loan-origination-system", label: "LOS" },
       { slug: "loan-management-system", label: "LMS" },
+      { slug: "payment-gateway", label: "Payment Gateway" },
     ],
   },
 ]
@@ -592,14 +625,40 @@ export const engagements: Block[] = [
 ]
 
 export const roles = [
-  "Java and Spring Boot",
-  "React",
-  "Android agent and wallet apps",
-  "Payment integration",
+  "Java / Spring Boot",
+  ".NET · C#",
+  "Python · Django",
+  "React · TypeScript · Next.js",
+  "Native Android & iOS",
+  "Payment & core integration",
   "QA and UAT",
-  "DevOps",
+  "DevOps · AWS · containers",
   "Banking business analysis",
   "AI-assisted delivery",
+]
+
+/** Engineering capability — stack-flexible, aligned with company profile. */
+export const techStack: { title: string; items: string[] }[] = [
+  {
+    title: "Backend & APIs",
+    items: ["Java / Spring Boot", ".NET · C#", "Python · Django", "Kotlin", "REST / Open APIs", "Core & rail adapters"],
+  },
+  {
+    title: "Frontend & Web",
+    items: ["React · TypeScript", "Next.js portals", "Internet banking UI", "Ops & CMS desks", "Accessible web apps"],
+  },
+  {
+    title: "Mobile",
+    items: ["Native Android (Kotlin)", "Native iOS (Swift)", "Consumer · agent · merchant apps", "KYC / biometric SDK"],
+  },
+  {
+    title: "Cloud & DevOps",
+    items: ["AWS", "Docker · Kubernetes", "CI/CD (GitHub / GitLab / Azure DevOps)", "Env parity · localization (Urdu · EN · PK)"],
+  },
+  {
+    title: "Data & Observability",
+    items: ["Oracle · PostgreSQL · MySQL", "Apache Kafka", "ELK (Elasticsearch · Logstash · Kibana)", "Audit trails · monitoring"],
+  },
 ]
 
 export const work: CaseStudy[] = [
@@ -615,7 +674,7 @@ export const work: CaseStudy[] = [
   {
     title: "Corporate banking portal",
     sector: "Corporate banking",
-    platforms: ["Corporate Banking"],
+    platforms: ["Corporate Banking Suite"],
     problem: "Business clients needed approvals and bulk payments without branch friction or spreadsheet bridges.",
     shipped: "Branded corporate portal with maker-checker matrices, bulk payments, and a clean handoff to core banking.",
     result: "Corporate ops signed a live payment journey in UAT with audit-ready approvals.",
@@ -692,7 +751,7 @@ export const insights: Insight[] = [
     title: "Agent, consumer, wallet, and portals on one operating model",
     summary: "Channels differ. The books, rails, and controls behind them should not.",
     paragraphs: [
-      "Agent banking, consumer banking, and wallet banking are how customers and agents meet the institution. Merchant and corporate portals are how businesses operate day to day.",
+      "Agent banking, consumer and internet banking, wallet banking, web apps, and call center are how customers and operators meet the institution. Merchant and corporate portals are how businesses operate day to day.",
       "FintiQ represents those channels on top of shared platforms — payment gateway, cards, cash, remittance, and lending — so each channel does not invent its own ledger.",
       "The first UAT is always a real journey on the channel in scope, with core and rails still behind the platform.",
     ],

@@ -99,8 +99,8 @@ export function HeroSlideshow() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.12 }}
             >
-              Enterprise fintech for banks — cards, payments, cash, wallets, lending, and digital
-              channels. Technology partner only.
+              Enterprise fintech for banks — cards, Corporate Banking Suite, payments, internet and
+              web banking, call center, wallets, and lending. Technology partner only.
             </motion.p>
 
             <div className="relative mt-5 h-7 overflow-hidden">

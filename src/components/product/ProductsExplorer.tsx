@@ -25,9 +25,9 @@ import { buttonGhostLight, buttonPrimary } from "@/components/ui/styles";
 
 const labels: Record<string, string> = {
   "card-management-system": "CMS",
-  "corporate-banking": "Corporate",
+  "corporate-banking": "Corp Suite",
   "payment-gateway": "Gateway",
-  "cash-management-system": "Cash",
+  "cash-management-system": "Cash module",
   "remittance-system": "Remit",
   "loan-origination-system": "LOS",
   "loan-management-system": "LMS",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { company, delivery, engagements, roles } from "@/content/site";
+import { company, delivery, engagements, roles, techStack } from "@/content/site";
 import { buttonGhost, buttonGhostLight, buttonPrimary } from "@/components/ui/styles";
 
 export const metadata: Metadata = {
@@ -69,6 +69,37 @@ export default function DeliveryPage() {
                 <article className="rounded-[1.6rem] border border-navy/10 bg-white p-7 shadow-[0_12px_30px_rgb(16_36_88/0.05)]">
                   <h3 className="font-display text-2xl text-navy">{item.title}</h3>
                   <p className="mt-3 leading-7 text-mist">{item.body}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-navy/10 bg-white">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <Reveal>
+            <p className="font-mono text-[11px] uppercase text-signal-deep">Engineering</p>
+            <h2 className="mt-3 max-w-2xl font-display text-4xl tracking-tight text-navy">
+              Stack-flexible delivery.
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-mist">
+              We adopt the institution&apos;s preferred runtimes where they fit — without locking the
+              programme to a single vendor stack.
+            </p>
+          </Reveal>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {techStack.map((column, index) => (
+              <Reveal key={column.title} delay={index * 0.04}>
+                <article className="h-full rounded-[1.4rem] border border-navy/10 bg-[#f7f9fc] p-5">
+                  <h3 className="font-display text-lg text-navy">{column.title}</h3>
+                  <ul className="mt-3 space-y-1.5">
+                    {column.items.map((item) => (
+                      <li key={item} className="text-sm leading-5 text-mist">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </article>
               </Reveal>
             ))}

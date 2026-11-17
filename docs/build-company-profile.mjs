@@ -3,11 +3,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(__dirname, "..");
-const mark = fs.readFileSync(path.join(root, "public/brand/mark.png")).toString("base64");
+const mark = fs.readFileSync(path.join(__dirname, "../public/brand/mark.png")).toString("base64");
 const markSrc = `data:image/png;base64,${mark}`;
 
-const TOTAL = 11;
+const TOTAL = 10;
 const pad = (n) => String(n).padStart(2, "0");
 const footer = (n, section) => {
   const pct = Math.round((n / TOTAL) * 100);
@@ -387,44 +386,53 @@ const html = `<!DOCTYPE html>
     font-size: 9.5pt; font-weight: 700; color: var(--navy);
   }
   .app-tile p { margin: 0; font-size: 7.6pt; color: var(--mist); line-height: 1.32; }
+  .app-tile.span-all { grid-column: 1 / -1; border-top-color: var(--teal); }
   .app-tile .os {
     margin-top: 1.4mm; font-size: 6.5pt; font-weight: 700; letter-spacing: .08em;
     text-transform: uppercase; color: var(--gold);
   }
 
-  /* Tech */
+  /* Tech — five capability boxes */
   .tech-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; flex: 1;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 2.8mm; flex: 1;
   }
   .tech-col {
-    border-radius: 2px; padding: 5mm 4.5mm;
+    border-radius: 2px; padding: 3.5mm 3mm;
     background: var(--white); border: 1px solid var(--line);
+    border-top: 2.5px solid var(--navy);
   }
   .tech-col.dark {
-    background: var(--panel); border: 0; color: #fff;
+    background: var(--panel); border: 0; border-top: 2.5px solid var(--gold-soft); color: #fff;
   }
   .tech-col h3 {
-    margin: 0 0 3mm; font-family: "IBM Plex Sans", sans-serif;
-    font-size: 11pt; font-weight: 700; color: var(--navy);
-    padding-bottom: 2mm; border-bottom: 2px solid var(--gold);
+    margin: 0 0 2.2mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 9pt; font-weight: 700; color: var(--navy);
+    padding-bottom: 1.6mm; border-bottom: 1.5px solid var(--gold);
+    line-height: 1.25;
   }
   .tech-col.dark h3 { color: #fff; border-bottom-color: var(--gold-soft); }
   .tech-col ul { margin: 0; padding: 0; list-style: none; }
   .tech-col li {
-    margin: 0 0 2.2mm; font-size: 9.5pt; color: var(--ink); font-weight: 500;
-    padding-left: 3.5mm; position: relative;
+    margin: 0 0 1.6mm; font-size: 7.6pt; color: var(--ink); font-weight: 500;
+    padding-left: 3mm; position: relative; line-height: 1.3;
   }
   .tech-col li::before {
-    content: ""; position: absolute; left: 0; top: 2.2mm;
-    width: 1.6mm; height: 1.6mm; border-radius: 50%; background: var(--gold);
+    content: ""; position: absolute; left: 0; top: 1.8mm;
+    width: 1.4mm; height: 1.4mm; border-radius: 50%; background: var(--gold);
   }
   .tech-col.dark li { color: rgba(255,255,255,.88); }
   .tech-col.dark li::before { background: var(--gold-soft); }
   .tech-note {
-    margin-top: 4mm; padding: 3.5mm 4.5mm; border-radius: 2px;
+    margin-top: 3mm; padding: 2.8mm 4mm; border-radius: 2px;
     background: rgba(184,149,74,.08); border-left: 3px solid var(--gold);
-    font-size: 9.5pt; color: var(--navy); line-height: 1.45;
+    font-size: 8.5pt; color: var(--navy); line-height: 1.4;
   }
+  .audience-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5mm; margin-top: 4mm;
+  }
+  .audience-strip .audience-card { padding: 2.8mm 3mm; }
+  .audience-strip .audience-card h3 { font-size: 9pt; margin-bottom: 1mm; }
+  .audience-strip .audience-card p { font-size: 7.2pt; }
 
   .check-list { margin: 3mm 0 0; padding: 0; list-style: none; }
   .check-list li {
@@ -475,6 +483,57 @@ const html = `<!DOCTYPE html>
     font-size: 11pt; font-weight: 700; color: var(--navy);
   }
   .outcome p { margin: 0; font-size: 8.5pt; color: var(--mist); line-height: 1.4; }
+
+  .client-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.5mm; margin: 0 0 3.5mm;
+  }
+  .client-card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 2px;
+    padding: 0; overflow: hidden; display: flex; flex-direction: column; min-height: 34mm;
+  }
+  .client-logo-well {
+    height: 16mm; margin: 0; padding: 2.5mm 3mm;
+    display: grid; place-items: center;
+    background: linear-gradient(180deg, #071422 0%, #0a1c33 100%);
+    border-bottom: 1px solid rgba(184,149,74,.35);
+  }
+  .client-logo-well img {
+    max-height: 11mm; max-width: 92%; width: auto; height: auto;
+    object-fit: contain; display: block;
+  }
+  .client-body { padding: 2.5mm 3mm 3mm; flex: 1; }
+  .client-card h3 {
+    margin: 0 0 1mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 9.5pt; font-weight: 700; color: var(--navy);
+  }
+  .client-card .role {
+    margin: 0 0 1.2mm; font-size: 6.8pt; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); font-weight: 700;
+  }
+  .client-card p { margin: 0; font-size: 7.4pt; color: var(--mist); line-height: 1.35; }
+  .sector-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 0 0 3.5mm;
+  }
+  .sector-card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 2px;
+    padding: 3mm; border-top: 3px solid var(--gold);
+  }
+  .sector-card h3 {
+    margin: 0 0 1.2mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 10pt; font-weight: 700; color: var(--navy);
+  }
+  .sector-card p { margin: 0; font-size: 7.5pt; color: var(--mist); line-height: 1.35; }
+  .audience-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3mm;
+  }
+  .audience-card {
+    background: var(--panel); color: #fff; border-radius: 2px; padding: 3.5mm 4mm;
+  }
+  .audience-card h3 {
+    margin: 0 0 1.5mm; font-family: "IBM Plex Sans", sans-serif;
+    font-size: 10pt; font-weight: 700; color: var(--gold-soft);
+  }
+  .audience-card p { margin: 0; font-size: 8pt; color: rgba(255,255,255,.78); line-height: 1.4; }
 
   .timeline {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
@@ -586,16 +645,16 @@ const html = `<!DOCTYPE html>
       <div class="cover-pill">Company Profile 2026</div>
     </div>
     <div class="cover-hero">
-      <h1><span>Enterprise fintech</span><span class="line2">platforms for banks.</span></h1>
-      <p class="tag">Secure, integration-ready systems for cards, payments, wallets, lending, corporate banking, and digital channels — delivered as a <em>technology partner</em> to licensed institutions.</p>
+      <h1><span>Secure integrated</span><span class="line2">systems that earn trust.</span></h1>
+      <p class="tag">Fintech platforms for retail, corporate, agent, and merchant channels — delivered as a <em>technology partner</em> to banks, PSOs/PSPs, and digital institutions.</p>
       <div class="cover-strip">
-        <span>Mobile</span><span>Internet</span><span>ATM</span><span>Cards</span>
-        <span>Cash</span><span>Wallet</span><span>Gateway</span><span>LOS / LMS</span><span>KYC</span>
+        <span>Retail</span><span>Corporate Suite</span><span>Agent</span><span>Merchant</span>
+        <span>Call Center</span><span>Web Apps</span><span>Cards</span><span>Gateway</span><span>Wallet</span><span>LOS / LMS</span><span>Android · iOS</span>
       </div>
     </div>
     <div class="cover-meta">
       <div><strong>Role</strong> · Technology partner</div>
-      <div><strong>Focus</strong> · Regulated institutions</div>
+      <div><strong>Focus</strong> · Banks · PSO / PSP · Digital</div>
       <div><strong>01 / ${pad(TOTAL)}</strong> · Cover</div>
     </div>
   </div>
@@ -610,16 +669,15 @@ const html = `<!DOCTYPE html>
     <div class="split-about">
       <div>
         <p class="lead" style="margin-bottom:0">
-          FintiQ Solutions designs and delivers secure, scalable digital financial platforms for banks
-          and licensed financial institutions. We combine structured architecture, open API layers,
-          and governance-aware delivery so your teams can run live journeys with clear audit trails.
+          FintiQ Solutions builds <strong>secure, integrated fintech systems</strong> for banks, PSOs/PSPs,
+          and digital institutions. Open APIs, structured architecture, and UAT-led delivery — so operators
+          run live journeys with audit trails they can defend.
         </p>
         <div class="mission">
           <div class="label">Our Mission</div>
           <p>
-            Equip regulated institutions with modern platforms — corporate banking, cards, wallets,
-            payments, lending, and digital channels — that strengthen operations and support responsible
-            financial innovation without confusing technology delivery with licensed authority.
+            Deliver Corporate Banking Suite, cards, payments, wallets, lending, and channel apps across
+            retail, corporate, agent, and merchant — as a technology partner, never as the licensed authority.
           </p>
         </div>
         <div class="focus-box">
@@ -632,13 +690,31 @@ const html = `<!DOCTYPE html>
         <div>
           <h3>Our Vision</h3>
           <p>
-            To be the trusted fintech technology partner for institutions modernising payments, cards,
-            corporate banking, and consumer digital channels — with platforms that scale alongside
-            regulation, transaction growth, and market change.
+            Be the trusted technology partner for institutions modernising payments, Corporate Banking Suite,
+            and digital channels — platforms that scale with regulation and transaction growth.
           </p>
         </div>
         <div class="mark"><img src="${markSrc}" alt="" /></div>
       </aside>
+    </div>
+    <p class="subhead" style="margin:3.5mm 0 2mm">Who we serve</p>
+    <div class="audience-strip">
+      <div class="audience-card">
+        <h3>SBP-licensed banks</h3>
+        <p>Conventional, Islamic, and digital banks needing platforms — not a license claim.</p>
+      </div>
+      <div class="audience-card">
+        <h3>PSO / PSP</h3>
+        <p>Payment operators and PSPs for collections, disbursement, and merchant rails.</p>
+      </div>
+      <div class="audience-card">
+        <h3>Financial &amp; adjacent</h3>
+        <p>Core financial products plus governed ops / agent layers on one model.</p>
+      </div>
+      <div class="audience-card">
+        <h3>Non-bank digital</h3>
+        <p>Wallet and fintech programmes needing audit-ready web, Android, and iOS apps.</p>
+      </div>
     </div>
     ${footer(2, "About")}
   </div>
@@ -652,8 +728,8 @@ const html = `<!DOCTYPE html>
       <div class="kicker">What we deliver</div>
       <h1 class="title">Core <span class="accent">Services</span></h1>
       <p class="lead">
-        End-to-end technology services for regulated institutions — from platform rollout and banking
-        integrations to KYC/compliance engineering, specialised squads, and production run support.
+        Platform rollout, core &amp; rail integrations, compliance engineering, squads, and production support
+        for regulated institutions.
       </p>
     </div>
     <div class="two-col">
@@ -663,35 +739,35 @@ const html = `<!DOCTYPE html>
             <span class="ico">1</span>
             <div>
               <strong>Platform Implementation</strong>
-              <span>Brand and deploy FintiQ platforms for cards, payments, wallets, cash, corporate banking, or lending. Connect core and rails, configure ops desks, and pass UAT on a live journey.</span>
+              <span>Brand and deploy Corporate Banking Suite (cash transfer as a module), cards, payments, wallets, lending, and channel apps — then pass UAT on a live journey.</span>
             </div>
           </li>
           <li>
             <span class="ico">2</span>
             <div>
               <strong>Payments &amp; Core Integration</strong>
-              <span>Wire payment rails and core banking behind open, documented APIs so application teams integrate once — with test and production parity.</span>
+              <span>Wire rails and core banking behind documented APIs — test and production parity.</span>
             </div>
           </li>
           <li>
             <span class="ico">3</span>
             <div>
               <strong>Compliance &amp; KYC Engineering</strong>
-              <span>Onboarding, KYC queues, OCR/liveness/biometric paths, maker-checker, and audit trails that compliance and operations can defend.</span>
+              <span>KYC queues, biometrics, maker-checker, and audit trails operations can defend.</span>
             </div>
           </li>
           <li>
             <span class="ico">4</span>
             <div>
               <strong>Resource Augmentation</strong>
-              <span>Domain-ready engineers for payments, cards, wallets, and lending — one specialist, a full squad, build-then-stay, or retainer cover.</span>
+              <span>Domain-ready engineers — specialist, squad, build-then-stay, or retainer.</span>
             </div>
           </li>
           <li>
             <span class="ico">5</span>
             <div>
               <strong>Production Support</strong>
-              <span>Controlled releases, environment parity, monitoring, and a named contact after go-live when the channel is live.</span>
+              <span>Controlled releases, monitoring, and a named contact after go-live.</span>
             </div>
           </li>
         </ul>
@@ -700,14 +776,12 @@ const html = `<!DOCTYPE html>
         <h3>Engagement standards</h3>
         <div class="panel navy">
           <ul>
-            <li>UAT-led delivery on live financial journeys</li>
-            <li>Open API and core banking integrations</li>
-            <li>Scalable architecture for growing volumes</li>
-            <li>Audit-ready workflows and maker-checker</li>
-            <li>Channel apps for consumer, agent, merchant, POS</li>
-            <li>AI-assisted build with human release control</li>
-            <li>High-availability operations mindset</li>
-            <li>Clear milestones and handover documentation</li>
+            <li>UAT on live financial journeys</li>
+            <li>Open API &amp; core banking integrations</li>
+            <li>Audit-ready maker-checker workflows</li>
+            <li>Consumer, agent &amp; merchant apps (Android · iOS)</li>
+            <li>Human-controlled releases</li>
+            <li>Clear milestones and handover</li>
           </ul>
         </div>
       </div>
@@ -721,22 +795,23 @@ const html = `<!DOCTYPE html>
   <div class="atm"><div class="rule"></div><div class="hair"></div></div>
   <div class="content">
     <div class="kicker">Product catalogue</div>
-    <h1 class="title">Core <span class="accent">platforms</span></h1>
+    <h1 class="title">Financial &amp; non-financial <span class="accent">platforms</span></h1>
     <p class="lead" style="margin-bottom:2.5mm; font-size:9.5pt">
-      Enterprise platforms for banks and licensed institutions — grouped for board review under one operating model.
+      Suites and modules under one operating model. Cash transfer is not sold alone — it ships inside the
+      <strong>Corporate Banking Suite</strong>.
     </p>
     <div class="plat-groups">
       <div class="plat-group">
-        <div class="g-label">Corporate · Cash · Cards</div>
+        <div class="g-label">Corporate Banking Suite · Cards</div>
         <div class="plat-card featured">
-          <div class="code">Corporate · Cash</div>
-          <h3>Corporate Portal &amp; Cash Management</h3>
-          <p>Corporate &amp; bulk account onboarding, single/bulk transactions, COC, maker-checker, cash &amp; treasury desks.</p>
+          <div class="code">Corporate Suite</div>
+          <h3>Corporate Banking Suite</h3>
+          <p>Portal, bulk onboarding, single/bulk payments, COC, maker-checker — with <strong>cash transfer / treasury</strong> as a suite module, not a separate sale.</p>
         </div>
         <div class="plat-card">
           <div class="code">Cards</div>
           <h3>Card Management System</h3>
-          <p>Issuance, authorization, limits, PIN, and servicing on one institutional control plane.</p>
+          <p>Issuance, authorization, limits, PIN, and servicing — branch, digital, and agent-linked card paths on one control plane.</p>
         </div>
         <div class="plat-card">
           <div class="code">Instant Debit</div>
@@ -745,7 +820,7 @@ const html = `<!DOCTYPE html>
         </div>
       </div>
       <div class="plat-group">
-        <div class="g-label">Payments · Wallet · APIs</div>
+        <div class="g-label">Payments · Wallet · Lending</div>
         <div class="plat-card">
           <div class="code">Wallet</div>
           <h3>Wallet System &amp; Controller</h3>
@@ -756,23 +831,28 @@ const html = `<!DOCTYPE html>
           <h3>Payment Gateway</h3>
           <p>Collections, checkout, status APIs, and settlement desk on one model.</p>
         </div>
-        <div class="plat-card featured">
-          <div class="code">Open Banking</div>
-          <h3>Digital Banking — Open APIs</h3>
-          <p>Documented APIs for accounts, payments, and channels with test/live parity.</p>
-        </div>
-      </div>
-      <div class="plat-group">
-        <div class="g-label">Lending · Identity</div>
         <div class="plat-card">
           <div class="code">Lending</div>
           <h3>LOS / LMS</h3>
-          <p>Origination through book servicing — application, decision, schedule, repayment.</p>
+          <p>Consumer, agent, and corporate lending — origination through book servicing on one model.</p>
+        </div>
+      </div>
+      <div class="plat-group">
+        <div class="g-label">Internet · Web · Identity</div>
+        <div class="plat-card featured">
+          <div class="code">Internet Banking</div>
+          <h3>Internet Banking</h3>
+          <p>Full retail web self-service — accounts, transfers, cards, statements, and controls on core with test/live parity.</p>
         </div>
         <div class="plat-card featured">
+          <div class="code">Web Apps</div>
+          <h3>Web Banking &amp; Portals</h3>
+          <p>Institutional web apps — corporate desk, CMS, agent/merchant portals, and documented Open APIs for channels.</p>
+        </div>
+        <div class="plat-card">
           <div class="code">Identity</div>
           <h3>KYC Module / SDK</h3>
-          <p>OCR, facial liveness, fingerprint, and selfie comparison for onboarding apps.</p>
+          <p>OCR, facial liveness, fingerprint, and selfie comparison for onboarding apps — biometric paths that build operator trust.</p>
         </div>
       </div>
     </div>
@@ -784,60 +864,73 @@ const html = `<!DOCTYPE html>
 <section class="slide">
   <div class="atm"><div class="rule"></div><div class="hair"></div></div>
   <div class="content">
-    <div class="kicker">Channels &amp; applications</div>
-    <h1 class="title">Digital <span class="accent">channels</span></h1>
+    <div class="kicker">Sectors &amp; applications</div>
+    <h1 class="title">Four sectors. <span class="accent">Channel apps.</span></h1>
     <p class="lead" style="margin-bottom:2mm; font-size:9.5pt">
-      Bank channels for core banking and digital programmes — on shared platforms so books, rails, and controls stay consistent.
+      Retail, corporate, agent, and merchant — on shared platforms so books, rails, and controls stay consistent.
+      Mobile apps ship for <strong>consumer, merchant, and agent</strong> on <strong>Android and iOS</strong>,
+      with <strong>call center</strong> as the assisted desk channel on the same journeys.
     </p>
+    <div class="sector-row">
+      <div class="sector-card">
+        <h3>Retail</h3>
+        <p>Mobile banking, internet banking, cards, and self-service journeys for end customers.</p>
+      </div>
+      <div class="sector-card">
+        <h3>Corporate</h3>
+        <p>Corporate Banking Suite — portal, approvals, bulk ops, with cash transfer as a suite module.</p>
+      </div>
+      <div class="sector-card">
+        <h3>Agent</h3>
+        <p>Agent banking — onboarding, cash-in/out, float &amp; limits, commissions, audit-ready field journeys.</p>
+      </div>
+      <div class="sector-card">
+        <h3>Merchant</h3>
+        <p>Merchant apps and portals for onboarding, collections, and settlement visibility.</p>
+      </div>
+    </div>
     <div class="app-row">
       <div class="app-tile">
-        <div class="ico-line"><span class="glyph">MB</span><h3>Mobile Banking</h3></div>
-        <p>Retail mobile banking for banks — accounts, transfers, cards, self-service on core.</p>
-        <div class="os">iOS · Android</div>
+        <div class="ico-line"><span class="glyph">MB</span><h3>Consumer Mobile</h3></div>
+        <p>Retail mobile banking — accounts, transfers, cards, self-service on core.</p>
+        <div class="os">Android · iOS</div>
       </div>
       <div class="app-tile">
         <div class="ico-line"><span class="glyph">IB</span><h3>Internet Banking</h3></div>
-        <p>Web banking for retail and corporate self-service — statements, payments, approvals.</p>
+        <p>Retail web self-service — accounts, transfers, statements, payments, card controls on core.</p>
         <div class="os">Web · Core-integrated</div>
       </div>
       <div class="app-tile">
-        <div class="ico-line"><span class="glyph">ATM</span><h3>ATM Controller</h3></div>
-        <p>ATM driving and authorization for the estate — cards, core, and switch paths.</p>
-        <div class="os">ATM · Switch control</div>
+        <div class="ico-line"><span class="glyph">WA</span><h3>Web Apps &amp; Portals</h3></div>
+        <p>Institutional web apps — corporate suite, CMS desk, agent/merchant portals, Open APIs.</p>
+        <div class="os">Web · Ops portals</div>
       </div>
     </div>
     <div class="app-row">
       <div class="app-tile">
-        <div class="ico-line"><span class="glyph">AG</span><h3>Agent Application</h3></div>
-        <p>Cash-in/out, registrations, assisted journeys with governed limits and audit trails.</p>
-        <div class="os">Mobile · Field ops</div>
+        <div class="ico-line"><span class="glyph">AG</span><h3>Agent Banking</h3></div>
+        <p>Agent banking app — onboarding, cash-in/out, float &amp; limits, commissions, settlement visibility, audit trails.</p>
+        <div class="os">Android · iOS</div>
       </div>
       <div class="app-tile">
         <div class="ico-line"><span class="glyph">MR</span><h3>Merchant Application</h3></div>
-        <p>Onboarding, collections visibility, and settlement views on the payment gateway.</p>
-        <div class="os">App · Portal</div>
+        <p>Merchant mobile and portal — onboarding, collections, settlement on the gateway.</p>
+        <div class="os">Android · iOS · Portal</div>
       </div>
       <div class="app-tile">
-        <div class="ico-line"><span class="glyph">POS</span><h3>POS Application</h3></div>
-        <p>Card and wallet presentment with settlement handoff to the gateway.</p>
-        <div class="os">POS · Soft POS ready</div>
+        <div class="ico-line"><span class="glyph">CP</span><h3>Corporate Suite Portal</h3></div>
+        <p>Corporate Banking Suite desk — onboarding, bulk ops, approvals, cash-transfer module.</p>
+        <div class="os">Web · Maker-checker</div>
       </div>
     </div>
     <div class="app-row">
-      <div class="app-tile">
-        <div class="ico-line"><span class="glyph">CP</span><h3>Corporate Portal</h3></div>
-        <p>Corporate onboarding, bulk ops, approvals, and cash management desks.</p>
-        <div class="os">Web · Maker-checker</div>
-      </div>
-      <div class="app-tile">
-        <div class="ico-line"><span class="glyph">WC</span><h3>Wallet Controller</h3></div>
-        <p>Programme control for wallet limits, ops desks, and channel rules.</p>
-        <div class="os">Ops · Programme control</div>
-      </div>
-      <div class="app-tile">
-        <div class="ico-line"><span class="glyph">ID</span><h3>KYC SDK</h3></div>
-        <p>OCR, facial liveness, fingerprint, and selfie comparison for onboarding.</p>
-        <div class="os">SDK · Mobile &amp; web</div>
+      <div class="app-tile span-all">
+        <div class="ico-line"><span class="glyph">CC</span><h3>Call Center Solutions</h3></div>
+        <p>
+          Assisted banking desk — IVR, agent desktop, and CRM-aligned queues integrated to core and channel
+          journeys so the call center sees the same balances, statuses, and audit trail as retail and agent apps.
+        </p>
+        <div class="os">IVR · Agent desktop · CRM · Core-linked</div>
       </div>
     </div>
     ${footer(5, "Channels")}
@@ -852,45 +945,71 @@ const html = `<!DOCTYPE html>
       <div class="kicker">Engineering</div>
       <h1 class="title">Technology <span class="accent">stack</span></h1>
       <p class="lead">
-        Production-oriented stack for regulated financial systems — durable backends, event-driven
-        integration, and modern client applications for web and mobile.
+        Stack-flexible delivery for regulated estates — we adopt the institution’s preferred runtimes where they fit,
+        without locking the programme to a single vendor stack.
       </p>
     </div>
     <div class="tech-grid">
       <div class="tech-col dark">
-        <h3>Backend &amp; services</h3>
+        <h3>Backend &amp; APIs</h3>
         <ul>
-          <li>Java (Spring Boot) microservices</li>
-          <li>Kotlin for JVM services &amp; Android</li>
-          <li>RESTful Open APIs</li>
-          <li>Secure session &amp; token models</li>
-          <li>Core banking &amp; rail adapters</li>
+          <li>Java / Spring Boot</li>
+          <li>.NET · C#</li>
+          <li>Python · Django</li>
+          <li>Kotlin services</li>
+          <li>REST / Open APIs</li>
+          <li>Core &amp; rail adapters</li>
         </ul>
       </div>
       <div class="tech-col">
-        <h3>Data &amp; events</h3>
+        <h3>Frontend &amp; Web</h3>
         <ul>
-          <li>Apache Kafka event streaming</li>
-          <li>Transactional data stores</li>
-          <li>Audit and ops event trails</li>
-          <li>Async settlement &amp; notification paths</li>
-          <li>Environment parity (test / live)</li>
+          <li>React · TypeScript</li>
+          <li>Next.js portals</li>
+          <li>Modern SPA desks</li>
+          <li>Internet banking UI</li>
+          <li>Ops &amp; CMS portals</li>
+          <li>Accessible web apps</li>
         </ul>
       </div>
       <div class="tech-col">
-        <h3>Frontend &amp; mobile</h3>
+        <h3>Mobile</h3>
         <ul>
-          <li>Modern React / TypeScript web</li>
-          <li>Next.js for portals &amp; desks</li>
           <li>Native Android (Kotlin)</li>
-          <li>Native iOS consumer apps</li>
-          <li>KYC SDK for mobile &amp; web</li>
+          <li>Native iOS (Swift)</li>
+          <li>Consumer banking apps</li>
+          <li>Agent &amp; merchant apps</li>
+          <li>KYC / biometric SDK</li>
+          <li>Secure device patterns</li>
+        </ul>
+      </div>
+      <div class="tech-col dark">
+        <h3>Cloud &amp; DevOps</h3>
+        <ul>
+          <li>AWS cloud delivery</li>
+          <li>Docker · Kubernetes</li>
+          <li>CI/CD pipelines</li>
+          <li>GitHub / GitLab / Azure DevOps</li>
+          <li>Env parity (dev · UAT · prod)</li>
+          <li>Localization (Urdu · EN · PK)</li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <h3>Data &amp; Observability</h3>
+        <ul>
+          <li>Oracle Database</li>
+          <li>PostgreSQL · MySQL</li>
+          <li>Apache Kafka</li>
+          <li>ELK — Elasticsearch</li>
+          <li>Logstash · Kibana</li>
+          <li>Audit trails · monitoring</li>
         </ul>
       </div>
     </div>
     <div class="tech-note">
-      Architecture emphasises clear service boundaries, documented contracts, and human-controlled releases —
-      with agentic AI used only to accelerate analysis, testing, and documentation where appropriate.
+      Clear service boundaries, documented contracts, and human-controlled releases. AI assists analysis and
+      testing only — release accountability stays with the delivery team. Stack choices follow the bank’s
+      standards and integration constraints — not a single locked toolkit.
     </div>
     ${footer(6, "Technology")}
   </div>
@@ -903,36 +1022,38 @@ const html = `<!DOCTYPE html>
     <div class="kicker">How we build</div>
     <h1 class="title">Fintech platform <span class="accent">development</span></h1>
     <p class="lead" style="margin-bottom:3mm; font-size:10pt">
-      Secure, scalable platforms for regulated environments. Technology partner only — we do not provide
-      licensed financial services.
+      Secure, scalable fintech platforms for regulated environments. Technology partner only — we do not
+      provide licensed financial services.
     </p>
     <div class="build-grid">
       <div>
         <ul class="check-list" style="margin-top:0">
           <li><span class="tick">✓</span><span>Structured fintech platform architecture</span></li>
-          <li><span class="tick">✓</span><span>Open APIs and banking/rail integrations</span></li>
-          <li><span class="tick">✓</span><span>Governance-aware development practices</span></li>
-          <li><span class="tick">✓</span><span>Scalable infrastructure for growing volumes</span></li>
-          <li><span class="tick">✓</span><span>Clear milestones and UAT delivery phases</span></li>
+          <li><span class="tick">✓</span><span>Open APIs and banking / rail integrations</span></li>
+          <li><span class="tick">✓</span><span>Governance-aware, UAT-led delivery</span></li>
+          <li><span class="tick">✓</span><span>Clear milestones and handover</span></li>
         </ul>
         <div class="chip-row">
-          <span class="chip">Corporate / Cash</span>
+          <span class="chip">Corporate Suite</span>
           <span class="chip">Cards</span>
           <span class="chip">Wallet</span>
           <span class="chip">Gateway</span>
           <span class="chip">LOS / LMS</span>
-          <span class="chip">KYC</span>
-          <span class="chip">Channels</span>
+          <span class="chip">Consumer apps</span>
+          <span class="chip">Internet · Web</span>
+          <span class="chip">Agent · Merchant</span>
+          <span class="chip">Call Center</span>
         </div>
       </div>
       <div class="panel navy">
         <p class="subhead" style="color:var(--gold); margin-bottom:3mm">Capability coverage</p>
         <ul style="margin:0; padding-left:5mm">
-          <li style="margin:0 0 2.5mm; font-size:9.5pt">Corporate onboarding, bulk ops, COC, cash desks</li>
+          <li style="margin:0 0 2.5mm; font-size:9.5pt">Corporate Banking Suite (cash transfer as a module)</li>
           <li style="margin:0 0 2.5mm; font-size:9.5pt">CMS + instant debit card issuance</li>
           <li style="margin:0 0 2.5mm; font-size:9.5pt">Wallet programmes and digital banking APIs</li>
-          <li style="margin:0 0 2.5mm; font-size:9.5pt">Payment gateway, POS, agent &amp; merchant apps</li>
-          <li style="margin:0 0 2.5mm; font-size:9.5pt">LOS / LMS credit journeys</li>
+          <li style="margin:0 0 2.5mm; font-size:9.5pt">Payment gateway · internet / web banking · consumer / agent / merchant apps</li>
+          <li style="margin:0 0 2.5mm; font-size:9.5pt">Agent banking · call center (IVR, desktop, CRM queues)</li>
+          <li style="margin:0 0 2.5mm; font-size:9.5pt">LOS / LMS — consumer, agent &amp; corporate lending</li>
           <li style="margin:0; font-size:9.5pt">KYC SDK: OCR, liveness, fingerprint, selfie match</li>
         </ul>
       </div>
@@ -941,57 +1062,7 @@ const html = `<!DOCTYPE html>
   </div>
 </section>
 
-<!-- 8 PROOF -->
-<section class="slide">
-  <div class="atm"><div class="rule"></div><div class="hair"></div></div>
-  <div class="content">
-    <div class="kicker">Proof points</div>
-    <h1 class="title">What goes <span class="accent">live</span></h1>
-    <p class="lead" style="margin-bottom:3mm; font-size:10pt">
-      Platforms that ship — with governance still in the room. Built for institutions that need clear
-      outcomes, not slideware alone.
-    </p>
-    <div class="proof-metrics">
-      <div class="metric hot">
-        <div class="num">10+</div>
-        <h3>Platform modules</h3>
-        <p>Corporate to KYC</p>
-      </div>
-      <div class="metric">
-        <div class="num">iOS+</div>
-        <h3>Consumer apps</h3>
-        <p>Android &amp; iOS</p>
-      </div>
-      <div class="metric">
-        <div class="num">1</div>
-        <h3>Operating model</h3>
-        <p>UAT as the clock</p>
-      </div>
-      <div class="metric hot">
-        <div class="num">24h</div>
-        <h3>First response</h3>
-        <p>Business-day SLA</p>
-      </div>
-    </div>
-    <div class="proof-outcomes">
-      <div class="outcome">
-        <h3>Live operator journeys</h3>
-        <p>Done means a payment, transfer, card, corporate bulk, or loan path signed in UAT — not a demo left behind.</p>
-      </div>
-      <div class="outcome">
-        <h3>Banking-grade integrations</h3>
-        <p>Core, rails, open APIs, and channel layers behind documented contracts with test/production parity.</p>
-      </div>
-      <div class="outcome">
-        <h3>Cover after go-live</h3>
-        <p>Named contact, controlled releases, and optional squad or retainer when the channel is live.</p>
-      </div>
-    </div>
-    ${footer(8, "Proof")}
-  </div>
-</section>
-
-<!-- 9 DELIVERY -->
+<!-- 8 DELIVERY -->
 <section class="slide">
   <div class="atm"><div class="rule"></div><div class="hair"></div></div>
   <div class="content">
@@ -1002,12 +1073,12 @@ const html = `<!DOCTYPE html>
       <div class="t-step">
         <div class="dot">1</div>
         <strong>Domain-ready week one</strong>
-        <span>Payments, cards, wallets, corporate, lending — already shipped. Short ramp.</span>
+        <span>Payments, cards, wallets, Corporate Suite, lending — already shipped. Short ramp.</span>
       </div>
       <div class="t-step">
         <div class="dot">2</div>
-        <strong>Agentic AI in the build</strong>
-        <span>AI speeds analysis, testing, docs — humans stay accountable for release.</span>
+        <strong>Accelerated build</strong>
+        <span>AI assists analysis and testing where useful — humans own every release.</span>
       </div>
       <div class="t-step">
         <div class="dot">3</div>
@@ -1026,42 +1097,40 @@ const html = `<!DOCTYPE html>
       <div class="engage"><div class="label">Build + stay</div><p>Ship the platform, keep the roadmap</p></div>
       <div class="engage"><div class="label">Retainer</div><p>Production fixes and changes</p></div>
     </div>
-    ${footer(9, "Delivery")}
+    ${footer(8, "Delivery")}
   </div>
 </section>
 
-<!-- 10 WHY -->
+<!-- 9 WHY -->
 <section class="slide">
   <div class="atm"><div class="rule"></div><div class="hair"></div></div>
   <div class="content">
     <div class="kicker">Differentiation</div>
     <h1 class="title">Why <span class="accent">FintiQ</span></h1>
-    <div class="quote-bar">Technology partner. Not a licensee claim.</div>
+    <div class="quote-bar">Secure integrated systems. Technology partner — not a licensee claim.</div>
     <p class="lead" style="margin-bottom:3.5mm; font-size:10pt">
-      Built for regulated institutions that need platforms without confusing technology delivery with
-      licensed financial authority.
+      Platforms that earn trust — without confusing technology delivery with licensed financial authority.
     </p>
     <div class="two-col">
       <ul class="plain" style="font-size:10.5pt; margin:0">
-        <li><strong>You keep the license and the ledger</strong> — we deliver the platform and channel layer.</li>
-        <li><strong>Full stack coverage</strong> — corporate/cash, cards, wallet, gateway, LOS/LMS, KYC, apps.</li>
-        <li><strong>Open API digital banking</strong> — documented contracts for partners and internal channels.</li>
-        <li><strong>Governance-aware delivery</strong> — UAT journeys, milestones, and audit trails.</li>
+        <li><strong>You keep the license and the ledger</strong> — we deliver platforms and channels.</li>
+        <li><strong>Full stack</strong> — Corporate Banking Suite, cards, wallet, gateway, LOS/LMS, web &amp; mobile apps.</li>
+        <li><strong>Open APIs</strong> — documented contracts for partners and internal channels.</li>
+        <li><strong>Governance-aware delivery</strong> — UAT, milestones, and audit trails.</li>
       </ul>
       <div class="panel navy">
         <p class="subhead" style="color:var(--gold)">Regulatory position</p>
         <p style="margin:0; font-size:9.5pt; line-height:1.5">
-          We operate as a technology development partner. Licensed institutions remain the system of
-          record for customer funds and for regulated decisions such as account opening and credit
-          approval. This profile does not claim EMI, PSO, PSP, or banking licenses.
+          Technology development partner only. Licensed institutions remain the system of record for funds
+          and regulated decisions. This profile does not claim banking, PSO, or PSP licenses.
         </p>
       </div>
     </div>
-    ${footer(10, "Why FintiQ")}
+    ${footer(9, "Why FintiQ")}
   </div>
 </section>
 
-<!-- 11 CONTACT / CLOSE -->
+<!-- 10 CONTACT / CLOSE -->
 <section class="slide dark">
   <div class="cover-bg"></div>
   <div class="cover-content">
@@ -1077,7 +1146,7 @@ const html = `<!DOCTYPE html>
     </div>
     <div class="thanks-wrap">
       <h1>Let's talk.</h1>
-      <p>Tell us the platform or channel you need live — mobile/internet banking, ATM, corporate, cards, wallet, gateway, lending, or KYC. A platform, people, or both.</p>
+      <p>Tell us what you need live — Corporate Banking Suite, internet / web banking, retail / agent / merchant apps, cards, gateway, or lending. Platform, people, or both.</p>
       <div style="margin-top:2mm">
         <p style="margin:0 0 0.8mm; font-size:8pt; letter-spacing:.14em; text-transform:uppercase; color:rgba(0,176,164,.9)">Email</p>
         <p style="margin:0 0 1mm; font-size:14pt; font-weight:700; color:#fff">info@fintiqsolutions.com</p>

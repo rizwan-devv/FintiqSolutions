@@ -24,9 +24,9 @@ export default function AboutPage() {
             {company.tagline}
           </h1>
           <p className="mt-5 max-w-2xl border-l-2 border-teal/70 pl-4 text-lg leading-8 text-white/75">
-            FintiQ works with financial institutions and fintech companies to build secure, scalable
-            digital financial platforms — with structured architecture, secure integrations, and
-            governance-aware delivery.
+            FintiQ builds secure, integrated fintech systems for banks, PSOs/PSPs, and digital
+            institutions — Corporate Banking Suite, cards, internet and web banking, call center,
+            payments, and lending — with open APIs and UAT-led delivery.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/contact" className={buttonPrimary}>

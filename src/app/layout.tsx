@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "Secure fintech platforms for cards, corporate banking, payments, cash, remittance, and lending — plus AI solutions for regulated institutions.";
+  "Secure integrated fintech systems for cards, Corporate Banking Suite, payments, internet and web banking, call center, remittance, and lending — technology partner to regulated institutions.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(company.siteUrl),

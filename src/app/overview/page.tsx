@@ -24,8 +24,9 @@ export default function OverviewPage() {
               Platforms overview
             </h1>
             <p className="mt-2 max-w-xl text-sm leading-6 text-mist">
-              Secure fintech platforms for cards, corporate banking, payments, cash, remittance, and
-              lending — delivered as a technology partner to licensed institutions.
+              Secure integrated systems for cards, Corporate Banking Suite, payments, internet / web
+              banking, call center, remittance, and lending — technology partner to licensed
+              institutions.
             </p>
           </div>
           <div className="flex flex-col items-end gap-2 print:hidden">

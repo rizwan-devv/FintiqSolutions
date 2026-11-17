@@ -12,10 +12,11 @@ export function ChannelsStrip() {
             How customers and businesses meet the platform.
           </h2>
           <p className="mt-4 max-w-xl text-mist">
-            Agent, consumer, and wallet banking — plus merchant and corporate portals — on shared books and rails.
+            Agent, consumer, internet banking, web apps, and call center — plus merchant and corporate
+            portals — on shared books and rails.
           </p>
         </Reveal>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {channels.map((channel, index) => {
             const first = getProduct(channel.related[0]);
             return (

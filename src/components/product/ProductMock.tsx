@@ -1,225 +1,294 @@
-import type { ReactElement } from "react";
-import { CmsLoginMock } from "@/components/product/CmsLoginMock";
+import Image from "next/image";
+import type { ReactElement, ReactNode } from "react";
 
 type MockProps = {
   tone?: "light" | "theme";
   accent?: string;
 };
 
-/** CMS desk login — Card Management System */
-function CardPaymentMock({ accent = "#C9A227" }: MockProps) {
+function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="mx-auto w-full max-w-[340px]">
-      <CmsLoginMock accent={accent} size="compact" />
+    <div className={`flex items-center gap-1.5 ${compact ? "" : ""}`}>
+      <Image
+        src="/brand/mark.png"
+        alt=""
+        width={compact ? 18 : 22}
+        height={compact ? 14 : 16}
+        className="h-auto w-auto object-contain"
+        aria-hidden
+      />
+      <span className={`font-display font-bold tracking-tight text-white ${compact ? "text-[10px]" : "text-xs"}`}>
+        Finti<span className="text-[#00d4c6]">Q</span>
+      </span>
     </div>
   );
 }
 
-/** Dark ops console with side rail */
-function CorporateMock({ accent = "#4F7CFF" }: MockProps) {
+function MockShell({
+  accent,
+  product,
+  eyebrow,
+  children,
+}: {
+  accent: string;
+  product: string;
+  eyebrow: string;
+  children: ReactNode;
+}) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0a1224] text-white shadow-[0_24px_50px_rgb(0_0_0/0.4)]">
-      <div className="grid grid-cols-[2.2rem_1fr]">
-        <div className="flex flex-col items-center gap-2 border-r border-white/10 bg-black/30 py-3">
-          {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              className="size-2 rounded-full"
-              style={{ background: i === 0 ? accent : "rgb(255 255 255 / 0.2)" }}
-            />
-          ))}
-        </div>
-        <div className="p-3">
-          <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/45">Corporate desk</p>
-          <p className="mt-1 font-display text-2xl tracking-tight">PKR 1.2M</p>
-          <p className="text-[11px] text-white/55">Bulk payment · checker</p>
-          <div className="mt-3 space-y-1.5">
-            {[
-              ["Maker", "Done"],
-              ["Checker", "Live"],
-              ["Core", "…"],
-            ].map(([label, state], index) => (
-              <div
-                key={label}
-                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[11px]"
-                style={{ background: index === 1 ? `${accent}33` : "rgb(255 255 255 / 0.06)" }}
-              >
-                <span>{label}</span>
-                <span style={{ color: index < 2 ? accent : "rgb(255 255 255 / 0.35)" }}>{state}</span>
-              </div>
-            ))}
-          </div>
+    <div className="mx-auto w-full max-w-[320px] overflow-hidden rounded-[1.35rem] border border-white/12 shadow-[0_28px_56px_rgb(0_0_0/0.45)]">
+      <div
+        className="flex items-center justify-between px-3.5 py-2.5"
+        style={{
+          background: `linear-gradient(105deg, #071530 0%, #102458 48%, #0c6484 88%, ${accent} 140%)`,
+        }}
+      >
+        <BrandMark compact />
+        <span
+          className="rounded-full px-2 py-0.5 font-mono text-[8px] font-semibold uppercase tracking-[0.12em] text-white/90"
+          style={{ background: "rgb(255 255 255 / 0.12)", border: `1px solid ${accent}66` }}
+        >
+          {eyebrow}
+        </span>
+      </div>
+      <div className="bg-[#0a1628] px-3.5 pb-3.5 pt-3 text-white">
+        <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-[#7be0d8]">{product}</p>
+        {children}
+        <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-2">
+          <span className="text-[8px] font-medium text-white/40">FintiQ Solutions · Technology partner</span>
+          <span className="size-1.5 rounded-full" style={{ background: accent }} />
         </div>
       </div>
     </div>
   );
 }
 
-/** Glass checkout ticket */
+/** CMS — card control plane */
+function CardPaymentMock({ accent = "#00B0A4" }: MockProps) {
+  return (
+    <MockShell accent={accent} product="Card Management System" eyebrow="CMS">
+      <div className="mt-2.5 grid grid-cols-[1.1fr_0.9fr] gap-2.5">
+        <div
+          className="relative overflow-hidden rounded-xl p-3"
+          style={{
+            background: `linear-gradient(145deg, #102458 0%, #0c6484 55%, ${accent} 120%)`,
+          }}
+        >
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/70">Debit</span>
+            <span className="rounded bg-white/15 px-1.5 py-0.5 text-[7px] font-semibold">VISA</span>
+          </div>
+          <p className="mt-5 font-mono text-[11px] tracking-[0.2em] text-white/90">•••• 4821</p>
+          <p className="mt-2 text-[9px] font-semibold text-white/80">INSTITUTION CARD</p>
+          <div className="mt-3 h-1 w-10 rounded-full bg-white/35" />
+        </div>
+        <div className="space-y-1.5 rounded-xl border border-white/10 bg-white/[0.04] p-2.5">
+          <p className="text-[9px] font-semibold text-white/85">Desk ops</p>
+          {[
+            ["Issue", "Live"],
+            ["PIN set", "OK"],
+            ["Limit", "PKR 250k"],
+          ].map(([k, v]) => (
+            <div key={k} className="flex justify-between text-[8px]">
+              <span className="text-white/50">{k}</span>
+              <span style={{ color: accent }}>{v}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </MockShell>
+  );
+}
+
+/** Corporate Banking Suite */
+function CorporateMock({ accent = "#00B0A4" }: MockProps) {
+  return (
+    <MockShell accent={accent} product="Corporate Banking Suite" eyebrow="Suite">
+      <p className="mt-1 font-display text-2xl tracking-tight">PKR 1.24M</p>
+      <p className="text-[10px] text-white/55">Bulk payment · maker-checker</p>
+      <div className="mt-3 space-y-1.5">
+        {[
+          ["Maker submitted", "Done", true],
+          ["Checker approval", "Live", true],
+          ["Cash module", "Ready", false],
+          ["Core posting", "Queued", false],
+        ].map(([label, state, hot]) => (
+          <div
+            key={String(label)}
+            className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[10px]"
+            style={{ background: hot ? `${accent}28` : "rgb(255 255 255 / 0.05)" }}
+          >
+            <span className="text-white/80">{label}</span>
+            <span className="font-semibold" style={{ color: hot ? accent : "rgb(255 255 255 / 0.4)" }}>
+              {state}
+            </span>
+          </div>
+        ))}
+      </div>
+    </MockShell>
+  );
+}
+
+/** Payment Gateway */
 function GatewayMock({ accent = "#00B0A4" }: MockProps) {
   return (
-    <div className="relative mx-auto w-full max-w-[220px]">
-      <div
-        className="rounded-[1.4rem] border border-white/20 p-4 text-white shadow-[0_20px_40px_rgb(0_0_0/0.35)] backdrop-blur-md"
-        style={{
-          background: `linear-gradient(160deg, rgb(255 255 255 / 0.14), rgb(0 176 164 / 0.12) 60%, rgb(8 18 40 / 0.55))`,
-        }}
-      >
+    <MockShell accent={accent} product="Payment Gateway" eyebrow="Gateway">
+      <div className="mt-2 rounded-xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-3">
         <div className="flex items-center justify-between">
-          <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/60">Checkout</span>
-          <span className="live-dot size-2 rounded-full" style={{ background: accent }} />
+          <span className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/55">Checkout session</span>
+          <span className="flex items-center gap-1 text-[8px] font-semibold" style={{ color: accent }}>
+            <span className="size-1.5 animate-pulse rounded-full" style={{ background: accent }} />
+            Live
+          </span>
         </div>
-        <p className="mt-3 font-display text-3xl tracking-tight">240k</p>
-        <p className="text-xs text-white/65">PKR · invoice 1842</p>
-        <div className="mt-4 h-1 overflow-hidden rounded-full bg-white/15">
-          <div className="mock-bar h-full w-full rounded-full" style={{ background: accent }} />
+        <p className="mt-2 font-display text-3xl tracking-tight">240,000</p>
+        <p className="text-[10px] text-white/55">PKR · invoice #1842</p>
+        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
+          <div className="h-full w-[72%] rounded-full" style={{ background: `linear-gradient(90deg, ${accent}, #7be0d8)` }} />
         </div>
-        <div className="mt-4 grid grid-cols-2 gap-1.5">
-          {["Pay", "API", "Settle", "Payout"].map((item) => (
+        <div className="mt-3 grid grid-cols-4 gap-1">
+          {["Pay", "API", "Callback", "Settle"].map((item) => (
             <span
               key={item}
-              className="rounded-lg border border-white/15 bg-black/25 py-2 text-center text-[10px] font-semibold"
+              className="rounded-md border border-white/12 bg-black/25 py-1.5 text-center text-[8px] font-semibold text-white/80"
             >
               {item}
             </span>
           ))}
         </div>
       </div>
-      <div
-        className="mx-auto h-2 w-2/3 rounded-b-xl opacity-70"
-        style={{ background: `linear-gradient(90deg, transparent, ${accent}, transparent)` }}
-      />
-    </div>
+    </MockShell>
   );
 }
 
-/** Vertical bar chart board */
-function CashMock({ accent = "#2EE6C5" }: MockProps) {
-  const bars = [72, 48, 88, 36, 64, 52];
+/** Cash / treasury module */
+function CashMock({ accent = "#00B0A4" }: MockProps) {
+  const bars = [62, 44, 86, 38, 70, 55, 78];
   return (
-    <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#041820] p-4 text-white shadow-[0_24px_50px_rgb(0_0_0/0.4)]">
-      <div className="flex items-end justify-between">
+    <MockShell accent={accent} product="Cash Transfer Module" eyebrow="Treasury">
+      <div className="mt-1 flex items-end justify-between">
         <div>
-          <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/45">Treasury</p>
-          <p className="mt-1 font-display text-2xl">48.6M</p>
+          <p className="font-display text-2xl tracking-tight">48.6M</p>
+          <p className="text-[9px] text-white/50">PKR · consolidated</p>
         </div>
-        <span className="rounded-full px-2 py-1 text-[9px] font-semibold text-ink" style={{ background: accent }}>
-          Live
+        <span className="rounded-full px-2 py-1 text-[8px] font-bold text-[#071530]" style={{ background: accent }}>
+          Suite module
         </span>
       </div>
-      <div className="mt-4 flex h-24 items-end gap-1.5">
+      <div className="mt-3 flex h-20 items-end gap-1">
         {bars.map((height, index) => (
-          <div key={index} className="flex-1 rounded-t-md bg-white/10">
+          <div key={index} className="relative flex-1 overflow-hidden rounded-t-md bg-white/8" style={{ height: "100%" }}>
             <div
-              className="w-full rounded-t-md"
+              className="absolute bottom-0 w-full rounded-t-md"
               style={{
                 height: `${height}%`,
-                background: `linear-gradient(180deg, ${accent}, ${accent}55)`,
-                marginTop: `${100 - height}%`,
+                background: `linear-gradient(180deg, ${accent}, ${accent}44)`,
               }}
             />
           </div>
         ))}
       </div>
-      <div className="mt-3 flex justify-between text-[10px] text-white/50">
+      <div className="mt-2 flex justify-between text-[8px] text-white/45">
         <span>Operating</span>
         <span>Sweep</span>
         <span>Pending</span>
       </div>
-    </div>
+    </MockShell>
   );
 }
 
-/** Radial corridor ring */
-function RemittanceMock({ accent = "#6EC8FF" }: MockProps) {
-  const steps = ["Send", "Screen", "Route", "Paid"];
+/** Remittance */
+function RemittanceMock({ accent = "#00B0A4" }: MockProps) {
+  const steps = [
+    { label: "Send", done: true },
+    { label: "Screen", done: true },
+    { label: "Route", done: true },
+    { label: "Paid", done: false },
+  ];
   return (
-    <div className="relative mx-auto flex aspect-square w-full max-w-[210px] items-center justify-center">
-      <div
-        className="absolute inset-3 rounded-full border border-dashed opacity-50"
-        style={{ borderColor: accent }}
-      />
-      <div className="absolute inset-8 rounded-full border border-white/15" />
-      <div className="relative z-10 rounded-full bg-[#061018]/90 px-5 py-4 text-center text-white shadow-[0_0_40px_rgb(110_200_255/0.25)]">
-        <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-white/50">Corridor</p>
-        <p className="mt-1 font-display text-lg">Live</p>
-        <p className="mt-1 text-[10px]" style={{ color: accent }}>
-          Compliance clear
-        </p>
-      </div>
-      {steps.map((step, index) => {
-        const angle = -90 + index * 90;
-        const rad = (angle * Math.PI) / 180;
-        const x = 50 + Math.cos(rad) * 42;
-        const y = 50 + Math.sin(rad) * 42;
-        return (
-          <span
-            key={step}
-            className="absolute flex size-9 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full text-[8px] font-semibold text-ink"
-            style={{
-              left: `${x}%`,
-              top: `${y}%`,
-              background: index === 3 ? accent : "rgb(255 255 255 / 0.92)",
-            }}
-          >
-            {index + 1}
+    <MockShell accent={accent} product="Remittance System" eyebrow="Corridor">
+      <div className="mt-2 rounded-xl border border-white/10 bg-white/[0.04] p-3">
+        <div className="flex items-center justify-between text-[9px]">
+          <span className="text-white/55">PK → AE</span>
+          <span className="font-semibold" style={{ color: accent }}>
+            Compliance clear
           </span>
-        );
-      })}
-    </div>
-  );
-}
-
-/** Stacked document / pipeline */
-function LosMock({ accent = "#9AD0FF" }: MockProps) {
-  return (
-    <div className="relative mx-auto w-full max-w-[210px] pt-3">
-      <div className="absolute left-3 right-3 top-0 h-3 rounded-t-xl bg-white/20" />
-      <div className="absolute left-1.5 right-1.5 top-1.5 h-3 rounded-t-xl bg-white/30" />
-      <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#101a2e] p-4 text-white shadow-[0_24px_50px_rgb(0_0_0/0.4)]">
-        <div className="flex items-center gap-2">
-          <span className="flex size-8 items-center justify-center rounded-lg text-xs font-bold text-ink" style={{ background: accent }}>
-            LN
-          </span>
-          <div>
-            <p className="text-sm font-semibold">Personal loan</p>
-            <p className="text-[10px] text-white/50">File 2041</p>
-          </div>
         </div>
-        <div className="mt-4 space-y-2">
-          {[
-            ["Intake", 100],
-            ["Documents", 100],
-            ["Credit", 55],
-          ].map(([label, pct]) => (
-            <div key={String(label)}>
-              <div className="mb-1 flex justify-between text-[10px] text-white/60">
-                <span>{label}</span>
-                <span>{pct}%</span>
-              </div>
-              <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full rounded-full" style={{ width: `${pct}%`, background: accent }} />
-              </div>
+        <p className="mt-2 font-display text-xl">AED 2,450</p>
+        <div className="mt-3 flex items-center justify-between gap-1">
+          {steps.map((step, i) => (
+            <div key={step.label} className="flex flex-1 flex-col items-center gap-1">
+              <span
+                className="flex size-6 items-center justify-center rounded-full text-[8px] font-bold"
+                style={{
+                  background: step.done ? accent : "rgb(255 255 255 / 0.1)",
+                  color: step.done ? "#071530" : "rgb(255 255 255 / 0.5)",
+                }}
+              >
+                {i + 1}
+              </span>
+              <span className="text-[7px] text-white/50">{step.label}</span>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </MockShell>
   );
 }
 
-/** Phone-style servicing app */
-function LmsMock({ accent = "#C4B5FD" }: MockProps) {
+/** LOS */
+function LosMock({ accent = "#00B0A4" }: MockProps) {
   return (
-    <div className="mx-auto w-full max-w-[150px] rounded-[1.8rem] border border-white/20 bg-[#12081f] p-2 shadow-[0_30px_60px_rgb(0_0_0/0.45)]">
-      <div className="rounded-[1.4rem] bg-gradient-to-b from-[#2a2148] to-[#12081f] p-3 text-white">
-        <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-white/25" />
-        <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-white/45">Next due</p>
-        <p className="mt-1 font-display text-2xl">18,400</p>
-        <p className="text-[10px] text-white/55">PKR · in 6 days</p>
-        <div className="relative mx-auto mt-4 size-20">
+    <MockShell accent={accent} product="Loan Origination" eyebrow="LOS">
+      <div className="mt-2 flex items-center gap-2.5">
+        <span
+          className="flex size-9 items-center justify-center rounded-lg text-[10px] font-bold text-[#071530]"
+          style={{ background: accent }}
+        >
+          LN
+        </span>
+        <div>
+          <p className="text-[12px] font-semibold">Personal loan</p>
+          <p className="text-[9px] text-white/45">Application · File 2041</p>
+        </div>
+      </div>
+      <div className="mt-3 space-y-2">
+        {[
+          ["Intake", 100],
+          ["Documents", 100],
+          ["Credit review", 58],
+        ].map(([label, pct]) => (
+          <div key={String(label)}>
+            <div className="mb-1 flex justify-between text-[9px] text-white/55">
+              <span>{label}</span>
+              <span>{pct}%</span>
+            </div>
+            <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+              <div className="h-full rounded-full" style={{ width: `${pct}%`, background: accent }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </MockShell>
+  );
+}
+
+/** LMS */
+function LmsMock({ accent = "#00B0A4" }: MockProps) {
+  return (
+    <MockShell accent={accent} product="Loan Management" eyebrow="LMS">
+      <div className="mt-2 grid grid-cols-[1fr_auto] gap-3">
+        <div>
+          <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/45">Next due</p>
+          <p className="mt-1 font-display text-2xl tracking-tight">18,400</p>
+          <p className="text-[9px] text-white/50">PKR · in 6 days</p>
+          <p className="mt-2 text-[9px] font-semibold" style={{ color: accent }}>
+            14 of 24 installments
+          </p>
+        </div>
+        <div className="relative size-[4.5rem]">
           <svg viewBox="0 0 36 36" className="size-full -rotate-90">
-            <circle cx="18" cy="18" r="15" fill="none" stroke="rgb(255 255 255 / 0.12)" strokeWidth="3" />
+            <circle cx="18" cy="18" r="15" fill="none" stroke="rgb(255 255 255 / 0.1)" strokeWidth="3" />
             <circle
               cx="18"
               cy="18"
@@ -231,11 +300,10 @@ function LmsMock({ accent = "#C4B5FD" }: MockProps) {
               strokeLinecap="round"
             />
           </svg>
-          <span className="absolute inset-0 flex items-center justify-center text-[11px] font-semibold">14/24</span>
+          <span className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold">58%</span>
         </div>
-        <p className="mt-2 text-center text-[10px] text-white/50">Installments received</p>
       </div>
-    </div>
+    </MockShell>
   );
 }
 
@@ -258,10 +326,11 @@ export function ProductMock({
   tone?: "light" | "theme";
   accent?: string;
 }) {
+  void tone;
   const Mock = mocks[slug] ?? GatewayMock;
   return (
-    <div aria-hidden="true" className="min-h-[11rem]">
-      <Mock tone={tone} accent={accent} />
+    <div aria-hidden="true" className="min-h-[11rem] w-full">
+      <Mock accent={accent} />
     </div>
   );
 }

@@ -16,52 +16,48 @@ export function ProductStage({
   const theme = getProductTheme(slug);
   const light = theme.mode === "light";
   const mockHeight = compact
-    ? "h-[13.5rem] min-h-[13.5rem]"
+    ? "h-[12.5rem] min-h-[12.5rem]"
     : tall
-      ? "h-[18rem] min-h-[18rem] md:h-[20rem] md:min-h-[20rem]"
-      : "h-[16rem] min-h-[16rem]";
+      ? "h-[17.5rem] min-h-[17.5rem] md:h-[19.5rem] md:min-h-[19.5rem]"
+      : "h-[15.5rem] min-h-[15.5rem]";
 
   return (
     <div
       className={`product-stage relative overflow-hidden ${compact ? "rounded-[1.4rem]" : "rounded-[1.8rem]"} ${className}`}
       style={{
-        backgroundImage: light
-          ? `linear-gradient(160deg, #eef5f7 0%, #f4f8fa 40%, #e8f4f3 100%), ${theme.glow}`
-          : `${theme.glow}, linear-gradient(155deg, #071530 0%, #102458 50%, #0a4f5c 120%)`,
+        background: light
+          ? "linear-gradient(165deg, #eef5f7 0%, #f7fafb 45%, #e7f3f2 100%)"
+          : "linear-gradient(155deg, #050d1c 0%, #0a1a38 52%, #071a24 100%)",
       }}
     >
       <div
-        className={`product-stage-grid pointer-events-none absolute inset-0 ${light ? "opacity-25" : "opacity-35"}`}
-        aria-hidden="true"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgb(16 36 88 / 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgb(16 36 88 / 0.06) 1px, transparent 1px)",
-          backgroundSize: "22px 22px",
-        }}
+        className="pointer-events-none absolute -right-16 -top-20 size-56 rounded-full opacity-40 blur-3xl"
+        style={{ background: `${theme.accent}55` }}
+        aria-hidden
       />
-      <div className={`relative ${compact ? "p-4" : tall ? "p-5 md:p-7" : "p-5 md:p-6"}`}>
-        <div className="mb-3 flex items-center justify-between gap-3">
+      <div className={`relative ${compact ? "p-3.5" : tall ? "p-5 md:p-6" : "p-4 md:p-5"}`}>
+        <div className="mb-2.5 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <Image
               src="/brand/mark.png"
               alt=""
-              width={20}
-              height={15}
+              width={18}
+              height={14}
               className="h-auto w-auto object-contain opacity-90"
               aria-hidden
             />
             <span
               className="rounded-full px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.14em]"
               style={{
-                color: light ? theme.ink : "#ffffff",
-                background: light ? "rgb(16 36 88 / 0.08)" : "rgb(255 255 255 / 0.12)",
+                color: light ? "#102458" : "#ffffff",
+                background: light ? "rgb(16 36 88 / 0.07)" : "rgb(255 255 255 / 0.1)",
                 border: `1px solid ${light ? "rgb(0 176 164 / 0.35)" : `${theme.accentSoft}55`}`,
               }}
             >
               {theme.label}
             </span>
           </div>
-          <span className={`text-[9px] font-semibold ${light ? "text-navy/45" : "text-white/45"}`}>
+          <span className={`text-[9px] font-semibold tracking-wide ${light ? "text-navy/40" : "text-white/40"}`}>
             FintiQ Solutions
           </span>
         </div>
